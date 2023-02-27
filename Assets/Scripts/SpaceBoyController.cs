@@ -7,9 +7,9 @@ public class SpaceBoyController : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     public  bool groundedPlayer;
-    private float playerSpeed = 2.0f;
-    private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
+    public float playerSpeed = 2.0f;
+    public float jumpHeight = 1.0f;
+    public float gravityValue = -9.81f;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class SpaceBoyController : MonoBehaviour
 
         Ray ray = new Ray(this.transform.position, Vector3.down);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 0.1f))
+        if (Physics.Raycast(ray, out hit, 0.3f))
         {
             if (hit.transform.gameObject.tag == "Navigation") 
                 groundedPlayer = true;
