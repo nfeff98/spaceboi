@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpaceBoyController : MonoBehaviour
 {
     private CharacterController controller;
+    public Animator spaceBoiAnim;
     private Vector3 playerVelocity;
     public  bool groundedPlayer;
     public float playerSpeed = 2.0f;
@@ -52,6 +53,7 @@ public class SpaceBoyController : MonoBehaviour
         }
 
         Vector3 move = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
+        spaceBoiAnim.SetBool("walking", move.magnitude > 0.01f);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (move != Vector3.zero)
