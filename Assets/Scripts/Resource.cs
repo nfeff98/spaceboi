@@ -13,8 +13,9 @@ public class Resource : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
     }
 
-    private void OnTriggerEnter(Collider other)
+   private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("We collided");
         if (other.gameObject.tag == "Player")
         {
             if (inv != null)
