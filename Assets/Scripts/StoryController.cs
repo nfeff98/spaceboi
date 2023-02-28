@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class StoryController : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class StoryController : MonoBehaviour
     public Chapter chapter;
     private int numRooms;
     private int roomsCleared;
+
+    public MapGenerator mapGen;
+    public ResourcePlacer resourcePlacer;
 
     //ref planet
     //ref map generator
@@ -25,5 +29,24 @@ public class StoryController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    [CustomEditor(typeof(StoryController))]
+    public class StoryControllerEditor : Editor
+    {
+
+
+        public override void OnInspectorGUI()
+        {
+
+            StoryController story = (StoryController)target;
+            base.OnInspectorGUI();
+          
+            if (GUILayout.Button("New Level"))
+            {
+                story.mapGen.GenerateNewMap();
+                story.resourcePlacer.PlaceNewResources();
+            }
+        }
     }
 }

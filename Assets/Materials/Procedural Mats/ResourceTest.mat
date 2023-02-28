@@ -88,13 +88,13 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Perlin_Scale: 3
-    - _Perlin_Seed: 0
+    - _Perlin_Seed: 1.12
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _Voronoi_Cell_Size: 42
-    - _Voronoi_Seed: 7.94
+    - _Voronoi_Seed: 6.59
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

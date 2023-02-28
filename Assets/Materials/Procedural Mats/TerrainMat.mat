@@ -122,11 +122,16 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PerlinScale: 3.04
+    - _PerlinSeed: 484
     - _Perlin_Scale: 2.5
     - _Perlin_Seed: 0.61
     - _RivWidth: 0.15
     - _RiverBankSteepness: 0.08
-    - _RiverWidth: 0.15
+    - _RiverBendiness: 0.48235798
+    - _RiverPosition: 0.03392291
+    - _RiverRotation: -0.07907413
+    - _RiverWidth: 0.3932585
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -135,7 +140,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RiverColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0}
+    - _RiverColor: {r: 0.11904589, g: 0.30585712, b: 0.41509432, a: 0}
     - _RiverParam1: {r: 1.66, g: -1.14, b: 0, a: 0}
     - _RiverParam2: {r: 0, g: 0.4, b: 0, a: 0}
     - _Tex1Color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}

@@ -5,25 +5,36 @@ using UnityEditor;
 
 public class MapGenerator : MonoBehaviour
 {
-    public bool debug;
+    private bool debug = false;
+    public bool newMapOnStart;
     public RenderTexture heightMap;
-    public Texture2D debugMap;
-    public RenderTexture resourceMap;
+    private Texture2D debugMap;
     public MeshCollider mapCollider;
     public MeshFilter mapFilter;
-    public Mesh newMesh;
+    private Mesh newMesh;
     public Mesh sourceMesh;
 
-    public Texture2D tex;
+    private Texture2D tex;
 
-    public int width;
-    public int height;
-    
+    private int width = 1024;
+    private int height = 1024;
+
+    public Material distroMat;
+    public Material paintMat;
+    public Material heightMat;
+    public float waterLevel;
+    public GameObject waterLevelPlane;
 
     //TODO: take terrainMat and heightMat and on generate new map
     // roll random variables for each of the parameters to gen a new level
 
     public float magnitude;
+
+    private void Awake()
+    {
+        if (newMapOnStart)
+            StartCoroutine(DelayGenerate());
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,37 +42,97 @@ public class MapGenerator : MonoBehaviour
         
     }
 
+    public IEnumerator DelayGenerate()
+    {
+        //Debug.Log("Generating new map.");
+        
+        //Debug.Log("Rolling new random values.");
+        RollParams();
+        yield return new WaitForSeconds(0.1f);
+        //Debug.Log("Applying effects of climate.");
+        WeatherEffects();
+        GenerateCollider();
+    }
+
     public void GenerateNewMap()
     {
-        Debug.Log("Generating new map.");
-        newMesh = MeshCopy(sourceMesh);
-        width = heightMap.width;
-        height = heightMap.height;
-        Debug.Log("Generating new MeshCollider points");
-        GenerateCollider();
+        StartCoroutine(DelayGenerate());
 
     }
 
-    public void GenerateCollider()
+    public void WeatherEffects()
     {
-        List<Vector3> verts = new List<Vector3>();
-        //newMesh.GetVertices(verts);
-        newMesh.GetVertices(verts);
+        //take in climate from planet
+        //tint grass/dirt
+        //set water level
+        //Debug.Log("Setting Water Level.");
+        waterLevelPlane.transform.localPosition = new Vector3(waterLevelPlane.transform.localPosition.x, waterLevel - 0.6f, waterLevelPlane.transform.localPosition.z);
+
+    }
+
+    public bool RollParams()
+    {
+        float perlinSeed = Random.Range(0, 1000);
+        float riverWidth = Random.Range(0.2f, 0.4f);
+        float riverBendiness = Random.Range(-0.5f, 0.5f);
+        float riverRotation = Random.Range(-0.2f, 0.2f);
+        float riverPosition = Random.Range(-0.6f, 0.6f);
+
+        //both maps
+        paintMat.SetFloat("_PerlinSeed", perlinSeed);
+        paintMat.SetFloat("_RiverWidth", riverWidth);
+        paintMat.SetFloat("_RiverBendiness", riverBendiness);
+        paintMat.SetFloat("_RiverRotation", riverRotation);
+        paintMat.SetFloat("_RiverPosition", riverPosition);
+
+        heightMat.SetFloat("_PerlinSeed", perlinSeed);
+        heightMat.SetFloat("_RiverWidth", riverWidth);
+        heightMat.SetFloat("_RiverBendiness", riverBendiness);
+        heightMat.SetFloat("_RiverRotation", riverRotation);
+        heightMat.SetFloat("_RiverPosition", riverPosition);
+
+        distroMat.SetFloat("_PerlinSeed", perlinSeed);
+        distroMat.SetFloat("_RiverWidth", riverWidth);
+        distroMat.SetFloat("_RiverBendiness", riverBendiness);
+        distroMat.SetFloat("_RiverRotation", riverRotation);
+        distroMat.SetFloat("_RiverPosition", riverPosition);
+
+        width = heightMap.width;
+        height = heightMap.height;
+
+        ReadMap();
+        return true;
+
+    }
+
+    public void ReadMap()
+    {
         tex = new Texture2D(width, height, TextureFormat.RGB24, false);
         Rect reader = new Rect(0, 0, width, height);
         if (!debug)
         {
             RenderTexture.active = heightMap;
             tex.ReadPixels(reader, 0, 0);
-        } else
+        }
+        else
         {
             width = debugMap.width;
             height = debugMap.height;
             tex = debugMap;
         }
         tex.Apply();
+    }
 
-        Debug.Log(verts[0]);
+    public void GenerateCollider()
+    {
+        newMesh = MeshCopy(sourceMesh);
+        //Debug.Log("Generating new MeshCollider points.");
+        ReadMap();
+        List<Vector3> verts = new List<Vector3>();
+        //newMesh.GetVertices(verts);
+        newMesh.GetVertices(verts);
+
+        tex.Apply();
         
         for (int i = 0; i < verts.Count; i++)
         {
@@ -82,12 +153,12 @@ public class MapGenerator : MonoBehaviour
         }
         
 
-        Debug.Log(verts[0]);
         newMesh.vertices = verts.ToArray();
         newMesh.RecalculateBounds();
         mapCollider.sharedMesh = newMesh;
         mapFilter.sharedMesh = newMesh;
     }
+
 
     Mesh MeshCopy(Mesh sourceMesh)
     {
@@ -119,9 +190,14 @@ public class MapGenerator : MonoBehaviour
 
             MapGenerator mapGen = (MapGenerator)target;
             base.OnInspectorGUI();
-            if (GUILayout.Button("Generate Map"))
+            if (GUILayout.Button("RerollParams"))
             {
-                mapGen.GenerateNewMap();
+                mapGen.RollParams();
+            }
+
+            if (GUILayout.Button("Generate Mesh"))
+            {
+                mapGen.GenerateCollider();
             }
         }
     }
