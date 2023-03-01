@@ -105,7 +105,7 @@ public class SpaceBoyController : MonoBehaviour {
 
         float interactDistance = 3f;
         float castRadius = .5f;
-        if (Physics.SphereCast(transform.position, castRadius, lastInteractDir, out RaycastHit raycastHit, interactDistance, resourceLayerMask)) {
+        if (Physics.SphereCast(transform.position, castRadius, transform.forward, out RaycastHit raycastHit, interactDistance, resourceLayerMask)) {
             if (raycastHit.transform.TryGetComponent(out InteractableResource interactableResource)) {
                 // Has InteractableResource
                 if (interactableResource != selectedResource) {
