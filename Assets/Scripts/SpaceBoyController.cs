@@ -35,8 +35,18 @@ public class SpaceBoyController : MonoBehaviour {
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        if (selectedResource != null) {
-            selectedResource.Interact();
+        if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
+        {
+
+
+            if (selectedResource != null)
+            {
+                Vector3 newForward = selectedResource.transform.position;
+                newForward.y = this.transform.position.y;
+                this.transform.LookAt(newForward) ;
+                selectedResource.Interact();
+            }
+            spaceBoiAnim.Play("twohandChop2");
         }
     }
 
@@ -103,13 +113,16 @@ public class SpaceBoyController : MonoBehaviour {
             lastInteractDir = moveDir;
         }
 
-        float interactDistance = 3f;
-        float castRadius = .5f;
-        if (Physics.SphereCast(transform.position, castRadius, transform.forward, out RaycastHit raycastHit, interactDistance, resourceLayerMask)) {
+        float interactDistance = 1f;
+        float castRadius = 3f;
+        //TODO replace this with a simple sphere collider in front of the guy 
+        // selected = closest to him within this area
+        if (Physics.SphereCast(transform.position + new Vector3(0,0.5f,0), castRadius, transform.forward, out RaycastHit raycastHit, interactDistance, resourceLayerMask)) {
             if (raycastHit.transform.TryGetComponent(out InteractableResource interactableResource)) {
                 // Has InteractableResource
                 if (interactableResource != selectedResource) {
                     SetSelectedResource(interactableResource);
+                   
                 }
             } else {
                 SetSelectedResource(null);

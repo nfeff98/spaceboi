@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
     public Material distroMat;
     public Material paintMat;
     public Material heightMat;
+    public Material grassMat;
     public float waterLevel;
     public GameObject waterLevelPlane;
 
@@ -96,6 +97,12 @@ public class MapGenerator : MonoBehaviour
         distroMat.SetFloat("_RiverBendiness", riverBendiness);
         distroMat.SetFloat("_RiverRotation", riverRotation);
         distroMat.SetFloat("_RiverPosition", riverPosition);
+
+        grassMat.SetFloat("_PerlinSeed", perlinSeed);
+        grassMat.SetFloat("_RiverWidth", riverWidth);
+        grassMat.SetFloat("_RiverBendiness", riverBendiness);
+        grassMat.SetFloat("_RiverRotation", riverRotation);
+        grassMat.SetFloat("_RiverPosition", riverPosition);
 
         width = heightMap.width;
         height = heightMap.height;

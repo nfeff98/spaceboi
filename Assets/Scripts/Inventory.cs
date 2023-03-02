@@ -127,29 +127,30 @@ public class Inventory : MonoBehaviour
         {
             pickUps = 1;
             prevPickup = r;
-            IEnumerator routine = UpdateDebugTextRoutine(r);
             routineRunning = true;
-            StartCoroutine(routine);
-        } else
+            debugText.SetText("picked up " + pickUps + " " + r.ToString());
+            debugText.gameObject.SetActive(true);
+            StopCoroutine(TurnOffDebugText());
+            StartCoroutine(TurnOffDebugText());
+        }
+        else
         {
-            pickupCounter = 0;
             pickUps++;
+            debugText.SetText("picked up " + pickUps + " " + r.ToString());
+            StopCoroutine(TurnOffDebugText());
+            StartCoroutine(TurnOffDebugText());
+            
         }
     }
 
-    public IEnumerator UpdateDebugTextRoutine(Resource r)
+    public IEnumerator TurnOffDebugText()
     {
-        Debug.Log("start coroutine");
-        pickUps = 1; // later change this to set timer for multipickups
-        debugText.gameObject.SetActive(true);
-        for (pickupCounter = 0; pickupCounter < pickupTimeCap * 100; pickupCounter++)
-        {
-            debugText.SetText("picked up " + pickUps + " " + r.ToString());
-            yield return new WaitForSeconds(pickUps / 100f);
-        }
-        routineRunning = false;
+        yield return new WaitForSeconds(5f);
         debugText.gameObject.SetActive(false);
+        routineRunning = false;
     }
+
+   
 
 
     public void SetEquipped()

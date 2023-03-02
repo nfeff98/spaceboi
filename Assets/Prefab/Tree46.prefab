@@ -53,6 +53,7 @@ MonoBehaviour:
   maxHealth: 4
   minPos: 2
   maxPos: 5
+  hitpfxPrefab: {fileID: 1186515084280375262, guid: 90c5343868568fd40926ff6bdabc9392, type: 3}
 --- !u!64 &4443193744131277552
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -201,6 +202,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23764581046030984, guid: edd42cda827d0e646b2577f5a448a3f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f3f68f1e96df0945a93e2b00600ee96, type: 2}
+    - target: {fileID: 23764581046030984, guid: edd42cda827d0e646b2577f5a448a3f2, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b745d5b15a60b4b41ab2422ebde42c9a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edd42cda827d0e646b2577f5a448a3f2, type: 3}
 --- !u!4 &3878662911129453479 stripped

@@ -25,6 +25,11 @@ public class Resource : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
+        if (other.gameObject.tag == "Navigation")
+        {
+            this.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     // Update is called once per frame
