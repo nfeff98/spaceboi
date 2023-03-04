@@ -19,6 +19,8 @@ public class ResourcePlacer : MonoBehaviour
     public Transform origin;
     private GameObject folder;
 
+    public Planet planet;
+
     [Tooltip("Hardcoded to ground obj scale")]
     private float scaleFactor = 11;
     private float resolution = 1024; //should equal renderTex resolution
@@ -44,7 +46,7 @@ public class ResourcePlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -70,6 +72,7 @@ public class ResourcePlacer : MonoBehaviour
 
     public IEnumerator PlaceResourceRoutine()
     {
+        if (planet == null) planet = this.GetComponent<Planet>();
         RollParams();
         yield return new WaitForSeconds(0.1f);
         PlaceResources();
@@ -88,6 +91,12 @@ public class ResourcePlacer : MonoBehaviour
     public void PlaceResources()
     {
         DestroyOldResources();
+        planet.totalElysium = 0;
+        planet.totalStromg = 0;
+        planet.totalWomp = 0;
+        planet.totalWooter = 0;
+        planet.totalZaza = 0;
+
         folder = new GameObject("__generated env");
         folder.transform.parent = origin;
         ReadMap();
@@ -133,17 +142,21 @@ public class ResourcePlacer : MonoBehaviour
                     Color val = resourceTex.GetPixel(x, y);
                     //Debug.Log(val);
                     List<GameObject> possiblePrefabs = new List<GameObject>();
+                    Inventory.Resource type = Inventory.Resource.Elysium;
                     if (val.r >= val.g && val.r >= val.b)
                     {
+                        type = Inventory.Resource.Womp;
                         possiblePrefabs = womps;
                     }
                     else if (val.g >= val.r && val.g >= val.b)
                     {
+                        type = Inventory.Resource.Zaza;
                         possiblePrefabs = zazas;
 
                     }
                     else if (val.b >= val.r && val.b >= val.g)
                     {
+                        type = Inventory.Resource.Stromg;
                         possiblePrefabs = stromgs;
                     }
 
@@ -157,6 +170,7 @@ public class ResourcePlacer : MonoBehaviour
                             resourcePos.y = hit.point.y;
                             GameObject resource = Instantiate(possiblePrefabs[index]);
                             resources.Add(resource);
+                            planet.AddResource(type);
                             resource.transform.position = resourcePos;
                             resource.transform.parent = folder.transform;
                             resource.transform.Rotate(Vector3.up, Random.Range(0, 180));
@@ -174,6 +188,14 @@ public class ResourcePlacer : MonoBehaviour
         }
     }
 
+    public void ResetTotals()
+    {
+        planet.totalElysiumCreated = 0;
+        planet.totalStromgCreated = 0;
+        planet.totalWompCreated = 0;
+        planet.totalWooterCreated = 0;
+        planet.totalZazaCreated = 0;
+    }
 
     public void ReadMap()
     {
@@ -214,6 +236,11 @@ public class ResourcePlacer : MonoBehaviour
             if (GUILayout.Button("Place Resources"))
             {
                 resourcePlacer.PlaceResources();
+            }
+
+            if (GUILayout.Button("Reset Totals"))
+            {
+                resourcePlacer.ResetTotals();
             }
         }
     }

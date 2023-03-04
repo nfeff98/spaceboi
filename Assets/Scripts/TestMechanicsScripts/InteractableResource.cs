@@ -6,6 +6,7 @@ public class InteractableResource : MonoBehaviour {
 
 
     [SerializeField] GameObject resource;
+    [SerializeField] Inventory.Resource type;
     [SerializeField] SpaceBoyController spaceBoy;
 
     private int health;
@@ -19,12 +20,15 @@ public class InteractableResource : MonoBehaviour {
     private ParticleSystem hitpfx;
     public  ParticleSystem hitpfxPrefab;
 
+    public Planet planet;
 
     private void Awake() {
         health = Random.Range(minHealth, maxHealth + 1);
         hitpfx = Instantiate(hitpfxPrefab);
         hitpfx.transform.SetParent(transform);
         hitpfx.transform.localPosition = Vector3.zero;
+        planet = FindObjectOfType<Planet>();
+        type = resource.GetComponent<Resource>().ResourceType;
     }
 
 
@@ -54,8 +58,10 @@ public class InteractableResource : MonoBehaviour {
             health -= 1;
             Debug.Log("Health: " + health);
             if (health == 0) {
+                planet.SubtractResource(type);
                 Destroy(this.gameObject);
                 Debug.Log("Resource Extracted!");
+                
             }
         }
     }

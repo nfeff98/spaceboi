@@ -72,8 +72,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RippleScale: 1
-    - _RippleSpeed: 0.2
+    - _RippleScale: 20.03
+    - _RippleSpeed: 0.01
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -82,7 +82,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Scaling: {r: 9, g: 9, b: 0, a: 0}
+    - _Scaling: {r: 70, g: 70, b: 0, a: 0}
     - _WaterColor: {r: 0, g: 1, b: 0.8183854, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2624217013723736075

@@ -27,7 +27,7 @@ public class SpaceBoyController : MonoBehaviour {
     public float playerSpeed = 2.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
-
+    public Vector3 wind;
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
@@ -87,7 +87,7 @@ public class SpaceBoyController : MonoBehaviour {
 
         Vector3 move = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
         spaceBoiAnim.SetBool("walking", move.magnitude > 0.01f);
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        controller.Move((move  * playerSpeed + wind) * Time.deltaTime);
 
         if (move != Vector3.zero) {
             gameObject.transform.forward = move;
@@ -102,6 +102,30 @@ public class SpaceBoyController : MonoBehaviour {
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.TryGetComponent(out InteractableResource interactableResource))
+            {
+                // Has InteractableResource
+                if (interactableResource != selectedResource)
+                {
+                    SetSelectedResource(interactableResource);
+                }
+            }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.transform.TryGetComponent(out InteractableResource interactableResource))
+        {
+            // Has InteractableResource
+            if (interactableResource == selectedResource)
+            {
+                SetSelectedResource(null);
+            }
+        }
+    }
 
 
     private void HandleInteractions() {
@@ -135,7 +159,7 @@ public class SpaceBoyController : MonoBehaviour {
 
     void Update() {
         HandleMovement();
-        HandleInteractions();
+       // HandleInteractions();
     }
 
 
