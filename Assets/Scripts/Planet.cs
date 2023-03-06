@@ -8,7 +8,8 @@ public class Planet : MonoBehaviour
     
     public int mapDim;
     public enum Climate { 
-        Windy, Polluted, Earthquakes, Desert, ZazaMode
+
+        Normal, Windy, Polluted, Earthquakes, Desert, ZazaMode
     }
     public Climate climate;
 
@@ -37,6 +38,8 @@ public class Planet : MonoBehaviour
     [Header("Elysium")]
     public int totalElysiumCreated;
     public int totalElysium;
+
+    public float climateThreshold;
 
   
     public void LoadRoom()
@@ -92,10 +95,19 @@ public class Planet : MonoBehaviour
                 break;
             case Inventory.Resource.Womp:
                 totalWomp--;
-
+                if (totalWomp / totalWompCreated < climateThreshold && climate == Climate.Normal)
+                {
+                    climate = Climate.Windy;
+                    FindObjectOfType<Inventory>().UpdateDebugText("It's getting windy...");
+                }
                 break;
             case Inventory.Resource.Stromg:
                 totalStromg--;
+                if (totalStromg / totalStromgCreated < climateThreshold && climate == Climate.Normal)
+                {
+                    FindObjectOfType<Inventory>().UpdateDebugText("The ground is shifting...");
+                    climate = Climate.Earthquakes;
+                }
                 break;
         }
     }

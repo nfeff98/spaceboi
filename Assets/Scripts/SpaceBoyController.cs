@@ -12,7 +12,7 @@ public class SpaceBoyController : MonoBehaviour {
     public class OnSelectedResourceChangedEventArgs : EventArgs {
         public InteractableResource selectedResource;
     }
-
+    public Inventory inv;
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask resourceLayerMask;
 
@@ -30,6 +30,7 @@ public class SpaceBoyController : MonoBehaviour {
     public Vector3 wind;
     private void Start()
     {
+        inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
@@ -37,7 +38,16 @@ public class SpaceBoyController : MonoBehaviour {
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
         {
+            if (inv.equippedTool == Inventory.Tool.Pickaxe)
+            {
+                spaceBoiAnim.Play("twohandPick");
 
+            }
+            else if (inv.equippedTool == Inventory.Tool.Axe)
+            {
+                spaceBoiAnim.Play("twohandChop2");
+
+            }
 
             if (selectedResource != null)
             {
@@ -46,7 +56,6 @@ public class SpaceBoyController : MonoBehaviour {
                 this.transform.LookAt(newForward) ;
                 selectedResource.Interact();
             }
-            spaceBoiAnim.Play("twohandChop2");
         }
     }
 
@@ -110,9 +119,15 @@ public class SpaceBoyController : MonoBehaviour {
                 // Has InteractableResource
                 if (interactableResource != selectedResource)
                 {
+                    if ((inv.equippedTool == Inventory.Tool.Axe && interactableResource.type == Inventory.Resource.Womp)
+                    || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg))
                     SetSelectedResource(interactableResource);
                 }
             }
+        if (other.tag == "Boundary")
+        {
+            inv.UpdateDebugText("Probably shouldn't go any further...");
+        }
     }
 
     public void OnTriggerExit(Collider other)

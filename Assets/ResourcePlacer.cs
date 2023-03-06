@@ -90,6 +90,7 @@ public class ResourcePlacer : MonoBehaviour
 
     public void PlaceResources()
     {
+        // add folders per resource
         DestroyOldResources();
         planet.totalElysium = 0;
         planet.totalStromg = 0;

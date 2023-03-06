@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Navigation
   - Interactable
+  - Boundary
   layers:
   - Default
   - TransparentFX

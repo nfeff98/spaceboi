@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
         Axe, Scythe, Pickaxe, Bucket, ChainsawDozer, Harvester, Dynamite, Vacuum
     };
 
+    public List<GameObject> tools;
+
     public enum Resource
     {
         Womp, Zaza, Stromg, Wooter, Elysium, Diamond
@@ -36,6 +38,7 @@ public class Inventory : MonoBehaviour
     private Resource prevPickup;
     private int pickupTimeCap = 3;
     private int pickupCounter;
+    public GameObject selector;
   
 
 
@@ -43,6 +46,12 @@ public class Inventory : MonoBehaviour
     {
         inventoryScreen.SetActive(false);
         debugText.gameObject.SetActive(false);
+
+        //default to axe
+       // selector.transform.position = toolSlots[0].transform.position;
+        equippedTool = Tool.Axe;
+        tools[0].SetActive(true);
+
     }
 
     // Update is called once per frame
@@ -61,6 +70,7 @@ public class Inventory : MonoBehaviour
         {
             inventoryScreen.SetActive(!inventoryScreen.activeInHierarchy);
         }
+        
     }
 
     public void AddToInventory(Resource r)
@@ -143,6 +153,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void UpdateDebugText(string s)
+    {
+        debugText.SetText(s);
+        debugText.gameObject.SetActive(true);
+        StopCoroutine(TurnOffDebugText());
+        StartCoroutine(TurnOffDebugText());
+    }
+
     public IEnumerator TurnOffDebugText()
     {
         yield return new WaitForSeconds(5f);
@@ -155,14 +173,20 @@ public class Inventory : MonoBehaviour
 
     public void SetEquipped()
     {
+        foreach (GameObject t in tools) t.SetActive(false);
         if (Input.GetKeyDown(KeyCode.Alpha1) && unlocked[0]) {
+            selector.transform.position = toolSlots[0].transform.position;
             equippedTool = Tool.Axe;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2) && unlocked[0])
+            tools[0].SetActive(true);
+            
+        } else if (Input.GetKeyDown(KeyCode.Alpha3) && unlocked[2])
         {
             equippedTool = Tool.Scythe;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && unlocked[0])
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && unlocked[1])
         {
+            tools[1].SetActive(true);
+            selector.transform.position = toolSlots[1].transform.position;
             equippedTool = Tool.Pickaxe;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4) && unlocked[0])
@@ -184,6 +208,10 @@ public class Inventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[0])
         {
             equippedTool = Tool.Vacuum;
+        }
+        else //default to axe
+        {
+            
         }
 
 

@@ -6,7 +6,7 @@ public class InteractableResource : MonoBehaviour {
 
 
     [SerializeField] GameObject resource;
-    [SerializeField] Inventory.Resource type;
+    public Inventory.Resource type;
     [SerializeField] SpaceBoyController spaceBoy;
 
     private int health;
