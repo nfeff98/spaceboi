@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Planet : MonoBehaviour
 {
@@ -40,8 +42,13 @@ public class Planet : MonoBehaviour
     public int totalElysium;
 
     public float climateThreshold;
+    public TextMeshProUGUI climateText;
+    public Animator earthAnim;
+    public ParticleSystem windPFX;
+    public ParticleSystem windPFXtrail;
+    public ParticleSystemForceField windForce;
+    private Inventory inv;
 
-  
     public void LoadRoom()
     {
         //map generation
@@ -49,7 +56,38 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
+        climateText.text = "Normal";
+        inv = FindObjectOfType<Inventory>();
+    }
+
+    public IEnumerator Earthquakes()
+    {
+        for (int i = 0; i < 6; i++) {
+            float rand = Random.Range(15, 45);
+            earthAnim.Play("earthquake");
+            inv.UpdateDebugText("It's an earthquake!");
+            //destroy some resources
+            yield return new WaitForSeconds(rand);
+
+        }
+    }
+
+    public IEnumerator SetWindy()
+    {
+        windPFX.Stop();
+        windPFXtrail.Play();
         
+        for (int i = 0; i < 6; i++)
+        {
+            float rand = Random.Range(15, 45);
+            Vector2 rand2 = Random.insideUnitCircle * 0.07f;
+            FindObjectOfType<SpaceBoyController>().wind = new Vector3(rand2.x, 0, rand2.y)*60;
+            windForce.directionX = rand2.x;
+            windForce.directionZ = rand2.y;
+            yield return new WaitForSeconds(rand);
+
+            inv.UpdateDebugText("The wind changed!");
+        }
     }
 
     public void AddResource(Inventory.Resource type)
@@ -95,18 +133,22 @@ public class Planet : MonoBehaviour
                 break;
             case Inventory.Resource.Womp:
                 totalWomp--;
-                if (totalWomp / totalWompCreated < climateThreshold && climate == Climate.Normal)
+                if ((float)totalWomp / (float)totalWompCreated < climateThreshold && climate == Climate.Normal)
                 {
                     climate = Climate.Windy;
-                    FindObjectOfType<Inventory>().UpdateDebugText("It's getting windy...");
+                    inv.UpdateDebugText("It's getting windy...");
+                    climateText.text = "<color=yellow>Windy</color>";
+                    StartCoroutine(SetWindy());
                 }
                 break;
             case Inventory.Resource.Stromg:
                 totalStromg--;
-                if (totalStromg / totalStromgCreated < climateThreshold && climate == Climate.Normal)
+                if ((float)totalStromg / (float)totalStromgCreated < climateThreshold && climate == Climate.Normal)
                 {
-                    FindObjectOfType<Inventory>().UpdateDebugText("The ground is shifting...");
+                    inv.UpdateDebugText("The ground is shifting...");
                     climate = Climate.Earthquakes;
+                    climateText.text = "<color=red>Earthquakes</color>";
+                    StartCoroutine(Earthquakes());
                 }
                 break;
         }

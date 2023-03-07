@@ -19,7 +19,7 @@ public class DayNightCycle : MonoBehaviour
     public float endAngle = 210;
     public AnimationCurve intensityOverDay;
     public GameObject environment;
-   
+    public GameObject sunUI;
     
     void Start()
     {
@@ -46,6 +46,8 @@ public class DayNightCycle : MonoBehaviour
         float sunAngle;
         t = 0;
         float angleT = 0;
+        float rotUI = 0;
+        float sunUIRot = 0;
         while (running)
         {
             if (beforeNoon)
@@ -56,14 +58,24 @@ public class DayNightCycle : MonoBehaviour
             sun.intensity = intensityOverDay.Evaluate(angleT/2);
             t += Time.deltaTime * speedOfDay;
             angleT += Time.deltaTime * speedOfDay;
+            rotUI += Time.deltaTime * speedOfDay;
+            sunUIRot = Mathf.Lerp(40, -216, rotUI/2);
+            sunUI.transform.localEulerAngles = new Vector3(0, 0, sunUIRot);
             sun.color = sunColor;
             sun.shadowStrength = (intensityOverDay.Evaluate(angleT / 2) - 1f) * 0.9f + 0.1f;
             sun.transform.localEulerAngles = new Vector3(50, sunAngle, 0);
             if (2 - t < 0.0001f)
             {
-                running = false;
-               
+                running = false;    
 
+            }
+            if (2-t > 1)
+            {
+                beforeNoon = true;
+                
+            } else
+            {
+                beforeNoon = false;
             }
 
             yield return new WaitForEndOfFrame();
