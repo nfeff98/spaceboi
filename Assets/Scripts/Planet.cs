@@ -6,6 +6,12 @@ using TMPro;
 
 public class Planet : MonoBehaviour
 {
+
+
+    public bool windTriggered = false;
+    public bool earthquakeTriggered = false;
+
+
     // Start is called before the first frame update
     
     public int mapDim;
@@ -60,8 +66,15 @@ public class Planet : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
     }
 
+
+    private void ResetClimate() {
+        climate = Climate.Normal;
+        climateText.text = "Normal";
+    }
+
     public IEnumerator Earthquakes()
     {
+        earthquakeTriggered = true;
         for (int i = 0; i < 6; i++) {
             float rand = Random.Range(15, 45);
             earthAnim.Play("earthquake");
@@ -70,10 +83,13 @@ public class Planet : MonoBehaviour
             yield return new WaitForSeconds(rand);
 
         }
+
+        ResetClimate();
     }
 
     public IEnumerator SetWindy()
     {
+        windTriggered = true;
         windPFX.Stop();
         windPFXtrail.Play();
         
@@ -88,6 +104,8 @@ public class Planet : MonoBehaviour
 
             inv.UpdateDebugText("The wind changed!");
         }
+
+        ResetClimate();
     }
 
     public void AddResource(Inventory.Resource type)

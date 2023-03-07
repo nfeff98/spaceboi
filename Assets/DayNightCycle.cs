@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DayNightCycle : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class DayNightCycle : MonoBehaviour
     public AnimationCurve intensityOverDay;
     public GameObject environment;
     public GameObject sunUI;
+    [SerializeField] private SceneChange sceneChanger;
     
     void Start()
     {
@@ -66,7 +68,9 @@ public class DayNightCycle : MonoBehaviour
             sun.transform.localEulerAngles = new Vector3(50, sunAngle, 0);
             if (2 - t < 0.0001f)
             {
-                running = false;    
+                running = false;
+                Debug.Log("End of day reached!");
+                sceneChanger.LoadScene(3);
 
             }
             if (2-t > 1)
