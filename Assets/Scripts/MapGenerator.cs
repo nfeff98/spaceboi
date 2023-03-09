@@ -187,6 +187,8 @@ public class MapGenerator : MonoBehaviour
         
     }
 
+#if UNITY_EDITOR
+
     [CustomEditor(typeof(MapGenerator))]
     public class MapGeneratorEditor : Editor
     {
@@ -208,6 +210,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
+#endif
 }
 
 

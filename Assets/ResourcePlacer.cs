@@ -219,6 +219,7 @@ public class ResourcePlacer : MonoBehaviour
     }
 
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(ResourcePlacer))]
     public class ResourcePlacerEditor : Editor
     {
@@ -245,4 +246,5 @@ public class ResourcePlacer : MonoBehaviour
             }
         }
     }
+#endif
 }
