@@ -31,6 +31,9 @@ public class StoryController : MonoBehaviour
         
     }
 
+
+#if UNITY_EDITOR
+
     [CustomEditor(typeof(StoryController))]
     public class StoryControllerEditor : Editor
     {
@@ -49,4 +52,5 @@ public class StoryController : MonoBehaviour
             }
         }
     }
+#endif
 }

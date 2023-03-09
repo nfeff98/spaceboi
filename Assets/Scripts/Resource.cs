@@ -15,7 +15,7 @@ public class Resource : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("We collided");
+       // Debug.Log("We collided");
         if (other.gameObject.tag == "Player")
         {
             if (inv != null)
