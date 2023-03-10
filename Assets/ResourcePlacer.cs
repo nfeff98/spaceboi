@@ -63,6 +63,10 @@ public class ResourcePlacer : MonoBehaviour
         {
             DestroyImmediate(folder, false);
         }
+        if (GameObject.Find("__generated env"))
+        {
+            Destroy(GameObject.Find("__generated env"));
+        }
     }
 
     public void PlaceNewResources()

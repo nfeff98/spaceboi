@@ -16,6 +16,10 @@ public class SpaceBoyController : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask resourceLayerMask;
 
+    public List<EnemyBehavior> enemiesInRange;
+
+    public int health = 10;
+    public int energy = 50; // energy
 
     private Vector3 lastInteractDir;
     private InteractableResource selectedResource;
@@ -34,6 +38,8 @@ public class SpaceBoyController : MonoBehaviour {
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
+
+    
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
@@ -55,6 +61,10 @@ public class SpaceBoyController : MonoBehaviour {
                 newForward.y = this.transform.position.y;
                 this.transform.LookAt(newForward) ;
                 selectedResource.Interact();
+            }
+            foreach (EnemyBehavior en in enemiesInRange)
+            {
+                en.health--;
             }
         }
     }
@@ -128,6 +138,11 @@ public class SpaceBoyController : MonoBehaviour {
         {
             inv.UpdateDebugText("Probably shouldn't go any further...");
         }
+
+        if (other.tag == "Enemy")
+        {
+            enemiesInRange.Add(other.GetComponent<EnemyBehavior>());
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -138,6 +153,16 @@ public class SpaceBoyController : MonoBehaviour {
             if (interactableResource == selectedResource)
             {
                 SetSelectedResource(null);
+            }
+        }
+
+        if (other.tag == "Enemy")
+        {
+            EnemyBehavior e;
+            if (other.TryGetComponent<EnemyBehavior>(out e))
+            {
+                if (enemiesInRange.Contains(e))
+                    enemiesInRange.Remove(e);
             }
         }
     }
@@ -175,6 +200,11 @@ public class SpaceBoyController : MonoBehaviour {
     void Update() {
         HandleMovement();
        // HandleInteractions();
+
+        if (health <= 0)
+        {
+            // you died, trigger scene transition back to spacedoc area
+        }
     }
 
 
