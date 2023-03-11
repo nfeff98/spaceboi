@@ -18,6 +18,7 @@ public class ResourcePlacer : MonoBehaviour
     private int height = 1024;
     public Transform origin;
     private GameObject folder;
+    public GameObject shrinePrefab;
 
     public Planet planet;
 
@@ -101,8 +102,16 @@ public class ResourcePlacer : MonoBehaviour
         planet.totalWomp = 0;
         planet.totalWooter = 0;
         planet.totalZaza = 0;
-
+        bool placedShrine = false;
         folder = new GameObject("__generated env");
+        GameObject grassFolder = new GameObject("grassFolder");
+        grassFolder.transform.parent = folder.transform;
+        GameObject rockFolder = new GameObject("rockFolder");
+        rockFolder.transform.parent = folder.transform;
+        GameObject treeFolder = new GameObject("treeFolder");
+        treeFolder.transform.parent = folder.transform;
+        GameObject zazaFolder = new GameObject("zazaFolder");
+        zazaFolder.transform.parent = folder.transform;
         folder.transform.parent = origin;
         ReadMap();
         for (int y = 0; y < resolution; y += step)
@@ -119,26 +128,41 @@ public class ResourcePlacer : MonoBehaviour
 
                 if (sum > 1f)
                 {
-                    int probability = Random.Range(1, 10);
-                    if (probability <= 3)
+                    Ray ray2 = new Ray(placerCast, Vector3.down);
+                    RaycastHit hit2;
+                    if (Physics.Raycast(ray2, out hit2, 20f))
                     {
-                        
-                        GameObject grass = Instantiate(grassPrefab);
-                        grass.transform.parent = folder.transform;
-                        grass.transform.Rotate(Vector3.up, Random.Range(0, 180));
-                        Ray ray2 = new Ray(placerCast, Vector3.down);
-                        RaycastHit hit2;
-                        if (Physics.Raycast(ray2, out hit2, 20f))
+                        if (hit2.collider.gameObject.tag == "Navigation") // make sure we aren't in the river
                         {
-                            if (hit2.collider.gameObject.tag == "Navigation")
+                            int probability = Random.Range(1, 10);
+                            if (probability <= 3)
                             {
+
+                                GameObject grass = Instantiate(grassPrefab);
+                                grass.transform.parent = grassFolder.transform;
+                                grass.transform.Rotate(Vector3.up, Random.Range(0, 180));
+
+
                                 grass.transform.position = new Vector3(placerCast.x, hit2.point.y, placerCast.z);
-                                Vector2 offset = Random.insideUnitCircle;
+
                                 //grass.transform.position += new Vector3(offset.x, 0, offset.y);
+
+
+                            }
+                            int probability2 = Random.Range(1, 1000);
+                            if (probability2 == 1 && !placedShrine && (x > 50) && (y > 50))
+                            {
+                                placedShrine = true;
+                                Vector2 offset = Random.insideUnitCircle;
+                                GameObject shrine = Instantiate(shrinePrefab);
+                                shrine.transform.parent = folder.transform;
+                                shrine.transform.localEulerAngles = new Vector3(0, Random.Range(-50f, 50f), 0);
+                                shrine.transform.position = new Vector3(placerCast.x, hit2.point.y , placerCast.z) + new Vector3(offset.x, 0, offset.y); 
                             }
                         }
                     }
-                }
+                    
+                } 
 
 
                 if (val2.r + val2.g + val2.b > threshold)
@@ -177,7 +201,18 @@ public class ResourcePlacer : MonoBehaviour
                             resources.Add(resource);
                             planet.AddResource(type);
                             resource.transform.position = resourcePos;
-                            resource.transform.parent = folder.transform;
+                            switch (type)
+                            {
+                                case Inventory.Resource.Stromg:
+                                    resource.transform.parent = rockFolder.transform;
+                                    break;
+                                case Inventory.Resource.Zaza:
+                                    resource.transform.parent = zazaFolder.transform;
+                                    break;
+                                case Inventory.Resource.Womp:
+                                    resource.transform.parent = treeFolder.transform;
+                                    break;
+                            }
                             resource.transform.Rotate(Vector3.up, Random.Range(0, 180));
                         }
                         else

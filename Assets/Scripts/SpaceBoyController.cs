@@ -32,6 +32,9 @@ public class SpaceBoyController : MonoBehaviour {
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
     public Vector3 wind;
+
+    public bool nearShrine;
+    public Shrine nearestShrine;
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
@@ -42,7 +45,9 @@ public class SpaceBoyController : MonoBehaviour {
     
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
+        if (nearShrine) nearestShrine.Activate();
+
+        else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
         {
             if (inv.equippedTool == Inventory.Tool.Pickaxe)
             {
@@ -59,7 +64,7 @@ public class SpaceBoyController : MonoBehaviour {
             {
                 Vector3 newForward = selectedResource.transform.position;
                 newForward.y = this.transform.position.y;
-                this.transform.LookAt(newForward) ;
+                this.transform.LookAt(newForward);
                 selectedResource.Interact();
             }
             foreach (EnemyBehavior en in enemiesInRange)
@@ -143,6 +148,15 @@ public class SpaceBoyController : MonoBehaviour {
         {
             enemiesInRange.Add(other.GetComponent<EnemyBehavior>());
         }
+
+        if (other.TryGetComponent(out Shrine n))
+        {
+            nearShrine = true;
+            nearestShrine = n;
+
+        }
+
+       
     }
 
     public void OnTriggerExit(Collider other)
@@ -164,6 +178,11 @@ public class SpaceBoyController : MonoBehaviour {
                 if (enemiesInRange.Contains(e))
                     enemiesInRange.Remove(e);
             }
+        }
+
+        if (other.GetComponent<Shrine>() != null)
+        {
+            nearShrine = false;
         }
     }
 

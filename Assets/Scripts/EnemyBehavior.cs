@@ -14,6 +14,7 @@ public class EnemyBehavior : MonoBehaviour
     public Animator anim;
     public bool foundPlayer;
     public float attackRate;
+    public float damage;
 
     // Start is called before the first frame update
     void Start()

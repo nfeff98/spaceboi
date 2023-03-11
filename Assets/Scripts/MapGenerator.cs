@@ -67,7 +67,7 @@ public class MapGenerator : MonoBehaviour
         //tint grass/dirt
         //set water level
         //Debug.Log("Setting Water Level.");
-        waterLevelPlane.transform.localPosition = new Vector3(waterLevelPlane.transform.localPosition.x, waterLevel - 0.6f, waterLevelPlane.transform.localPosition.z);
+        waterLevelPlane.transform.localPosition = new Vector3(waterLevelPlane.transform.localPosition.x, waterLevel - 0.9f, waterLevelPlane.transform.localPosition.z);
 
     }
 
