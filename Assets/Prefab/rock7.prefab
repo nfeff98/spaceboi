@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 3312708935813147287}
   - component: {fileID: 3408066489828437833}
   - component: {fileID: 1506192973189751198}
+  - component: {fileID: 2496065678871849882}
   m_Layer: 0
   m_Name: rock7
   m_TagString: Untagged
@@ -249,6 +250,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &2496065678871849882
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494156910452054005}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.7360001, y: 1.5830001, z: 1.184}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.294, y: 0.74300003, z: -1.0220001}
+  m_TimeToStationary: 0.5
 --- !u!1 &7898312232451191539
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +280,7 @@ GameObject:
   - component: {fileID: 352299836214638488}
   - component: {fileID: 2738927482523731905}
   - component: {fileID: 3885746173234117660}
+  - component: {fileID: 2264119757830806465}
   m_Layer: 0
   m_Name: rock7 (1)
   m_TagString: Untagged
@@ -386,3 +404,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &2264119757830806465
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898312232451191539}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.7360001, y: 1.5830001, z: 1.184}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.294, y: 0.74300003, z: -1.0220001}
+  m_TimeToStationary: 0.5

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5463093447830798763}
   - component: {fileID: 2195818677174204317}
   - component: {fileID: 7683652968218669506}
+  - component: {fileID: 5981306499963842724}
   m_Layer: 0
   m_Name: rock5 (1)
   m_TagString: Untagged
@@ -137,6 +138,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &5981306499963842724
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151967942525395830}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8270001, y: 1.4660001, z: 1.2440001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.051000003, y: 1.0580001, z: 0.59000003}
+  m_TimeToStationary: 0.5
 --- !u!1 &530122284341991590
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +331,7 @@ GameObject:
   - component: {fileID: 6298480588334669660}
   - component: {fileID: 6273448477255008766}
   - component: {fileID: 6281280399021621450}
+  - component: {fileID: 9203412455511034108}
   m_Layer: 0
   m_Name: rock5
   m_TagString: Untagged
@@ -386,3 +404,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &9203412455511034108
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6304732744700185650}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8270001, y: 1.4660001, z: 1.2440001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.051000003, y: 1.0580001, z: 0.59000003}
+  m_TimeToStationary: 0.5

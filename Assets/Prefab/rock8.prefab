@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 8789001607420487668}
   - component: {fileID: 802985689584018795}
   - component: {fileID: 5536285706735343085}
+  - component: {fileID: 4515782591615969528}
   m_Layer: 0
   m_Name: rock8
   m_TagString: Untagged
@@ -249,6 +250,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &4515782591615969528
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7495955611788742634}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.475, y: 1.131, z: 1.1780001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.35500002, y: 0.97300005, z: 0.587}
+  m_TimeToStationary: 0.5
 --- !u!1 &8758197508873164468
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +277,7 @@ GameObject:
   - component: {fileID: 1173153599974276534}
   - component: {fileID: 7653331168575790818}
   - component: {fileID: 4363394633535405095}
+  - component: {fileID: 7350088766381007602}
   m_Layer: 0
   m_Name: rock8 (1)
   m_TagString: Untagged
@@ -332,3 +350,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &7350088766381007602
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758197508873164468}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.475, y: 1.131, z: 1.1780001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.35500002, y: 0.97300005, z: 0.587}
+  m_TimeToStationary: 0.5

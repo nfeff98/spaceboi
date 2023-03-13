@@ -16,7 +16,7 @@ public class SpaceBoyController : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask resourceLayerMask;
 
-    public List<EnemyBehavior> enemiesInRange;
+    public List<AnimalBehavior> enemiesInRange;
 
     public int health = 10;
     public int energy = 50; // energy
@@ -47,7 +47,7 @@ public class SpaceBoyController : MonoBehaviour {
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         if (nearShrine) nearestShrine.Activate();
 
-        else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
+        else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
         {
             if (inv.equippedTool == Inventory.Tool.Pickaxe)
             {
@@ -67,11 +67,19 @@ public class SpaceBoyController : MonoBehaviour {
                 this.transform.LookAt(newForward);
                 selectedResource.Interact();
             }
-            foreach (EnemyBehavior en in enemiesInRange)
+            foreach (AnimalBehavior en in enemiesInRange)
             {
-                en.health--;
+                StartCoroutine(SubtractHealthFromEnemy(en));
             }
         }
+    }
+
+    public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en)
+    {
+        yield return new WaitForSeconds(0.6f);
+        en.health--;
+        Debug.Log("hit peng");
+
     }
 
     private void Awake() {
@@ -146,7 +154,7 @@ public class SpaceBoyController : MonoBehaviour {
 
         if (other.tag == "Enemy")
         {
-            enemiesInRange.Add(other.GetComponent<EnemyBehavior>());
+            enemiesInRange.Add(other.GetComponent<AnimalBehavior>());
         }
 
         if (other.TryGetComponent(out Shrine n))
@@ -172,8 +180,8 @@ public class SpaceBoyController : MonoBehaviour {
 
         if (other.tag == "Enemy")
         {
-            EnemyBehavior e;
-            if (other.TryGetComponent<EnemyBehavior>(out e))
+            AnimalBehavior e;
+            if (other.TryGetComponent<AnimalBehavior>(out e))
             {
                 if (enemiesInRange.Contains(e))
                     enemiesInRange.Remove(e);
