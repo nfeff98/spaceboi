@@ -13,6 +13,7 @@ public class StoryController : MonoBehaviour {
 
     public MapGenerator mapGen;
     public ResourcePlacer resourcePlacer;
+    public AnimalSpawner animalSpawner;
 
 
     [SerializeField] private SceneChange sceneChanger;
@@ -56,6 +57,7 @@ public class StoryController : MonoBehaviour {
             this.mapGen.GenerateNewMap();
             this.resourcePlacer.PlaceNewResources();
             this.resourcePlacer.ResetTotals();
+            this.animalSpawner.PlaceAnimals();
             Debug.Log("Current level: " + StoryController.currentLevel);
         } else {
             // Load Spacedoc Scene

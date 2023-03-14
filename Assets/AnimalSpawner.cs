@@ -10,15 +10,17 @@ public class AnimalSpawner : MonoBehaviour
     public GameObject[] animalPrefabs;
     public int[] packSizes;
     public int[] frequencyProbability;
+    private GameObject folder;
     void Start()
     {
-        PlaceAnimals();
+
+        //PlaceAnimals();
     }
 
-    void PlaceAnimals()
+    public void PlaceAnimals()
     {
-        GameObject g = new GameObject("animalFolder");
-        g.transform.parent = GameObject.Find("__generated env").transform ;
+        folder = new GameObject("animalFolder");
+        //folder.transform.parent = rp.folder.transform;
         for (int i = 0; i < animalPrefabs.Length; i++) {
             for (int y = 0; y < resolution; y += rp.step)
             {
@@ -26,6 +28,8 @@ public class AnimalSpawner : MonoBehaviour
                 {
                     if (Random.Range(0, frequencyProbability[i]) == 1)
                     {
+                        Debug.Log("placing animals");
+
                         float scalar = 11 * 10f;
                         Vector3 placerCast = new Vector3(x * scalar / resolution, 0, y * scalar / resolution) + rp.origin.position;
                         Ray ray = new Ray(placerCast, Vector3.down);
@@ -39,7 +43,7 @@ public class AnimalSpawner : MonoBehaviour
                                 {
                                     GameObject animal = Instantiate(animalPrefabs[i]);
                                     animal.transform.position = hit.point;
-                                    animal.transform.parent = g.transform;
+                                    animal.transform.parent = folder.transform;
                                 }
                             }
                         }
