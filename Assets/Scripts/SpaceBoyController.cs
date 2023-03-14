@@ -99,7 +99,7 @@ public class SpaceBoyController : MonoBehaviour {
                 }
             }
         }
-    }
+    
 
     public void InteractWithResource() // function triggered by animation
     {
