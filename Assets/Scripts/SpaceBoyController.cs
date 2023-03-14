@@ -37,6 +37,9 @@ public class SpaceBoyController : MonoBehaviour {
     public Shrine nearestShrine;
     public bool vehicleActive;
     public Transform testVehicle;
+    private bool nearSpacedoc;
+    private DialogueTrigger docDialogue;
+
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
@@ -67,6 +70,11 @@ public class SpaceBoyController : MonoBehaviour {
             if (nearShrine) nearestShrine.Activate();
 
             else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+            // Trigger dialogue
+            docDialogue.StartDialogue();
+        }
+
+        else if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
             {
                 if (inv.equippedTool == Inventory.Tool.Pickaxe)
                 {
@@ -91,7 +99,7 @@ public class SpaceBoyController : MonoBehaviour {
                 }
             }
         }
-    }
+    
 
     public void InteractWithResource() // function triggered by animation
     {
@@ -193,11 +201,17 @@ public class SpaceBoyController : MonoBehaviour {
 
         }
 
+        if (other.tag == "Spacedoc") {
+            nearSpacedoc = true;
+            docDialogue = other.GetComponent<DialogueTrigger>();
+        }
+
        
     }
 
     public void OnTriggerExit(Collider other)
     {
+        //Debug.Log(other.tag);
         if (other.transform.TryGetComponent(out InteractableResource interactableResource))
         {
             // Has InteractableResource
@@ -220,6 +234,10 @@ public class SpaceBoyController : MonoBehaviour {
         if (other.GetComponent<Shrine>() != null)
         {
             nearShrine = false;
+        }
+
+        if (other.tag == "Spacedoc") {
+            nearSpacedoc = false;
         }
     }
 

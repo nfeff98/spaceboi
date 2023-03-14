@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 2232210182348723982}
   - component: {fileID: 2232210182348723981}
   - component: {fileID: 2232210182348723980}
+  - component: {fileID: 6221288723092786978}
   m_Layer: 0
   m_Name: SpaceBoyTransform
   m_TagString: Player
@@ -241,15 +242,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c2bc441ffea6f4ca357812aea5ad58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inv: {fileID: 0}
   gameInput: {fileID: 0}
   resourceLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  enemiesInRange: []
+  health: 10
+  energy: 50
   spaceBoiAnim: {fileID: 2232210184129902978}
   groundedPlayer: 0
   playerSpeed: 5
   jumpHeight: 1.5
   gravityValue: -20
+  wind: {x: 0, y: 0, z: 0}
+  nearShrine: 0
+  nearestShrine: {fileID: 0}
 --- !u!143 &2232210182348723980
 CharacterController:
   m_ObjectHideFlags: 0
@@ -268,6 +276,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!135 &6221288723092786978
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2232210182348723979}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.81482315
+  m_Center: {x: 0, y: 0.99, z: 1.3}
 --- !u!1 &2232210182540983848
 GameObject:
   m_ObjectHideFlags: 0
