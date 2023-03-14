@@ -75,8 +75,8 @@ Transform:
   m_GameObject: {fileID: 2755471014570550413}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7073461145469756987}
   - {fileID: 8501981823729858863}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14fba7272ac494f42894354e721db918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: {fileID: 2846358778029098487, guid: 044cc8691b57d8943bc6ed6ea753a47d, type: 3}
+  resource: {fileID: 1443902522163009196, guid: b6fb77f29a4c02641ab00cbbbbf658d1, type: 3}
   type: 2
   spaceBoy: {fileID: 2232210182348723981, guid: 2674751a8efd10645bc989315eb414ed, type: 3}
   minHealth: 2

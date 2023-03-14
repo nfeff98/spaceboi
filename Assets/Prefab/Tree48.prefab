@@ -48,13 +48,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14fba7272ac494f42894354e721db918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: {fileID: 2846358778029098487, guid: 0c0aebe8345006a46bb83f9eea443cfb, type: 3}
+  resource: {fileID: 1443902522163009196, guid: c77465eb1cc827a459e934c9b14cc1e8, type: 3}
+  type: 0
   spaceBoy: {fileID: 2232210182348723981, guid: 2674751a8efd10645bc989315eb414ed, type: 3}
   minHealth: 2
   maxHealth: 4
   minPos: 2
   maxPos: 5
   hitpfxPrefab: {fileID: 1186515084280375262, guid: 90c5343868568fd40926ff6bdabc9392, type: 3}
+  planet: {fileID: 0}
 --- !u!64 &5639691756250638350
 MeshCollider:
   m_ObjectHideFlags: 0

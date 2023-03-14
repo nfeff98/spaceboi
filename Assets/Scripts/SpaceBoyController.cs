@@ -35,43 +35,69 @@ public class SpaceBoyController : MonoBehaviour {
 
     public bool nearShrine;
     public Shrine nearestShrine;
+    public bool vehicleActive;
+    public Transform testVehicle;
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        ActivateVehicle(testVehicle);
+
+            }
+
+    public void ActivateVehicle(Transform spaceBoiParent)
+    {
+        vehicleActive = true;
+        this.transform.SetParent(spaceBoiParent);
+        this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
+    }
+
+    public void DeactivateVehicle()
+    {
+
     }
 
     
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        if (nearShrine) nearestShrine.Activate();
-
-        else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+        if (!vehicleActive)
         {
-            if (inv.equippedTool == Inventory.Tool.Pickaxe)
-            {
-                spaceBoiAnim.Play("twohandPick");
+            if (nearShrine) nearestShrine.Activate();
 
-            }
-            else if (inv.equippedTool == Inventory.Tool.Axe)
+            else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
             {
-                spaceBoiAnim.Play("twohandChop2");
+                if (inv.equippedTool == Inventory.Tool.Pickaxe)
+                {
+                    spaceBoiAnim.Play("twohandPick");
 
-            }
+                }
+                else if (inv.equippedTool == Inventory.Tool.Axe)
+                {
+                    spaceBoiAnim.Play("twohandChop2");
 
-            if (selectedResource != null)
-            {
-                Vector3 newForward = selectedResource.transform.position;
-                newForward.y = this.transform.position.y;
-                this.transform.LookAt(newForward);
-                selectedResource.Interact();
-            }
-            foreach (AnimalBehavior en in enemiesInRange)
-            {
-                StartCoroutine(SubtractHealthFromEnemy(en));
+                }
+
+                if (selectedResource != null)
+                {
+                    Vector3 newForward = selectedResource.transform.position;
+                    newForward.y = this.transform.position.y;
+                    this.transform.LookAt(newForward);
+                }
+                foreach (AnimalBehavior en in enemiesInRange)
+                {
+                    StartCoroutine(SubtractHealthFromEnemy(en));
+                }
             }
         }
+    }
+
+    public void InteractWithResource() // function triggered by animation
+    {
+        if (selectedResource != null)
+            selectedResource.Interact();
+
     }
 
     public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en)
@@ -93,7 +119,7 @@ public class SpaceBoyController : MonoBehaviour {
     public void Jump()
     {
         
-        if (groundedPlayer)
+        if (groundedPlayer && !vehicleActive)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
@@ -137,16 +163,19 @@ public class SpaceBoyController : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.TryGetComponent(out InteractableResource interactableResource))
+        if (!vehicleActive)
+        {
+            if (other.transform.TryGetComponent(out InteractableResource interactableResource))
             {
                 // Has InteractableResource
                 if (interactableResource != selectedResource)
                 {
                     if ((inv.equippedTool == Inventory.Tool.Axe && interactableResource.type == Inventory.Resource.Womp)
                     || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg))
-                    SetSelectedResource(interactableResource);
+                        SetSelectedResource(interactableResource);
                 }
             }
+        }
         if (other.tag == "Boundary")
         {
             inv.UpdateDebugText("Probably shouldn't go any further...");
@@ -225,7 +254,8 @@ public class SpaceBoyController : MonoBehaviour {
 
 
     void Update() {
-        HandleMovement();
+        if (!vehicleActive)
+            HandleMovement();
        // HandleInteractions();
 
         if (health <= 0)

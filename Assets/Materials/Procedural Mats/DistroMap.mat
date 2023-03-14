@@ -85,7 +85,7 @@ Material:
     - _ClusterSize: 3.47
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistributionSeed: 57
+    - _DistributionSeed: 104
     - _Distribution_Seed: 30
     - _DstBlend: 0
     - _GlossMapScale: 1

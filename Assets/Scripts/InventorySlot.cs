@@ -20,49 +20,59 @@ public class InventorySlot : MonoBehaviour
     public TextMeshProUGUI counter;
     public TextMeshProUGUI placeholderText;
 
+    public List<Sprite> texs;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetAppearance();
     }
 
     [ExecuteInEditMode]
     public void SetAppearance()
     {
-        counter.text = count + "";
+        if (counter != null)
+            counter.text = count + "";
         if (slotType == SlotType.Resource)
         {
             if (count > 0)
             {
+                image.enabled = true;
                 switch (resource)
                 {
                     case (Inventory.Resource.Womp):
                         placeholderText.text = "Womp";
+                        image.sprite = texs[0];
                         break;
                     case (Inventory.Resource.Zaza):
                         placeholderText.text = "Zaza";
+                        image.sprite = texs[1];
 
                         break;
                     case (Inventory.Resource.Stromg):
                         placeholderText.text = "Stromg";
+                        image.sprite = texs[2];
 
                         break;
                     case (Inventory.Resource.Wooter):
                         placeholderText.text = "Wooter";
-
+                        image.sprite = texs[3];
                         break;
                     case (Inventory.Resource.Elysium):
                         placeholderText.text = "Elysium";
+                        image.sprite = texs[4];
 
                         break;
                     case (Inventory.Resource.Diamond):
                         placeholderText.text = "Diamond";
+                        image.sprite = texs[5];
 
                         break;
                 }
             } else
             {
-                placeholderText.text = "empty";
+                placeholderText.text = "Empty";
+                image.enabled = false;
             }
         } else
         {
