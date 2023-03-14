@@ -9,9 +9,8 @@ public class InteractableResource : MonoBehaviour {
     public Inventory.Resource type;
     [SerializeField] SpaceBoyController spaceBoy;
 
-    private int health;
-    [SerializeField] private int minHealth = 2;
-    [SerializeField] private int maxHealth = 4;
+    public int health;
+    
 
     private float xPos;
     private float zPos;
@@ -23,7 +22,7 @@ public class InteractableResource : MonoBehaviour {
     public Planet planet;
 
     private void Awake() {
-        health = Random.Range(minHealth, maxHealth + 1);
+        //health = Random.Range(minHealth, maxHealth + 1);
         hitpfx = Instantiate(hitpfxPrefab);
         hitpfx.transform.SetParent(transform);
         hitpfx.transform.localPosition = Vector3.zero;
@@ -33,24 +32,56 @@ public class InteractableResource : MonoBehaviour {
 
 
     public void Interact() {
-        StartCoroutine(InteractRoutine());
-    }
-
-
-
-    public IEnumerator InteractRoutine()
-    {
-        yield return new WaitForSeconds(0.5f);
         UpdateHealth();
-        DropResource();
-        yield return new WaitForSeconds(0.2f);
         Vector3 toSpaceboy = spaceBoy.transform.position - this.transform.position;
-        toSpaceboy += new Vector3(0.75f, 0);
+        toSpaceboy += new Vector3(0, 0.75f, 0);
         hitpfx.transform.localPosition = new Vector3(0, 0.75f, 0) + toSpaceboy * 0.01f;
+        DropResource(hitpfx.transform.position);
         hitpfx.transform.forward = toSpaceboy;
         hitpfx.Play();
-
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponentInParent<SimpleCarController>() != null)
+        {
+            SimpleCarController vehicle = other.GetComponentInParent<SimpleCarController>();
+            if (vehicle.miningType == this.type)
+            {
+                if (vehicle.miningBits.Contains(other.gameObject))
+                {
+                    StartCoroutine(MiningCoroutine());
+                }
+            }
+        }
+    }
+
+    public IEnumerator MiningCoroutine()
+    {
+        while (true)
+        {
+            this.Interact();
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponentInParent<SimpleCarController>() != null)
+        {
+            SimpleCarController vehicle = other.GetComponentInParent<SimpleCarController>();
+            if (vehicle.miningType == this.type)
+            {
+                if (vehicle.miningBits.Contains(other.gameObject))
+                {
+                    StopAllCoroutines();
+                }
+            }
+        }
+    }
+
+
+
 
 
     private void UpdateHealth() {
@@ -67,15 +98,15 @@ public class InteractableResource : MonoBehaviour {
     }
 
 
-    private void DropResource() {
+    private void DropResource(Vector3 pos) {
         Debug.Log("Resource Dropped!");
         xPos = Random.Range(minPos, maxPos);
         zPos = Random.Range(minPos, maxPos);
         //Vector3 pos = new Vector3(xPos + spaceBoy.transform.localPosition.x, 2f, zPos + spaceBoy.transform.localPosition.z);
         Vector2 outPos = Random.insideUnitCircle * 2f;
-        GameObject g = Instantiate(resource, this.transform.position + new Vector3(outPos.x, 5f, outPos.y), Quaternion.identity);
+        GameObject g = Instantiate(resource, pos, Quaternion.identity);
         Vector3 outDir = Random.insideUnitSphere;
-        outDir.y = Mathf.Abs(outDir.y);
-        g.GetComponent<Rigidbody>().AddForce(outDir);
+        outDir.y = 1f;
+        g.GetComponent<Rigidbody>().AddForce(outDir * 6f);
     }
 }

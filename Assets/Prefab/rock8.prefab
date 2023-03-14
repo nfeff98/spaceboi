@@ -75,8 +75,8 @@ Transform:
   m_GameObject: {fileID: 2755471014570550413}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7073461145469756987}
   - {fileID: 8501981823729858863}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14fba7272ac494f42894354e721db918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: {fileID: 2846358778029098487, guid: 044cc8691b57d8943bc6ed6ea753a47d, type: 3}
+  resource: {fileID: 1443902522163009196, guid: b6fb77f29a4c02641ab00cbbbbf658d1, type: 3}
   type: 2
   spaceBoy: {fileID: 2232210182348723981, guid: 2674751a8efd10645bc989315eb414ed, type: 3}
   minHealth: 2
@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 8789001607420487668}
   - component: {fileID: 802985689584018795}
   - component: {fileID: 5536285706735343085}
+  - component: {fileID: 4515782591615969528}
   m_Layer: 0
   m_Name: rock8
   m_TagString: Untagged
@@ -249,6 +250,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &4515782591615969528
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7495955611788742634}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.475, y: 1.131, z: 1.1780001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.35500002, y: 0.97300005, z: 0.587}
+  m_TimeToStationary: 0.5
 --- !u!1 &8758197508873164468
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +277,7 @@ GameObject:
   - component: {fileID: 1173153599974276534}
   - component: {fileID: 7653331168575790818}
   - component: {fileID: 4363394633535405095}
+  - component: {fileID: 7350088766381007602}
   m_Layer: 0
   m_Name: rock8 (1)
   m_TagString: Untagged
@@ -332,3 +350,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &7350088766381007602
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758197508873164468}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.475, y: 1.131, z: 1.1780001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.35500002, y: 0.97300005, z: 0.587}
+  m_TimeToStationary: 0.5

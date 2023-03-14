@@ -16,7 +16,7 @@ public class SpaceBoyController : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask resourceLayerMask;
 
-    public List<EnemyBehavior> enemiesInRange;
+    public List<AnimalBehavior> enemiesInRange;
 
     public int health = 10;
     public int energy = 50; // energy
@@ -35,8 +35,8 @@ public class SpaceBoyController : MonoBehaviour {
 
     public bool nearShrine;
     public Shrine nearestShrine;
-
-
+    public bool vehicleActive;
+    public Transform testVehicle;
     private bool nearSpacedoc;
     private DialogueTrigger docDialogue;
 
@@ -45,43 +45,75 @@ public class SpaceBoyController : MonoBehaviour {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        ActivateVehicle(testVehicle);
+
+            }
+
+    public void ActivateVehicle(Transform spaceBoiParent)
+    {
+        vehicleActive = true;
+        this.transform.SetParent(spaceBoiParent);
+        this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
+    }
+
+    public void DeactivateVehicle()
+    {
+
     }
 
     
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        if (nearShrine) nearestShrine.Activate();
+        if (!vehicleActive)
+        {
+            if (nearShrine) nearestShrine.Activate();
 
-        else if (nearSpacedoc) {
+            else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
             // Trigger dialogue
             docDialogue.StartDialogue();
         }
 
         else if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
-        {
-            if (inv.equippedTool == Inventory.Tool.Pickaxe)
             {
-                spaceBoiAnim.Play("twohandPick");
+                if (inv.equippedTool == Inventory.Tool.Pickaxe)
+                {
+                    spaceBoiAnim.Play("twohandPick");
 
-            }
-            else if (inv.equippedTool == Inventory.Tool.Axe)
-            {
-                spaceBoiAnim.Play("twohandChop2");
+                }
+                else if (inv.equippedTool == Inventory.Tool.Axe)
+                {
+                    spaceBoiAnim.Play("twohandChop2");
 
-            }
+                }
 
-            if (selectedResource != null)
-            {
-                Vector3 newForward = selectedResource.transform.position;
-                newForward.y = this.transform.position.y;
-                this.transform.LookAt(newForward);
-                selectedResource.Interact();
-            }
-            foreach (EnemyBehavior en in enemiesInRange)
-            {
-                en.health--;
+                if (selectedResource != null)
+                {
+                    Vector3 newForward = selectedResource.transform.position;
+                    newForward.y = this.transform.position.y;
+                    this.transform.LookAt(newForward);
+                }
+                foreach (AnimalBehavior en in enemiesInRange)
+                {
+                    StartCoroutine(SubtractHealthFromEnemy(en));
+                }
             }
         }
+    }
+
+    public void InteractWithResource() // function triggered by animation
+    {
+        if (selectedResource != null)
+            selectedResource.Interact();
+
+    }
+
+    public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en)
+    {
+        yield return new WaitForSeconds(0.6f);
+        en.health--;
+        Debug.Log("hit peng");
+
     }
 
     private void Awake() {
@@ -95,7 +127,7 @@ public class SpaceBoyController : MonoBehaviour {
     public void Jump()
     {
         
-        if (groundedPlayer)
+        if (groundedPlayer && !vehicleActive)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
@@ -139,16 +171,19 @@ public class SpaceBoyController : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.TryGetComponent(out InteractableResource interactableResource))
+        if (!vehicleActive)
+        {
+            if (other.transform.TryGetComponent(out InteractableResource interactableResource))
             {
                 // Has InteractableResource
                 if (interactableResource != selectedResource)
                 {
                     if ((inv.equippedTool == Inventory.Tool.Axe && interactableResource.type == Inventory.Resource.Womp)
                     || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg))
-                    SetSelectedResource(interactableResource);
+                        SetSelectedResource(interactableResource);
                 }
             }
+        }
         if (other.tag == "Boundary")
         {
             inv.UpdateDebugText("Probably shouldn't go any further...");
@@ -156,7 +191,7 @@ public class SpaceBoyController : MonoBehaviour {
 
         if (other.tag == "Enemy")
         {
-            enemiesInRange.Add(other.GetComponent<EnemyBehavior>());
+            enemiesInRange.Add(other.GetComponent<AnimalBehavior>());
         }
 
         if (other.TryGetComponent(out Shrine n))
@@ -188,8 +223,8 @@ public class SpaceBoyController : MonoBehaviour {
 
         if (other.tag == "Enemy")
         {
-            EnemyBehavior e;
-            if (other.TryGetComponent<EnemyBehavior>(out e))
+            AnimalBehavior e;
+            if (other.TryGetComponent<AnimalBehavior>(out e))
             {
                 if (enemiesInRange.Contains(e))
                     enemiesInRange.Remove(e);
@@ -237,7 +272,8 @@ public class SpaceBoyController : MonoBehaviour {
 
 
     void Update() {
-        HandleMovement();
+        if (!vehicleActive)
+            HandleMovement();
        // HandleInteractions();
 
         if (health <= 0)

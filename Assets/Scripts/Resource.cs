@@ -8,15 +8,17 @@ public class Resource : MonoBehaviour
 
     public Inventory.Resource ResourceType;
     private Inventory inv;
+    private bool grounded;
     void Start()
     {
         inv = FindObjectOfType<Inventory>();
+        
     }
 
    private void OnTriggerEnter(Collider other)
     {
        // Debug.Log("We collided");
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && grounded)
         {
             if (inv != null)
             {
@@ -29,6 +31,7 @@ public class Resource : MonoBehaviour
         if (other.gameObject.tag == "Navigation")
         {
             this.GetComponent<Rigidbody>().isKinematic = true;
+            grounded = true;
         }
     }
 

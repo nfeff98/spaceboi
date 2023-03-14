@@ -214,6 +214,11 @@ public class ResourcePlacer : MonoBehaviour
                                     break;
                             }
                             resource.transform.Rotate(Vector3.up, Random.Range(0, 180));
+                            int health = Random.Range(0, 4) + 2;
+                            if(type != Inventory.Resource.Zaza)
+                            resource.GetComponent<InteractableResource>().health = health;
+                            float scaleFactor = 1 + ((health-3) * 0.2f);
+                            resource.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
                         }
                         else
                         {
