@@ -9,12 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: 9b3b44028b78dda4aa90a39be3726c43
   - enabled: 1
-    path: Assets/Scenes/BackgroundStory.unity
+    path: Assets/Scenes/ChapterIntro.unity
     guid: 95664dc2fc9b41d429a5729298e58af8
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/TBC.unity
-    guid: 8dc40535c79feae4fbc3cd096db0c079
+    path: Assets/Scenes/SpacedocScene.unity
+    guid: 48abce899e434b54c86a9216f97df2b3
+  - enabled: 1
+    path: Assets/Scenes/ChapterOutro.unity
+    guid: 983bacefb9021774f9804d312eefbff5
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: e0cc1f6414171dd4c95a755013d2c3d6
   m_configObjects: {}

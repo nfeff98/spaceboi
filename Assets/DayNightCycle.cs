@@ -21,8 +21,10 @@ public class DayNightCycle : MonoBehaviour
     public AnimationCurve intensityOverDay;
     public GameObject environment;
     public GameObject sunUI;
-    [SerializeField] private SceneChange sceneChanger;
-    
+
+    [SerializeField] private GameObject statsScreen;
+    [SerializeField] private GameObject statsScreenNC;
+
     void Start()
     {
         StartDay();
@@ -70,8 +72,11 @@ public class DayNightCycle : MonoBehaviour
             {
                 running = false;
                 Debug.Log("End of day reached!");
-                sceneChanger.LoadScene(3);
-
+                if (StoryController.currentLevel != StoryController.numLevels) {
+                    statsScreen.SetActive(true);
+                } else {
+                    statsScreenNC.SetActive(true);
+                }
             }
             if (2-t > 1)
             {
