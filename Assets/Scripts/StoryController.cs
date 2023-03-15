@@ -24,6 +24,7 @@ public class StoryController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        //Debug.Log("Story Controller Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
         if (CheckChapter.newChapter) {
             CheckChapter.newChapter = false;
             switch (currentChapter) {
@@ -42,6 +43,7 @@ public class StoryController : MonoBehaviour {
 
             }
         }
+       
      
         Debug.Log(currentChapter);
         Debug.Log(numLevels);
