@@ -36,16 +36,16 @@ public class SpaceBoyController : MonoBehaviour {
     public bool nearShrine;
     public Shrine nearestShrine;
     public bool vehicleActive;
-    public Transform testVehicle;
     private bool nearSpacedoc;
     private DialogueTrigger docDialogue;
+    public GameObject dynamitePrefab;
+    private SimpleCarController vehicle;
 
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-        ActivateVehicle(testVehicle);
 
             }
 
@@ -53,13 +53,16 @@ public class SpaceBoyController : MonoBehaviour {
     {
         vehicleActive = true;
         this.transform.SetParent(spaceBoiParent);
+        vehicle = this.GetComponentInParent<SimpleCarController>();
         this.transform.localPosition = Vector3.zero;
         this.transform.localRotation = Quaternion.identity;
     }
 
     public void DeactivateVehicle()
     {
-
+        vehicleActive = false;
+        this.transform.SetParent(null);
+        this.transform.position = vehicle.transform.position;
     }
 
     
@@ -71,7 +74,17 @@ public class SpaceBoyController : MonoBehaviour {
 
             else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
             // Trigger dialogue
+            if (nearSpacedoc)
             docDialogue.StartDialogue();
+        } else
+        {
+            vehicle.TogglePower();
+        }
+
+        if (inv.equippedTool == Inventory.Tool.Dynamite)
+        {
+            GameObject dynamite = Instantiate(dynamitePrefab);
+            dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
         }
 
         else if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
@@ -111,7 +124,7 @@ public class SpaceBoyController : MonoBehaviour {
     public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en)
     {
         yield return new WaitForSeconds(0.6f);
-        en.health--;
+        en.Hit();
         Debug.Log("hit peng");
 
     }

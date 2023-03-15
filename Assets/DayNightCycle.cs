@@ -66,7 +66,7 @@ public class DayNightCycle : MonoBehaviour
             sunUIRot = Mathf.Lerp(40, -216, rotUI/2);
             sunUI.transform.localEulerAngles = new Vector3(0, 0, sunUIRot);
             sun.color = sunColor;
-            sun.shadowStrength = (intensityOverDay.Evaluate(angleT / 2) - 1f) * 0.9f + 0.1f;
+            sun.shadowStrength = (intensityOverDay.Evaluate(angleT / 2) - 1f) * 0.9f + 0.3f;
             sun.transform.localEulerAngles = new Vector3(50, sunAngle, 0);
             if (2 - t < 0.0001f)
             {

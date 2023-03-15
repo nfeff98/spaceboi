@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 public class MapGenerator : MonoBehaviour
 {
     private bool debug = false;
-    public bool newMapOnStart;
     public RenderTexture heightMap;
     private Texture2D debugMap;
     public MeshCollider mapCollider;
     public MeshFilter mapFilter;
     private Mesh newMesh;
     public Mesh sourceMesh;
+    public NavMeshSurface navMesh;
 
     private Texture2D tex;
 
@@ -33,8 +35,7 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
-        if (newMapOnStart)
-            StartCoroutine(DelayGenerate());
+       
     }
 
     // Start is called before the first frame update
@@ -164,6 +165,8 @@ public class MapGenerator : MonoBehaviour
         newMesh.RecalculateBounds();
         mapCollider.sharedMesh = newMesh;
         mapFilter.sharedMesh = newMesh;
+        navMesh.RemoveData();
+        navMesh.BuildNavMesh();
     }
 
 
@@ -178,6 +181,7 @@ public class MapGenerator : MonoBehaviour
             bounds = sourceMesh.bounds,
             uv = sourceMesh.uv
         };
+        
         return mesh;
     }
 

@@ -48,7 +48,7 @@ public class InteractableResource : MonoBehaviour {
             SimpleCarController vehicle = other.GetComponentInParent<SimpleCarController>();
             if (vehicle.miningType == this.type)
             {
-                if (vehicle.miningBits.Contains(other.gameObject))
+                if (vehicle.miningBits.Contains(other.gameObject) && vehicle.toolsOn)
                 {
                     StartCoroutine(MiningCoroutine());
                 }
