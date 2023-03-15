@@ -45,7 +45,7 @@ public class SpaceBoyController : MonoBehaviour {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-        ActivateVehicle(testVehicle);
+        //ActivateVehicle(testVehicle);
 
             }
 
@@ -65,40 +65,33 @@ public class SpaceBoyController : MonoBehaviour {
     
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        if (!vehicleActive)
-        {
+        if (!vehicleActive) {
             if (nearShrine) nearestShrine.Activate();
 
-            else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+            //else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+
+            if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
+                        if (inv.equippedTool == Inventory.Tool.Pickaxe) {
+                            spaceBoiAnim.Play("twohandPick");
+
+                        } else if (inv.equippedTool == Inventory.Tool.Axe) {
+                            spaceBoiAnim.Play("twohandChop2");
+
+                        }
+
+                        if (selectedResource != null) {
+                            Vector3 newForward = selectedResource.transform.position;
+                            newForward.y = this.transform.position.y;
+                            this.transform.LookAt(newForward);
+                        }
+                        foreach (AnimalBehavior en in enemiesInRange) {
+                            StartCoroutine(SubtractHealthFromEnemy(en));
+                        }
+                    }
             // Trigger dialogue
-            docDialogue.StartDialogue();
+            else if (docDialogue != null) docDialogue.StartDialogue();
         }
-
-        else if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
-            {
-                if (inv.equippedTool == Inventory.Tool.Pickaxe)
-                {
-                    spaceBoiAnim.Play("twohandPick");
-
-                }
-                else if (inv.equippedTool == Inventory.Tool.Axe)
-                {
-                    spaceBoiAnim.Play("twohandChop2");
-
-                }
-
-                if (selectedResource != null)
-                {
-                    Vector3 newForward = selectedResource.transform.position;
-                    newForward.y = this.transform.position.y;
-                    this.transform.LookAt(newForward);
-                }
-                foreach (AnimalBehavior en in enemiesInRange)
-                {
-                    StartCoroutine(SubtractHealthFromEnemy(en));
-                }
-            }
-        }
+    }
     
 
     public void InteractWithResource() // function triggered by animation

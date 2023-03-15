@@ -7,19 +7,32 @@ public class CheckChapter : MonoBehaviour {
 
     public static bool newChapter = true;
     [SerializeField] private SceneChange sceneChanger;
+    [SerializeField] private HandleQuota handleQuota;
 
     public void ChapterCheck() {
-        if (StoryController.numLevels != 0 && StoryController.currentLevel == StoryController.numLevels)  {
+
+        // At the start of game it is chapter 1 so we need to generate values for 3 levels
+        if (GameStart()) {
+            handleQuota.GenerateRandomValues(3);
+            //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
+            sceneChanger.LoadScene(2);
+        }
+        // New chapter is starting
+        else if (StoryController.numLevels != 0 && StoryController.currentLevel == StoryController.numLevels)  {
             newChapter = true;
-            switch(StoryController.currentChapter) {
+            switch (StoryController.currentChapter) {
                 case StoryController.Chapter.Chapter1:
                     Debug.Log("Entering Chapter 2");
                     StoryController.currentChapter = StoryController.Chapter.Chapter2;
+                    handleQuota.GenerateRandomValues(5);
+                    //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
                     sceneChanger.LoadScene(4);
                     break;
                 case StoryController.Chapter.Chapter2:
                     Debug.Log("Entering Chapter 3");
                     StoryController.currentChapter = StoryController.Chapter.Chapter3;
+                    handleQuota.GenerateRandomValues(7);
+                    //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
                     sceneChanger.LoadScene(4);
                     break;
                 case StoryController.Chapter.Chapter3:
@@ -37,5 +50,14 @@ public class CheckChapter : MonoBehaviour {
     public void TriggerEnding() {
         // Different if conditions to trigger different ending scenes
         sceneChanger.LoadScene(5);
+    }
+
+
+
+    private bool GameStart() {
+        if (StoryController.currentChapter == StoryController.Chapter.Chapter1 && StoryController.numLevels == 0) {
+            return true;
+        }
+        return false;
     }
 }
