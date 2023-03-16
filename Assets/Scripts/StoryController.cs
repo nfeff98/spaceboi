@@ -71,6 +71,11 @@ public class StoryController : MonoBehaviour {
     public IEnumerator LoadLevelRoutine(int currentLevel)
     {
         if (CheckChapter.newChapter) {
+            HandleQuota.totalChapterElysium = 0;
+            HandleQuota.totalChapterStromg = 0;
+            HandleQuota.totalChapterWomp = 0;
+            HandleQuota.totalChapterZaza = 0;
+
             CheckChapter.newChapter = false;
             for (int i = 0; i < numLevels; i++) {
                 float perlinSeed = HandleQuota.mapRandomValuesList[i].perlinSeed;
@@ -129,26 +134,27 @@ public class StoryController : MonoBehaviour {
         Debug.Log("Zaza Quota: " + HandleQuota.zazaQuota);
         Debug.Log("Stromg Quota: " + HandleQuota.stromgQuota);
         Debug.Log("Elysium Quota: " + HandleQuota.elysiumQuota);
+        resourcePlacer.ResetTotals();
     }
 
 
-/*#if UNITY_EDITOR
+    /*#if UNITY_EDITOR
 
-    [CustomEditor(typeof(StoryController))]
-    public class StoryControllerEditor : Editor {
+        [CustomEditor(typeof(StoryController))]
+        public class StoryControllerEditor : Editor {
 
 
-        public override void OnInspectorGUI() {
+            public override void OnInspectorGUI() {
 
-            StoryController story = (StoryController)target;
-            base.OnInspectorGUI();
+                StoryController story = (StoryController)target;
+                base.OnInspectorGUI();
 
-            if (GUILayout.Button("New Level")) {
-                story.mapGen.GenerateNewMap();
-                story.resourcePlacer.PlaceNewResources();
+                if (GUILayout.Button("New Level")) {
+                    story.mapGen.GenerateNewMap();
+                    story.resourcePlacer.PlaceNewResources();
+                }
             }
         }
-    }
-#endif
-*/
+    #endif
+    */
 }

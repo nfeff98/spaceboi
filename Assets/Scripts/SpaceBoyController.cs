@@ -188,7 +188,10 @@ public class SpaceBoyController : MonoBehaviour {
                 if (interactableResource != selectedResource)
                 {
                     if ((inv.equippedTool == Inventory.Tool.Axe && interactableResource.type == Inventory.Resource.Womp)
-                    || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg))
+                    || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg)
+                    || (inv.equippedTool == Inventory.Tool.Scythe && interactableResource.type == Inventory.Resource.Zaza)
+                        || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Elysium))
+
                         SetSelectedResource(interactableResource);
                 }
             }

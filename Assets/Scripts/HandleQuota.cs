@@ -71,7 +71,9 @@ public class HandleQuota : MonoBehaviour {
 
 
     public void SetChapterQuota() {
-        chapterQuotaList.Clear();
+        //chapterQuotaList.Clear();
+        
+
         switch (StoryController.currentChapter) {
             case StoryController.Chapter.Chapter1:
                 //Debug.Log(totalChapterWomp + "from handle quota");
