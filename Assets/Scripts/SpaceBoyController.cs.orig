@@ -35,22 +35,21 @@ public class SpaceBoyController : MonoBehaviour {
 
     public bool nearShrine;
     public Shrine nearestShrine;
-<<<<<<< HEAD
-
-
+    public bool vehicleActive;
     private bool nearSpacedoc;
     private DialogueTrigger docDialogue;
+    public GameObject dynamitePrefab;
+    private SimpleCarController vehicle;
 
-=======
-    public bool vehicleActive;
-    public Transform testVehicle;
->>>>>>> main
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-        ActivateVehicle(testVehicle);
+<<<<<<< HEAD
+        //ActivateVehicle(testVehicle);
+=======
+>>>>>>> main
 
             }
 
@@ -58,59 +57,66 @@ public class SpaceBoyController : MonoBehaviour {
     {
         vehicleActive = true;
         this.transform.SetParent(spaceBoiParent);
+        vehicle = this.GetComponentInParent<SimpleCarController>();
         this.transform.localPosition = Vector3.zero;
         this.transform.localRotation = Quaternion.identity;
     }
 
     public void DeactivateVehicle()
     {
-
+        vehicleActive = false;
+        this.transform.SetParent(null);
+        this.transform.position = vehicle.transform.position;
     }
 
     
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-<<<<<<< HEAD
-        if (nearShrine) nearestShrine.Activate();
-
-        else if (nearSpacedoc) {
-            // Trigger dialogue
-            docDialogue.StartDialogue();
-        }
-
-        else if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
-=======
-        if (!vehicleActive)
->>>>>>> main
-        {
+        if (!vehicleActive) {
             if (nearShrine) nearestShrine.Activate();
 
+<<<<<<< HEAD
+            //else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+=======
             else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
-            {
-                if (inv.equippedTool == Inventory.Tool.Pickaxe)
-                {
-                    spaceBoiAnim.Play("twohandPick");
+            // Trigger dialogue
+            if (nearSpacedoc)
+            docDialogue.StartDialogue();
+        } else
+        {
+            vehicle.TogglePower();
+        }
 
-                }
-                else if (inv.equippedTool == Inventory.Tool.Axe)
-                {
-                    spaceBoiAnim.Play("twohandChop2");
+        if (inv.equippedTool == Inventory.Tool.Dynamite)
+        {
+            GameObject dynamite = Instantiate(dynamitePrefab);
+            dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
+        }
+>>>>>>> main
 
-                }
+            if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
+                        if (inv.equippedTool == Inventory.Tool.Pickaxe) {
+                            spaceBoiAnim.Play("twohandPick");
 
-                if (selectedResource != null)
-                {
-                    Vector3 newForward = selectedResource.transform.position;
-                    newForward.y = this.transform.position.y;
-                    this.transform.LookAt(newForward);
-                }
-                foreach (AnimalBehavior en in enemiesInRange)
-                {
-                    StartCoroutine(SubtractHealthFromEnemy(en));
-                }
-            }
+                        } else if (inv.equippedTool == Inventory.Tool.Axe) {
+                            spaceBoiAnim.Play("twohandChop2");
+
+                        }
+
+                        if (selectedResource != null) {
+                            Vector3 newForward = selectedResource.transform.position;
+                            newForward.y = this.transform.position.y;
+                            this.transform.LookAt(newForward);
+                        }
+                        foreach (AnimalBehavior en in enemiesInRange) {
+                            StartCoroutine(SubtractHealthFromEnemy(en));
+                        }
+                    }
+            // Trigger dialogue
+            else if (docDialogue != null) docDialogue.StartDialogue();
         }
     }
+    
 
     public void InteractWithResource() // function triggered by animation
     {
@@ -122,7 +128,7 @@ public class SpaceBoyController : MonoBehaviour {
     public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en)
     {
         yield return new WaitForSeconds(0.6f);
-        en.health--;
+        en.Hit();
         Debug.Log("hit peng");
 
     }

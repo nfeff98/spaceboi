@@ -17,7 +17,7 @@ public class ResourcePlacer : MonoBehaviour
     private int width = 1024;
     private int height = 1024;
     public Transform origin;
-    private GameObject folder;
+    public GameObject folder;
     public GameObject shrinePrefab;
 
     public Planet planet;
@@ -45,6 +45,11 @@ public class ResourcePlacer : MonoBehaviour
 
     public GameObject grassPrefab;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        folder = GameObject.Find("__generated env");
+    }
     void Start()
     {
 

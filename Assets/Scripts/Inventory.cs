@@ -39,8 +39,11 @@ public class Inventory : MonoBehaviour
     private int pickupTimeCap = 3;
     private int pickupCounter;
     public GameObject selector;
-  
 
+    public GameObject dozerPrefab;
+    public GameObject harvesterPrefab;
+    public SpaceBoyController player;
+    private GameObject activeVehicle;
 
     void Start()
     {
@@ -51,7 +54,7 @@ public class Inventory : MonoBehaviour
        // selector.transform.position = toolSlots[0].transform.position;
         equippedTool = Tool.Axe;
         tools[0].SetActive(true);
-
+        player = FindObjectOfType<SpaceBoyController>();
     }
 
     // Update is called once per frame
@@ -174,6 +177,13 @@ public class Inventory : MonoBehaviour
     public void SetEquipped()
     {
         foreach (GameObject t in tools) t.SetActive(false);
+        if (player.vehicleActive)
+        {
+            player.DeactivateVehicle();
+            Destroy(activeVehicle);
+            activeVehicle = null;
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1) && unlocked[0]) {
             selector.transform.position = toolSlots[0].transform.position;
             equippedTool = Tool.Axe;
@@ -189,23 +199,31 @@ public class Inventory : MonoBehaviour
             selector.transform.position = toolSlots[1].transform.position;
             equippedTool = Tool.Pickaxe;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && unlocked[0])
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && unlocked[3])
         {
             equippedTool = Tool.Bucket;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && unlocked[0])
+        else if (Input.GetKeyDown(KeyCode.Alpha5) && unlocked[4])
         {
             equippedTool = Tool.ChainsawDozer;
+            selector.transform.position = toolSlots[4].transform.position;
+            GameObject dozer = Instantiate(dozerPrefab);
+            dozer.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
+            dozer.transform.rotation = player.transform.rotation;
+            // don't move camera when doing this?
+            player.ActivateVehicle(dozer.GetComponent<SimpleCarController>().driversSeat);
+            activeVehicle = dozer;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && unlocked[0])
+        else if (Input.GetKeyDown(KeyCode.Alpha6) && unlocked[5])
+        {
+            selector.transform.position = toolSlots[5].transform.position;
+            equippedTool = Tool.Dynamite;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
         {
             equippedTool = Tool.Harvester;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[0])
-        {
-            equippedTool = Tool.Dynamite;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[0])
+        else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
         {
             equippedTool = Tool.Vacuum;
         }

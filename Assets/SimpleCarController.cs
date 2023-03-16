@@ -19,7 +19,8 @@ public class SimpleCarController : MonoBehaviour
     [SerializeField] private GameInput gameInput;
     public List<GameObject> miningBits;
     public Inventory.Resource miningType;
-
+    public Transform driversSeat;
+    public bool toolsOn;
     // finds the corresponding visual wheel
     // correctly applies the transform
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -36,9 +37,27 @@ public class SimpleCarController : MonoBehaviour
         visualWheel.transform.rotation = rotation;
     }
 
+    public void TogglePower()
+    {
+        toolsOn = !toolsOn;
+        
+            foreach (SimpleRotate rotator in this.GetComponentsInChildren<SimpleRotate>())
+            {
+                if (toolsOn)
+                {
+                    rotator.SpinUp();
+                } else
+                {
+                    rotator.SpinDown();
+                }
+            }
+        
+    }
+
     public void Start()
     {
         this.GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -1, 0);
+        gameInput = FindObjectOfType<GameInput>();
     }
 
 

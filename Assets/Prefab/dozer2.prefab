@@ -318,7 +318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475596115804673440}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00969555, y: -0.04473, z: 0.00735}
+  m_LocalPosition: {x: -0.00969555, y: -0.04473, z: 0.00289}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   - leftWheel: {fileID: 3692812407562185941}
     rightWheel: {fileID: 3692812407406009682}
     motor: 1
-    steering: 1
+    steering: 0
   maxMotorTorque: 1500
   maxSteeringAngle: 30
   gameInput: {fileID: 0}
@@ -1010,6 +1010,7 @@ MonoBehaviour:
   - {fileID: 1475596115804673440}
   - {fileID: 6229594958935576659}
   miningType: 0
+  driversSeat: {fileID: 3692812408499307000}
 --- !u!1 &5184517957593706828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,7 +1037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184517957593706828}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0.301, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1450001, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1352,7 +1353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2959859635770234745
 Transform:
   m_ObjectHideFlags: 0
@@ -1360,14 +1361,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5604942095156775015}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0.0625, z: 0}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.66, y: -0.61, z: -1.22}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3798003625099138882}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!33 &2025503483238450747
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1446,7 +1447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6229594958935576659}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00969555, y: -0.04473, z: 0.00735}
+  m_LocalPosition: {x: 0.00969555, y: -0.04473, z: 0.00289}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

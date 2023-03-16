@@ -48,10 +48,13 @@ public class AnimalBehavior : MonoBehaviour
     {
         while (wandering)
         {
-            float delay = Random.Range(5f, 8f);
-            Vector3 newDirection = Random.insideUnitSphere;
-            agent.destination = this.transform.position + newDirection * Random.Range(0.5f, wanderRadius);
-            yield return new WaitForSeconds(delay);
+            if (agent.isOnNavMesh)
+            {
+                float delay = Random.Range(5f, 8f);
+                Vector3 newDirection = Random.insideUnitSphere;
+                agent.destination = this.transform.position + newDirection * Random.Range(0.5f, wanderRadius);
+                yield return new WaitForSeconds(delay);
+            }
 
         }
     }
@@ -113,6 +116,19 @@ public class AnimalBehavior : MonoBehaviour
         
     }
 
+    public void Hit()
+    {
+        health--;
+        if (type == AnimalType.Penguin)
+        {
+            foreach (ParticleSystem ps in this.gameObject.GetComponentsInChildren<ParticleSystem>())
+            {
+                ps.transform.localScale = Vector3.one * Random.Range(0.3f, 1f);
+                ps.Play();
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (type == AnimalType.Golem)
@@ -130,6 +146,27 @@ public class AnimalBehavior : MonoBehaviour
                     this.GetComponent<Rigidbody>().isKinematic = false;
                    }
             }
+        }
+
+        if (other.GetComponentInParent<SimpleCarController>() != null)
+        {
+            SimpleCarController vehicle = other.GetComponentInParent<SimpleCarController>();
+            if (vehicle.miningBits.Contains(other.gameObject) && vehicle.toolsOn)
+                {
+                    StartCoroutine(VehicleBladeCoroutine());
+                } 
+            // if vehicle.wheels.contains(other.gameobject) //if run over by vehicle
+        }
+
+       
+    }
+
+    public IEnumerator VehicleBladeCoroutine()
+    {
+        while (true)
+        {
+            this.Hit();
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
