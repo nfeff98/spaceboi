@@ -85,7 +85,7 @@ Material:
     - _ClusterSize: 3.47
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistributionSeed: 116
+    - _DistributionSeed: 159
     - _Distribution_Seed: 30
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -96,14 +96,14 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PerlinScale: 3.04
-    - _PerlinSeed: 374
+    - _PerlinSeed: 585
     - _PlacementSeed: 0.51
     - _ResourceDensity: 30
     - _RiverBankSteepness: 0
-    - _RiverBendiness: -0.11726183
-    - _RiverPosition: 0.52975535
-    - _RiverRotation: -0.17923374
-    - _RiverWidth: 0.36094272
+    - _RiverBendiness: -0.47121465
+    - _RiverPosition: -0.4412297
+    - _RiverRotation: 0.13351865
+    - _RiverWidth: 0.25815943
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
