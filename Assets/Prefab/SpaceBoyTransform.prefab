@@ -258,6 +258,8 @@ MonoBehaviour:
   wind: {x: 0, y: 0, z: 0}
   nearShrine: 0
   nearestShrine: {fileID: 0}
+  vehicleActive: 0
+  dynamitePrefab: {fileID: 0}
 --- !u!143 &2232210182348723980
 CharacterController:
   m_ObjectHideFlags: 0
@@ -775,6 +777,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3709835324635546847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313659676761474257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db920c82007022e41b03cbbdd8f5f72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1833209314130468459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 563f7a14813bdcf458897d1fac5d07a7, type: 3}
