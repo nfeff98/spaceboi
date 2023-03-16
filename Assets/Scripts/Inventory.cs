@@ -228,6 +228,13 @@ public class Inventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
         {
             equippedTool = Tool.Harvester;
+            selector.transform.position = toolSlots[6].transform.position;
+            GameObject harvester = Instantiate(harvesterPrefab);
+            harvester.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
+            harvester.transform.rotation = player.transform.rotation;
+            // don't move camera when doing this?
+            player.ActivateVehicle(harvester.GetComponent<SimpleCarController>().driversSeat);
+            activeVehicle = harvester;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
         {
