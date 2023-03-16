@@ -75,26 +75,26 @@ public class ResourcePlacer : MonoBehaviour
         }
     }
 
-    public void PlaceNewResources()
+    public void PlaceNewResources(float distroMatFloat, float resourceMatFloat)
     {
-        StartCoroutine(PlaceResourceRoutine());
+        StartCoroutine(PlaceResourceRoutine(distroMatFloat, resourceMatFloat));
     }
 
-    public IEnumerator PlaceResourceRoutine()
+    public IEnumerator PlaceResourceRoutine(float distroMatFloat, float resourceMatFloat)
     {
         if (planet == null) planet = this.GetComponent<Planet>();
-        RollParams();
+        RollParams(distroMatFloat, resourceMatFloat);
         yield return new WaitForSeconds(0.1f);
         PlaceResources();
     }
 
-    public void RollParams()
+    public void RollParams(float distroMatFloat, float resourceMatFloat)
     {
         //randomize 
-        distroMat.SetFloat("_DistributionSeed", Random.Range(30, 180));
+        distroMat.SetFloat("_DistributionSeed", distroMatFloat);
         distroMat.SetFloat("_ResourceDensity", resourceAbundance);
         resourceMat.SetFloat("_ClusterSize", 3);
-        resourceMat.SetFloat("_PlacementSeed", Random.Range(0, 100));
+        resourceMat.SetFloat("_PlacementSeed", resourceMatFloat);
         ReadMap();
     }
 
@@ -268,7 +268,7 @@ public class ResourcePlacer : MonoBehaviour
     }
 
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
     [CustomEditor(typeof(ResourcePlacer))]
     public class ResourcePlacerEditor : Editor
     {
@@ -296,4 +296,5 @@ public class ResourcePlacer : MonoBehaviour
         }
     }
 #endif
+*/
 }

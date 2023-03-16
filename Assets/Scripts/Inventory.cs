@@ -39,12 +39,12 @@ public class Inventory : MonoBehaviour
     private int pickupTimeCap = 3;
     private int pickupCounter;
     public GameObject selector;
-
+    public GameObject dynamitePrefab;
     public GameObject dozerPrefab;
     public GameObject harvesterPrefab;
     public SpaceBoyController player;
     private GameObject activeVehicle;
-
+    public Tutorial tutorial;
     void Start()
     {
         inventoryScreen.SetActive(false);
