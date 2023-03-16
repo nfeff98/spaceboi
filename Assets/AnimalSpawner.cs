@@ -14,12 +14,16 @@ public class AnimalSpawner : MonoBehaviour
     void Start()
     {
 
-        //PlaceAnimals();
+       // PlaceAnimals();
     }
 
     public void PlaceAnimals()
     {
+        Debug.Log("placing animals 1 ");
+
         folder = new GameObject("animalFolder");
+
+        
         //folder.transform.parent = rp.folder.transform;
         for (int i = 0; i < animalPrefabs.Length; i++) {
             for (int y = 0; y < resolution; y += rp.step)
@@ -28,7 +32,7 @@ public class AnimalSpawner : MonoBehaviour
                 {
                     if (Random.Range(0, frequencyProbability[i]) == 1)
                     {
-                        Debug.Log("placing animals");
+                        Debug.Log("placing animals 2 ");
 
                         float scalar = 11 * 10f;
                         Vector3 placerCast = new Vector3(x * scalar / resolution, 0, y * scalar / resolution) + rp.origin.position;
@@ -49,8 +53,10 @@ public class AnimalSpawner : MonoBehaviour
                         }
                     }
                 }
-            }
+            } 
+        
         }
+    
     }
 
     // Update is called once per frame

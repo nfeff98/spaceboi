@@ -31,7 +31,7 @@ public class StoryController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        if (newMapOnStart)
+        if (newMapOnStart) // BUG HERE - INFINITE LOOPS SOMEHOW
         {
             if (CheckChapter.newChapter)
             {
@@ -107,7 +107,7 @@ public class StoryController : MonoBehaviour {
             yield return new WaitForSeconds(0.2f);
             //this.resourcePlacer.ResetTotals(); // << NOT SURE WE WANT THIS, THIS WOULD MAKE IT IMPOSSIBLE TO TRACK LEVEL BY LEVEL TOTALS. RESET TOTALS SHOULD BE BETWEEN CHAPTERS
             this.animalSpawner.PlaceAnimals();
-            //mapGen.waterLevelPlane.GetComponent<Collider>().enabled = false;
+            mapGen.waterLevelPlane.GetComponent<Collider>().enabled = false;
             Debug.Log("Current level: " + StoryController.currentLevel);
             Debug.Log(HandleQuota.mapRandomValuesList[0].perlinSeed);
         }

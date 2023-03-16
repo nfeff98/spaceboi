@@ -39,7 +39,6 @@ public class SpaceBoyController : MonoBehaviour {
     public bool vehicleActive;
     private bool nearSpacedoc;
     private DialogueTrigger docDialogue;
-    public GameObject dynamitePrefab;
     private SimpleCarController vehicle;
 
     private void Start()
@@ -77,6 +76,7 @@ public class SpaceBoyController : MonoBehaviour {
                 if (docDialogue != null) docDialogue.StartDialogue(); // double check this
 
 
+
             if (inv.equippedTool == Inventory.Tool.Dynamite) {
                 GameObject dynamite = Instantiate(inv.dynamitePrefab);
                 dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
@@ -105,6 +105,7 @@ public class SpaceBoyController : MonoBehaviour {
             }
         } else {
             vehicle.TogglePower();
+
         }
     }
     
