@@ -52,6 +52,7 @@ public class StoryController : MonoBehaviour {
 
                 }
             }
+       
 
             Debug.Log(currentChapter);
             Debug.Log(numLevels);
