@@ -82,6 +82,11 @@ public class Inventory : MonoBehaviour
         {
             case (Resource.Womp):
                 resourceCounts[0]++;
+
+                if (Tutorial.newGame && !DialogueManager.GetInstance().dialogueIsPlaying) {
+                    DialogueManager.GetInstance().EnterDialogueMode(tutorial.tutorialInk2);
+                    Tutorial.newGame = false;
+                }
                 break;
             case (Resource.Zaza):
                 resourceCounts[1]++;

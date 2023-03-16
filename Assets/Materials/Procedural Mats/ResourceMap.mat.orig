@@ -86,10 +86,10 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
 <<<<<<< HEAD
-    - _PlacementSeed: 73
+    - _PlacementSeed: 83
 =======
-    - _PlacementSeed: 49
->>>>>>> eb2b7e6ba80eed134c015936bcbfc4c868a5cccc
+    - _PlacementSeed: 38
+>>>>>>> e8315dd27bbdfacc13793d88bed55f1549e13c62
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
