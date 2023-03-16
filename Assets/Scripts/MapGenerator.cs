@@ -44,21 +44,21 @@ public class MapGenerator : MonoBehaviour
         
     }
 
-    public IEnumerator DelayGenerate()
+    public IEnumerator DelayGenerate(float perlinSeed, float riverWidth, float riverBendiness, float riverRotation, float riverPosition)
     {
         //Debug.Log("Generating new map.");
         
         //Debug.Log("Rolling new random values.");
-        RollParams();
+        RollParams(perlinSeed, riverWidth, riverBendiness, riverRotation, riverPosition);
         yield return new WaitForSeconds(0.1f);
         //Debug.Log("Applying effects of climate.");
         WeatherEffects();
         GenerateCollider();
     }
 
-    public void GenerateNewMap()
+    public void GenerateNewMap(float perlinSeed, float riverWidth, float riverBendiness, float riverRotation, float riverPosition)
     {
-        StartCoroutine(DelayGenerate());
+        StartCoroutine(DelayGenerate(perlinSeed, riverWidth, riverBendiness, riverRotation, riverPosition));
 
     }
 
@@ -72,13 +72,14 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    public bool RollParams()
+    public bool RollParams(float perlinSeed, float riverWidth, float riverBendiness, float riverRotation, float riverPosition)
     {
-        float perlinSeed = Random.Range(0, 1000);
+       /* float perlinSeed = Random.Range(0, 1000);
         float riverWidth = Random.Range(0.2f, 0.4f);
         float riverBendiness = Random.Range(-0.5f, 0.5f);
         float riverRotation = Random.Range(-0.2f, 0.2f);
         float riverPosition = Random.Range(-0.6f, 0.6f);
+       */
 
         //both maps
         paintMat.SetFloat("_PerlinSeed", perlinSeed);
@@ -90,7 +91,7 @@ public class MapGenerator : MonoBehaviour
         heightMat.SetFloat("_PerlinSeed", perlinSeed);
         heightMat.SetFloat("_RiverWidth", riverWidth);
         heightMat.SetFloat("_RiverBendiness", riverBendiness);
-        heightMat.SetFloat("_RiverRotation", riverRotation);
+        heightMat.SetFloat("_RiverRotation", riverRotation);    
         heightMat.SetFloat("_RiverPosition", riverPosition);
 
         distroMat.SetFloat("_PerlinSeed", perlinSeed);
@@ -191,7 +192,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
 
     [CustomEditor(typeof(MapGenerator))]
     public class MapGeneratorEditor : Editor
@@ -215,6 +216,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 #endif
+*/
 }
 
 

@@ -33,9 +33,10 @@ public class SceneChange : MonoBehaviour {
 
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.R)) {
+        /*if (Input.GetKeyDown(KeyCode.R)) {
             LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        */
     }
 
     /*

@@ -22,6 +22,7 @@ public class StoryController : MonoBehaviour {
     
 
     [SerializeField] private SceneChange sceneChanger;
+    [SerializeField] private HandleQuota handleQuota;
 
     //ref planet
     //ref map generator
@@ -34,7 +35,8 @@ public class StoryController : MonoBehaviour {
         {
             if (CheckChapter.newChapter)
             {
-                CheckChapter.newChapter = false;
+                this.resourcePlacer.ResetTotals();
+                //CheckChapter.newChapter = false;
                 switch (currentChapter)
                 {
                     case Chapter.Chapter1:
@@ -68,16 +70,46 @@ public class StoryController : MonoBehaviour {
 
     public IEnumerator LoadLevelRoutine(int currentLevel)
     {
+        if (CheckChapter.newChapter) {
+            CheckChapter.newChapter = false;
+            for (int i = 0; i < numLevels; i++) {
+                float perlinSeed = HandleQuota.mapRandomValuesList[i].perlinSeed;
+                Debug.Log("Perlin Seed: " + perlinSeed);
+                float riverWidth = HandleQuota.mapRandomValuesList[i].riverWidth;
+                float riverBendiness = HandleQuota.mapRandomValuesList[i].riverBendiness;
+                float riverRotation = HandleQuota.mapRandomValuesList[i].riverRotation;
+                float riverPosition = HandleQuota.mapRandomValuesList[i].riverPosition;
+
+                float distroMatFloat = HandleQuota.mapRandomValuesList[i].distroMatValue;
+                float resourceMatFloat = HandleQuota.mapRandomValuesList[i].resourceMatValue;
+
+                this.mapGen.GenerateNewMap(perlinSeed, riverWidth, riverBendiness, riverRotation, riverPosition);
+                this.resourcePlacer.PlaceNewResources(distroMatFloat, resourceMatFloat);
+            }
+           // handleQuota.SetChapterQuota();
+            StartCoroutine(PrintStatements());
+        }
+
         if (currentLevel < numLevels)
         {
+            float perlinSeed = HandleQuota.mapRandomValuesList[currentLevel].perlinSeed;
+            float riverWidth = HandleQuota.mapRandomValuesList[currentLevel].riverWidth;
+            float riverBendiness = HandleQuota.mapRandomValuesList[currentLevel].riverBendiness;
+            float riverRotation = HandleQuota.mapRandomValuesList[currentLevel].riverRotation;
+            float riverPosition = HandleQuota.mapRandomValuesList[currentLevel].riverPosition;
+
+            float distroMatFloat = HandleQuota.mapRandomValuesList[currentLevel].distroMatValue;
+            float resourceMatFloat = HandleQuota.mapRandomValuesList[currentLevel].resourceMatValue;
+
+            this.mapGen.GenerateNewMap(perlinSeed, riverWidth, riverBendiness, riverRotation, riverPosition);
+            this.resourcePlacer.PlaceNewResources(distroMatFloat, resourceMatFloat);
             StoryController.currentLevel += 1;
-            this.mapGen.GenerateNewMap();
             yield return new WaitForSeconds(0.2f);
-            this.resourcePlacer.PlaceNewResources();
             //this.resourcePlacer.ResetTotals(); // << NOT SURE WE WANT THIS, THIS WOULD MAKE IT IMPOSSIBLE TO TRACK LEVEL BY LEVEL TOTALS. RESET TOTALS SHOULD BE BETWEEN CHAPTERS
             this.animalSpawner.PlaceAnimals();
             mapGen.waterLevelPlane.GetComponent<Collider>().enabled = false;
             Debug.Log("Current level: " + StoryController.currentLevel);
+            Debug.Log(HandleQuota.mapRandomValuesList[0].perlinSeed);
         }
         else
         {
@@ -87,7 +119,20 @@ public class StoryController : MonoBehaviour {
     }
 
 
-#if UNITY_EDITOR
+    private IEnumerator PrintStatements() {
+        //Debug.Log("Total Womp in Chapter: " + HandleQuota.totalChapterWomp);
+        yield return new WaitForSeconds(0.7f);
+        handleQuota.SetChapterQuota();
+        Debug.Log("Total Womp in Chapter: " + HandleQuota.totalChapterWomp);
+        //HandleQuota.wompQuota = (int)(2.5f * HandleQuota.totalChapterWomp);
+        Debug.Log("Womp Quota: " + HandleQuota.wompQuota);
+        Debug.Log("Zaza Quota: " + HandleQuota.zazaQuota);
+        Debug.Log("Stromg Quota: " + HandleQuota.stromgQuota);
+        Debug.Log("Elysium Quota: " + HandleQuota.elysiumQuota);
+    }
+
+
+/*#if UNITY_EDITOR
 
     [CustomEditor(typeof(StoryController))]
     public class StoryControllerEditor : Editor {
@@ -105,4 +150,5 @@ public class StoryController : MonoBehaviour {
         }
     }
 #endif
+*/
 }

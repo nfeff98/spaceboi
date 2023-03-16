@@ -9,6 +9,7 @@ public class Resource : MonoBehaviour
     public Inventory.Resource ResourceType;
     private Inventory inv;
     private bool grounded;
+    public Tutorial tutorial;
     void Start()
     {
         inv = FindObjectOfType<Inventory>();
@@ -25,6 +26,13 @@ public class Resource : MonoBehaviour
                 inv.AddToInventory(ResourceType);
                 Debug.Log("picked up " + ResourceType.ToString());
                 Destroy(this.gameObject);
+                
+                // If zaza is grabbed for the first time play eatZazaTutorial
+                /*if (!Tutorial.zazaPickedUp && !DialogueManager.GetInstance().dialogueIsPlaying) {
+                    DialogueManager.GetInstance().EnterDialogueMode(Tutorial.eatZazaTutorial);
+                    Tutorial.zazaPickedUp = true;
+                }
+                */
             }
         }
 

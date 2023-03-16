@@ -20,6 +20,10 @@ public class CheckChapter : MonoBehaviour {
         // New chapter is starting
         else if (StoryController.numLevels != 0 && StoryController.currentLevel == StoryController.numLevels)  {
             newChapter = true;
+            HandleQuota.totalChapterWomp = 0;
+            HandleQuota.totalChapterZaza = 0;
+            HandleQuota.totalChapterStromg = 0;
+            HandleQuota.totalChapterElysium = 0;
             switch (StoryController.currentChapter) {
                 case StoryController.Chapter.Chapter1:
                     Debug.Log("Entering Chapter 2");

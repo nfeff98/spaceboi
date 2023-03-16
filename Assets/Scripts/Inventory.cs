@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
     public GameObject harvesterPrefab;
     public SpaceBoyController player;
     private GameObject activeVehicle;
-
+    
     public Tutorial tutorial;
     void Start()
     {
