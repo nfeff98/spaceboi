@@ -70,6 +70,9 @@ public class SpaceBoyController : MonoBehaviour {
 
             //else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
 
+            // Trigger dialogue
+            else if (docDialogue != null) docDialogue.StartDialogue();
+
             if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
                         if (inv.equippedTool == Inventory.Tool.Pickaxe) {
                             spaceBoiAnim.Play("twohandPick");
@@ -88,8 +91,6 @@ public class SpaceBoyController : MonoBehaviour {
                             StartCoroutine(SubtractHealthFromEnemy(en));
                         }
                     }
-            // Trigger dialogue
-            else if (docDialogue != null) docDialogue.StartDialogue();
         }
     }
     
