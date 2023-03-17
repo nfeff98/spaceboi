@@ -131,7 +131,7 @@ WheelCollider:
   m_SuspensionDistance: 0
   m_ForceAppPointDistance: -0.0003
   m_Mass: 100
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 100
   m_ForwardFriction:
     m_ExtremumSlip: 10
     m_ExtremumValue: 10
@@ -359,7 +359,7 @@ WheelCollider:
   m_SuspensionDistance: 0
   m_ForceAppPointDistance: -0.0003
   m_Mass: 100
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 100
   m_ForwardFriction:
     m_ExtremumSlip: 10
     m_ExtremumValue: 10
@@ -582,6 +582,7 @@ GameObject:
   - component: {fileID: 6467551914891846154}
   - component: {fileID: 2748837697480495129}
   - component: {fileID: 6413708301124867895}
+  - component: {fileID: 8807747189580480343}
   m_Layer: 12
   m_Name: polySurface8
   m_TagString: Player
@@ -662,12 +663,26 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4345524479555986764}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4732937762076777578, guid: fa53b7cb9fc30ce42bbfe7cd19c3c7e8, type: 3}
+--- !u!114 &8807747189580480343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4345524479555986764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6573f2233b1dae849a1b8d9f4710f018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationVec: {x: 0, y: 0, z: 1}
+  rotationSpeed: 100
 --- !u!1 &5780389591065260198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,7 +1056,7 @@ WheelCollider:
   m_SuspensionDistance: 0
   m_ForceAppPointDistance: -0.0003
   m_Mass: 100
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 100
   m_ForwardFriction:
     m_ExtremumSlip: 10
     m_ExtremumValue: 10
@@ -1193,7 +1208,7 @@ WheelCollider:
   m_SuspensionDistance: 0
   m_ForceAppPointDistance: -0.0003
   m_Mass: 100
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 100
   m_ForwardFriction:
     m_ExtremumSlip: 10
     m_ExtremumValue: 10
@@ -1390,7 +1405,7 @@ WheelCollider:
   m_SuspensionDistance: 0
   m_ForceAppPointDistance: -0.0003
   m_Mass: 100
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 100
   m_ForwardFriction:
     m_ExtremumSlip: 10
     m_ExtremumValue: 10
@@ -1504,7 +1519,7 @@ WheelCollider:
   m_SuspensionDistance: 0
   m_ForceAppPointDistance: -0.0003
   m_Mass: 100
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 100
   m_ForwardFriction:
     m_ExtremumSlip: 10
     m_ExtremumValue: 10
@@ -1564,6 +1579,7 @@ GameObject:
   - component: {fileID: 2400322974393841556}
   - component: {fileID: 8457135122833707347}
   - component: {fileID: 6413708300966028379}
+  - component: {fileID: 1824390611189718188}
   m_Layer: 12
   m_Name: polySurface7
   m_TagString: Player
@@ -1644,9 +1660,23 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9099468342122668223}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7843526606762953986, guid: fa53b7cb9fc30ce42bbfe7cd19c3c7e8, type: 3}
+--- !u!114 &1824390611189718188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9099468342122668223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6573f2233b1dae849a1b8d9f4710f018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationVec: {x: 0, y: 0, z: 1}
+  rotationSpeed: 100

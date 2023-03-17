@@ -59,7 +59,7 @@ public class DayNightCycle : MonoBehaviour
             else
                 sunColor = SmoothStepColor(noonColor, nightColor, t/2);
             sunAngle = Mathf.Lerp(startAngle, endAngle, angleT/2);
-            sun.intensity = intensityOverDay.Evaluate(angleT/2);
+            //sun.intensity = intensityOverDay.Evaluate(angleT/2);
             t += Time.deltaTime * speedOfDay;
             angleT += Time.deltaTime * speedOfDay;
             rotUI += Time.deltaTime * speedOfDay;
