@@ -41,47 +41,18 @@ public class SpaceBoyController : MonoBehaviour {
     private DialogueTrigger docDialogue;
     private SimpleCarController vehicle;
 
-    private void Start()
-    {
+    private void Start() {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-
-            }
-
-    public void ActivateVehicle(Transform spaceBoiParent)
-    {
-        vehicleActive = true;
-        this.transform.SetParent(spaceBoiParent);
-        vehicle = this.GetComponentInParent<SimpleCarController>();
-        this.transform.localPosition = Vector3.zero;
-        this.transform.localRotation = Quaternion.identity;
+        gameInput.OnExtractAction += GameInput_OnExtractAction;
     }
 
-    public void DeactivateVehicle()
-    {
-        vehicleActive = false;
-        this.transform.SetParent(null);
-        this.transform.position = vehicle.transform.position;
-    }
-
-    
-
-    private void GameInput_OnInteractAction(object sender, EventArgs e) {
+    private void GameInput_OnExtractAction(object sender, EventArgs e) {
         if (!vehicleActive) {
-            if (nearShrine) nearestShrine.Activate();
-
-            //else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
-            if (nearSpacedoc)
-                if (docDialogue != null) docDialogue.StartDialogue(); // double check this
-
-
-
             if (inv.equippedTool == Inventory.Tool.Dynamite) {
                 GameObject dynamite = Instantiate(inv.dynamitePrefab);
                 dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
-
-                // Trigger dialogue            
             }
 
             if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
@@ -105,8 +76,31 @@ public class SpaceBoyController : MonoBehaviour {
             }
         } else {
             vehicle.TogglePower();
-
         }
+    }
+
+    public void ActivateVehicle(Transform spaceBoiParent)
+    {
+        vehicleActive = true;
+        this.transform.SetParent(spaceBoiParent);
+        vehicle = this.GetComponentInParent<SimpleCarController>();
+        this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
+    }
+
+    public void DeactivateVehicle()
+    {
+        vehicleActive = false;
+        this.transform.SetParent(null);
+        this.transform.position = vehicle.transform.position;
+    }
+
+
+
+    private void GameInput_OnInteractAction(object sender, EventArgs e) {
+        if (nearSpacedoc)
+            if (docDialogue != null) docDialogue.StartDialogue(); // double check this
+        if (nearShrine) nearestShrine.Activate();
     }
     
 
@@ -117,12 +111,10 @@ public class SpaceBoyController : MonoBehaviour {
 
     }
 
-    public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en)
-    {
+    public IEnumerator SubtractHealthFromEnemy(AnimalBehavior en) {
         yield return new WaitForSeconds(0.6f);
         en.Hit();
         Debug.Log("hit peng");
-
     }
 
     private void Awake() {
