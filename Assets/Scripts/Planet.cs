@@ -7,11 +7,14 @@ using TMPro;
 public class Planet : MonoBehaviour
 {
 
-
     public bool windTriggered = false;
     public bool earthquakeTriggered = false;
+    [SerializeField]private GameObject earthquake;
+    [SerializeField]private GameObject wind;
 
 
+
+   
     // Start is called before the first frame update
     
     public int mapDim;
@@ -64,6 +67,8 @@ public class Planet : MonoBehaviour
     {
         climateText.text = "Normal";
         inv = FindObjectOfType<Inventory>();
+        // earthquake.setActive(true);
+        // wind.setActive(false);
     }
 
 
@@ -161,7 +166,8 @@ public class Planet : MonoBehaviour
                     climate = Climate.Windy;
                     inv.UpdateDebugText("It's getting windy...");
                     climateText.text = "<color=yellow>Windy</color>";
-                    StartCoroutine(SetWindy());
+                    StartCoroutine(SetWindy());                   
+                    // wind.setActive(true);
                 }
                 break;
             case Inventory.Resource.Stromg:
@@ -172,11 +178,13 @@ public class Planet : MonoBehaviour
                     climate = Climate.Earthquakes;
                     climateText.text = "<color=red>Earthquakes</color>";
                     StartCoroutine(Earthquakes());
+                    // earthquake.setActive(true);
                 }
                 break;
         }
     }
 
+    
     // Update is called once per frame
     void Update()
     {
