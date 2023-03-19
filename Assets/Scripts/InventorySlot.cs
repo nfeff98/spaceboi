@@ -19,12 +19,13 @@ public class InventorySlot : MonoBehaviour
     public int count;
     public TextMeshProUGUI counter;
     public TextMeshProUGUI placeholderText;
-
+    private Inventory inventory;
     public List<Sprite> texs;
 
     // Start is called before the first frame update
     void Start()
     {
+        inventory = this.GetComponentInParent<Inventory>();
         SetAppearance();
     }
 
@@ -77,6 +78,14 @@ public class InventorySlot : MonoBehaviour
         } else
         {
             //switch (Inventory.Tool):
+        }
+    }
+
+    public void Clicked(int click)
+    {
+        if (this.slotType == SlotType.Tool)
+        {
+            inventory.SetEquipped(click);
         }
     }
 

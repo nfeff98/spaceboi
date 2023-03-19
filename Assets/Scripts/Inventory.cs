@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
     public GameObject harvesterPrefab;
     public SpaceBoyController player;
     private GameObject activeVehicle;
-    
+    private Tool prevTool;
     public Tutorial tutorial;
 
     private void Awake()
@@ -226,73 +226,87 @@ public class Inventory : MonoBehaviour
     }
 
    
-
-
-    public void SetEquipped() //edited for down ot 6 tools
+    public IEnumerator FlickerCollider()
     {
-        foreach (GameObject t in tools) t.SetActive(false);
-        if (player.vehicleActive)
-        {
-            player.DeactivateVehicle();
-            Destroy(activeVehicle);
-            activeVehicle = null;
-        }
+        this.GetComponent<SphereCollider>().enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        this.GetComponent<SphereCollider>().enabled = true;
+    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && unlocked[0]) {
-            selector.transform.position = toolSlots[0].transform.position;
-            equippedTool = Tool.Axe;
-            tools[0].SetActive(true);
-            
-        } 
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && unlocked[1])
+    public void SetEquipped(int selection = 0) //edited for down ot 6 tools
+    {
+        if (prevTool != equippedTool)
         {
-            tools[1].SetActive(true);
-            selector.transform.position = toolSlots[1].transform.position;
-            equippedTool = Tool.Pickaxe;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && unlocked[2])
-        {
-            equippedTool = Tool.Scythe;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && unlocked[3])
-        {
-            //equippedTool = Tool.Bucket;
-            equippedTool = Tool.ChainsawDozer;
-            selector.transform.position = toolSlots[4].transform.position;
-            GameObject dozer = Instantiate(dozerPrefab);
-            dozer.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
-            dozer.transform.rotation = player.transform.rotation;
-            // don't move camera when doing this?
-            player.ActivateVehicle(dozer.GetComponent<SimpleCarController>().driversSeat);
-            activeVehicle = dozer;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && unlocked[4])
-        {
-            selector.transform.position = toolSlots[5].transform.position;
-            equippedTool = Tool.Dynamite;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && unlocked[5])
-        {
-            equippedTool = Tool.Harvester;
-            selector.transform.position = toolSlots[6].transform.position;
-            GameObject harvester = Instantiate(harvesterPrefab);
-            harvester.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
-            harvester.transform.rotation = player.transform.rotation;
-            // don't move camera when doing this?
-            player.ActivateVehicle(harvester.GetComponent<SimpleCarController>().driversSeat);
-            activeVehicle = harvester;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
-        {
-            
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
-        {
-            //equippedTool = Tool.Vacuum;
-        }
-        else //default to axe
-        {
-            
+            prevTool = equippedTool;
+            foreach (GameObject t in tools) t.SetActive(false);
+            if (player.vehicleActive)
+            {
+                player.DeactivateVehicle();
+                Destroy(activeVehicle);
+                activeVehicle = null;
+            }
+
+            if ((Input.GetKeyDown(KeyCode.Alpha1) || selection == 1) && unlocked[0])
+            {
+                selector.transform.position = toolSlots[0].transform.position;
+                equippedTool = Tool.Axe;
+                tools[0].SetActive(true);
+
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha2) || selection == 2) && unlocked[1])
+            {
+                tools[1].SetActive(true);
+                selector.transform.position = toolSlots[1].transform.position;
+                equippedTool = Tool.Scythe;
+
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha3) || selection == 3) && unlocked[2])
+            {
+                tools[2].SetActive(true);
+                selector.transform.position = toolSlots[3].transform.position;
+                equippedTool = Tool.Pickaxe;
+
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha4) || selection == 4) && unlocked[3])
+            {
+                //equippedTool = Tool.Bucket;
+                equippedTool = Tool.ChainsawDozer;
+                selector.transform.position = toolSlots[3].transform.position;
+                GameObject dozer = Instantiate(dozerPrefab);
+                dozer.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
+                dozer.transform.rotation = player.transform.rotation;
+                // don't move camera when doing this?
+                player.ActivateVehicle(dozer.GetComponent<SimpleCarController>().driversSeat);
+                activeVehicle = dozer;
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha5) || selection == 5) && unlocked[4])
+            {
+                selector.transform.position = toolSlots[4].transform.position;
+                equippedTool = Tool.Dynamite;
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha6) || selection == 6) && unlocked[5])
+            {
+                equippedTool = Tool.Harvester;
+                selector.transform.position = toolSlots[5].transform.position;
+                GameObject harvester = Instantiate(harvesterPrefab);
+                harvester.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
+                harvester.transform.rotation = player.transform.rotation;
+                // don't move camera when doing this?
+                player.ActivateVehicle(harvester.GetComponent<SimpleCarController>().driversSeat);
+                activeVehicle = harvester;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
+            {
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
+            {
+                //equippedTool = Tool.Vacuum;
+            }
+            else //default to axe
+            {
+
+            }
         }
 
 
