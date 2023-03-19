@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
     public bool[] unlocked = {false, false, false, false, false, false}; //down to 6 because removing water
 
     [Tooltip("0 = Womp, 1 = Zaza, 2 = Stromg, 3 = Wooter, 4 = Elysium")]
-    public int[] resourceCounts = {0, 0, 0, 0, 0};
+    public static int[] resourceCounts = {0, 0, 0, 0, 0};
     public Tool equippedTool;
     public GameObject inventoryScreen;
     public TextMeshProUGUI debugText;
@@ -46,6 +46,11 @@ public class Inventory : MonoBehaviour
     private GameObject activeVehicle;
     
     public Tutorial tutorial;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     void Start()
     {
         inventoryScreen.SetActive(false);
@@ -75,6 +80,49 @@ public class Inventory : MonoBehaviour
             inventoryScreen.SetActive(!inventoryScreen.activeInHierarchy);
         }
         
+    }
+
+    public void UnlockStuff()
+    {
+        unlocked = new bool[6]; //set to 6 for no wtaer
+        switch (StoryController.currentChapter)
+        {
+            case StoryController.Chapter.Chapter1:
+                unlocked[0] = true;
+                unlocked[1] = true;
+                unlocked[2] = false;
+                unlocked[3] = false;
+                unlocked[4] = false;
+                unlocked[5] = false;
+                break; 
+            case StoryController.Chapter.Chapter2:
+                unlocked[0] = true;
+                unlocked[1] = true;
+                unlocked[2] = true;
+                unlocked[3] = false;
+                unlocked[4] = false;
+                unlocked[5] = false;
+                break;
+            case StoryController.Chapter.Chapter3:
+                unlocked[0] = true;
+                unlocked[1] = true;
+                unlocked[2] = true;
+                unlocked[3] = true;
+                unlocked[4] = true;
+                unlocked[5] = true;
+                break;
+
+        }
+        for (int i =0; i < 6; i++)
+        {
+            if (!unlocked[i])
+            {
+                toolSlots[i].GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+            } else
+            {
+                toolSlots[i].GetComponent<Image>().color = Color.white;
+            }
+        }
     }
 
     public void AddToInventory(Resource r)

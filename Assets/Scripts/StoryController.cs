@@ -42,6 +42,7 @@ public class StoryController : MonoBehaviour {
                     case Chapter.Chapter1:
                         numLevels = 3;
                         currentLevel = 0;
+                        
                         break;
                     case Chapter.Chapter2:
                         numLevels = 5;
@@ -70,6 +71,7 @@ public class StoryController : MonoBehaviour {
 
     public IEnumerator LoadLevelRoutine(int currentLevel)
     {
+        
         if (CheckChapter.newChapter) {
             HandleQuota.totalChapterElysium = 0;
             HandleQuota.totalChapterStromg = 0;
