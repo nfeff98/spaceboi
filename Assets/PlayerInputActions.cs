@@ -47,12 +47,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Extract"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""7674d968-861a-4484-9811-2e25870e9e31"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [

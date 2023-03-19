@@ -50,6 +50,14 @@ public class SpaceBoyController : MonoBehaviour {
 
     private void GameInput_OnExtractAction(object sender, EventArgs e) {
         if (!vehicleActive) {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100)) {
+                Vector3 newForward = hit.point;
+                newForward.y = this.transform.position.y;
+                this.transform.LookAt(newForward);
+            }
+            
             if (inv.equippedTool == Inventory.Tool.Dynamite) {
                 GameObject dynamite = Instantiate(inv.dynamitePrefab);
                 dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
@@ -64,14 +72,18 @@ public class SpaceBoyController : MonoBehaviour {
 
                 }
 
-                if (selectedResource != null) {
+               /*if (selectedResource != null) {
                     Vector3 newForward = selectedResource.transform.position;
                     newForward.y = this.transform.position.y;
                     this.transform.LookAt(newForward);
                     //energyManager.EnergySpent();
                 }
+               */
+               
                 foreach (AnimalBehavior en in enemiesInRange) {
-                    StartCoroutine(SubtractHealthFromEnemy(en));
+                    if (en != null) {
+                        StartCoroutine(SubtractHealthFromEnemy(en));
+                    }
                 }
             }
         } else {
