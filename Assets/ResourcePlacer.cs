@@ -78,17 +78,17 @@ public class ResourcePlacer : MonoBehaviour
         }
     }
 
-    public void PlaceNewResources(float distroMatFloat, float resourceMatFloat)
+    public void PlaceNewResources(float distroMatFloat, float resourceMatFloat, bool setup)
     {
-        StartCoroutine(PlaceResourceRoutine(distroMatFloat, resourceMatFloat));
+        StartCoroutine(PlaceResourceRoutine(distroMatFloat, resourceMatFloat, setup));
     }
 
-    public IEnumerator PlaceResourceRoutine(float distroMatFloat, float resourceMatFloat)
+    public IEnumerator PlaceResourceRoutine(float distroMatFloat, float resourceMatFloat, bool setup)
     {
         if (planet == null) planet = this.GetComponent<Planet>();
         RollParams(distroMatFloat, resourceMatFloat);
         yield return new WaitForSeconds(0.1f);
-        PlaceResources();
+        PlaceResources(setup);
     }
 
     public void RollParams(float distroMatFloat, float resourceMatFloat)
@@ -101,15 +101,17 @@ public class ResourcePlacer : MonoBehaviour
         ReadMap();
     }
 
-    public void PlaceResources()
+    public void PlaceResources(bool setup)
     {
         // add folders per resource
         DestroyOldResources();
+        /*
         planet.totalElysium = 0;
         planet.totalStromg = 0;
         planet.totalWomp = 0;
         planet.totalWooter = 0;
         planet.totalZaza = 0;
+        */
         bool placedShrine = false;
         folder = new GameObject("__generated env");
         GameObject grassFolder = new GameObject("grassFolder");
@@ -216,7 +218,8 @@ public class ResourcePlacer : MonoBehaviour
                             resourcePos.y = hit.point.y;
                             GameObject resource = Instantiate(possiblePrefabs[index]);
                             resources.Add(resource);
-                            planet.AddResource(type);
+                            if (setup)
+                                planet.AddResource(type);
                             resource.transform.position = resourcePos;
                             switch (type)
                             {
@@ -263,11 +266,13 @@ public class ResourcePlacer : MonoBehaviour
 
     public void ResetTotals()
     {
+        /*
         planet.totalElysiumCreated = planet.totalElysium;
         planet.totalStromgCreated = planet.totalStromg;
         planet.totalWompCreated = planet.totalWomp;
         planet.totalWooterCreated = planet.totalWooter;
         planet.totalZazaCreated = planet.totalZaza;
+        */
     }
 
     public void ReadMap()

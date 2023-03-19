@@ -31,24 +31,26 @@ public class Planet : MonoBehaviour
     }
 
     [Header("Womp")]
-    public int totalWompCreated;
-    public int totalWomp;
+    public static int totalWompCreated;
+    public static int totalWompRemaining;
+    public float wompCountdown;
 
     [Header("Zaza")]
-    public int totalZazaCreated;
-    public int totalZaza;
+    public static int totalZazaCreated;
+    public static int totalZazaRemaining;
+    public float zazaCountdown;
 
     [Header("Stromg")]
-    public int totalStromgCreated;
-    public int totalStromg;
+    public static int totalStromgCreated;
+    public static int totalStromgRemaining;
 
     [Header("Wooter")]
-    public int totalWooterCreated;
-    public int totalWooter;
+    public static int totalWooterCreated;
+    public static int totalWooterRemaining;
 
     [Header("Elysium")]
-    public int totalElysiumCreated;
-    public int totalElysium;
+    public static int totalElysiumCreated;
+    public static int totalElysiumRemaining;
 
     public float climateThreshold;
     public TextMeshProUGUI climateText;
@@ -58,10 +60,14 @@ public class Planet : MonoBehaviour
     public ParticleSystemForceField windForce;
     private Inventory inv;
 
+    
+
     public void LoadRoom()
     {
         //map generation
     }
+
+   
 
     void Start()
     {
@@ -119,28 +125,28 @@ public class Planet : MonoBehaviour
         switch (type)
         {
             case Inventory.Resource.Elysium:
-                totalElysium++;
+                totalElysiumRemaining++;
                 totalElysiumCreated++;
                 HandleQuota.totalChapterElysium++;
                 break;
             case Inventory.Resource.Zaza:
                 totalZazaCreated++;
-                totalZaza++;
+                totalZazaRemaining++;
                 HandleQuota.totalChapterZaza++;
                 break;
             case Inventory.Resource.Wooter:
                 totalWooterCreated++;
-                totalWooter++;
+                totalWooterRemaining++;
                 // No wooter quota for now...
                 break;
             case Inventory.Resource.Womp:
                 totalWompCreated++;
-                totalWomp++;
+                totalWompRemaining++;
                 HandleQuota.totalChapterWomp++;
                 break;
             case Inventory.Resource.Stromg:
                 totalStromgCreated++;
-                totalStromg++;
+                totalStromgRemaining++;
                 HandleQuota.totalChapterStromg++;
                 break;
         }
@@ -151,17 +157,17 @@ public class Planet : MonoBehaviour
         switch (type)
         {
             case Inventory.Resource.Elysium:
-                totalElysium--;
+                totalElysiumRemaining--;
                 break;
             case Inventory.Resource.Zaza:
-                totalZaza--;
+                totalZazaRemaining--;
                 break;
             case Inventory.Resource.Wooter:
-                totalWooter--;
+                totalWooterRemaining--;
                 break;
             case Inventory.Resource.Womp:
-                totalWomp--;
-                if ((float)totalWomp / (float)totalWompCreated < climateThreshold && climate == Climate.Normal)
+                totalWompRemaining--;
+                if ((float)totalWompRemaining / (float)totalWompCreated < climateThreshold && climate == Climate.Normal)
                 {
                     climate = Climate.Windy;
                     inv.UpdateDebugText("It's getting windy...");
@@ -171,8 +177,8 @@ public class Planet : MonoBehaviour
                 }
                 break;
             case Inventory.Resource.Stromg:
-                totalStromg--;
-                if ((float)totalStromg / (float)totalStromgCreated < climateThreshold && climate == Climate.Normal)
+                totalStromgRemaining--;
+                if ((float)totalStromgRemaining / (float)totalStromgCreated < climateThreshold && climate == Climate.Normal)
                 {
                     inv.UpdateDebugText("The ground is shifting...");
                     climate = Climate.Earthquakes;
@@ -188,6 +194,6 @@ public class Planet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        wompCountdown = (float)totalWompRemaining / (float)totalWompCreated;
     }
 }

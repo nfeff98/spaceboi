@@ -35,13 +35,14 @@ public class StoryController : MonoBehaviour {
         {
             if (CheckChapter.newChapter)
             {
-                this.resourcePlacer.ResetTotals();
+                //this.resourcePlacer.ResetTotals();
                 //CheckChapter.newChapter = false;
                 switch (currentChapter)
                 {
                     case Chapter.Chapter1:
                         numLevels = 3;
                         currentLevel = 0;
+                        
                         break;
                     case Chapter.Chapter2:
                         numLevels = 5;
@@ -70,6 +71,7 @@ public class StoryController : MonoBehaviour {
 
     public IEnumerator LoadLevelRoutine(int currentLevel)
     {
+        
         if (CheckChapter.newChapter) {
             HandleQuota.totalChapterElysium = 0;
             HandleQuota.totalChapterStromg = 0;
@@ -89,7 +91,7 @@ public class StoryController : MonoBehaviour {
                 float resourceMatFloat = HandleQuota.mapRandomValuesList[i].resourceMatValue;
 
                 this.mapGen.GenerateNewMap(perlinSeed, riverWidth, riverBendiness, riverRotation, riverPosition);
-                this.resourcePlacer.PlaceNewResources(distroMatFloat, resourceMatFloat);
+                this.resourcePlacer.PlaceNewResources(distroMatFloat, resourceMatFloat, true);
             }
            // handleQuota.SetChapterQuota();
             StartCoroutine(PrintStatements());
@@ -107,7 +109,7 @@ public class StoryController : MonoBehaviour {
             float resourceMatFloat = HandleQuota.mapRandomValuesList[currentLevel].resourceMatValue;
 
             this.mapGen.GenerateNewMap(perlinSeed, riverWidth, riverBendiness, riverRotation, riverPosition);
-            this.resourcePlacer.PlaceNewResources(distroMatFloat, resourceMatFloat);
+            this.resourcePlacer.PlaceNewResources(distroMatFloat, resourceMatFloat, false);
             StoryController.currentLevel += 1;
             yield return new WaitForSeconds(0.2f);
             //this.resourcePlacer.ResetTotals(); // << NOT SURE WE WANT THIS, THIS WOULD MAKE IT IMPOSSIBLE TO TRACK LEVEL BY LEVEL TOTALS. RESET TOTALS SHOULD BE BETWEEN CHAPTERS
@@ -134,7 +136,7 @@ public class StoryController : MonoBehaviour {
         Debug.Log("Zaza Quota: " + HandleQuota.zazaQuota);
         Debug.Log("Stromg Quota: " + HandleQuota.stromgQuota);
         Debug.Log("Elysium Quota: " + HandleQuota.elysiumQuota);
-        resourcePlacer.ResetTotals();
+       // resourcePlacer.ResetTotals();
     }
 
 
