@@ -19,7 +19,7 @@ public class AnimalSpawner : MonoBehaviour
 
     public void PlaceAnimals()
     {
-        Debug.Log("placing animals 1 ");
+        //Debug.Log("placing animals 1 ");
 
         folder = new GameObject("animalFolder");
 
@@ -32,7 +32,7 @@ public class AnimalSpawner : MonoBehaviour
                 {
                     if (Random.Range(0, frequencyProbability[i]) == 1)
                     {
-                        Debug.Log("placing animals 2 ");
+                        //Debug.Log("placing animals 2 ");
 
                         float scalar = 11 * 10f;
                         Vector3 placerCast = new Vector3(x * scalar / resolution, 0, y * scalar / resolution) + rp.origin.position;
