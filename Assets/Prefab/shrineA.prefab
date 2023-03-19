@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1629314608670174570}
   - component: {fileID: 7315703051968127605}
   - component: {fileID: 7315703051968127604}
+  - component: {fileID: 6240727380799146702}
   m_Layer: 0
   m_Name: shrineA
   m_TagString: Untagged
@@ -123,6 +124,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 6
   m_Center: {x: 0, y: 3, z: 0}
+--- !u!65 &6240727380799146702
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899697505318129717}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 8.07, z: 6}
+  m_Center: {x: 0, y: 4.01, z: 0}
 --- !u!1 &2306163143225216730
 GameObject:
   m_ObjectHideFlags: 0
