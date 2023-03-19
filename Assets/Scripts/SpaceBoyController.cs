@@ -41,6 +41,8 @@ public class SpaceBoyController : MonoBehaviour {
     private DialogueTrigger docDialogue;
     private SimpleCarController vehicle;
 
+    [SerializeField] SoundManager soundManager;
+
     private void Start() {
         inv = FindObjectOfType<Inventory>();
         controller = gameObject.GetComponent<CharacterController>();
@@ -61,15 +63,21 @@ public class SpaceBoyController : MonoBehaviour {
             if (inv.equippedTool == Inventory.Tool.Dynamite) {
                 GameObject dynamite = Instantiate(inv.dynamitePrefab);
                 dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
+                soundManager.PlayAudioClip(Inventory.Tool.Dynamite);
             }
 
             if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
                 if (inv.equippedTool == Inventory.Tool.Pickaxe) {
                     spaceBoiAnim.Play("twohandPick");
+                    if (selectedResource != null) {
+                        soundManager.PlayAudioClip(Inventory.Tool.Pickaxe);
+                    }
 
                 } else if (inv.equippedTool == Inventory.Tool.Axe) {
                     spaceBoiAnim.Play("twohandChop2");
-
+                    if (selectedResource != null) {
+                        soundManager.PlayAudioClip(Inventory.Tool.Pickaxe);
+                    }
                 }
 
                /*if (selectedResource != null) {
