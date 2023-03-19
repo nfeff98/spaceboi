@@ -42,6 +42,9 @@ public class ResourcePlacer : MonoBehaviour
     [Header("Stromg Prefabs")]
     public List<GameObject> stromgs = new List<GameObject>();
 
+    [Header("Elysium Prefabs")]
+    public List<GameObject> elysiums = new List<GameObject>();
+
 
     public GameObject grassPrefab;
     // Start is called before the first frame update
@@ -75,26 +78,26 @@ public class ResourcePlacer : MonoBehaviour
         }
     }
 
-    public void PlaceNewResources()
+    public void PlaceNewResources(float distroMatFloat, float resourceMatFloat)
     {
-        StartCoroutine(PlaceResourceRoutine());
+        StartCoroutine(PlaceResourceRoutine(distroMatFloat, resourceMatFloat));
     }
 
-    public IEnumerator PlaceResourceRoutine()
+    public IEnumerator PlaceResourceRoutine(float distroMatFloat, float resourceMatFloat)
     {
         if (planet == null) planet = this.GetComponent<Planet>();
-        RollParams();
+        RollParams(distroMatFloat, resourceMatFloat);
         yield return new WaitForSeconds(0.1f);
         PlaceResources();
     }
 
-    public void RollParams()
+    public void RollParams(float distroMatFloat, float resourceMatFloat)
     {
         //randomize 
-        distroMat.SetFloat("_DistributionSeed", Random.Range(30, 180));
+        distroMat.SetFloat("_DistributionSeed", distroMatFloat);
         distroMat.SetFloat("_ResourceDensity", resourceAbundance);
         resourceMat.SetFloat("_ClusterSize", 3);
-        resourceMat.SetFloat("_PlacementSeed", Random.Range(0, 100));
+        resourceMat.SetFloat("_PlacementSeed", resourceMatFloat);
         ReadMap();
     }
 
@@ -117,6 +120,8 @@ public class ResourcePlacer : MonoBehaviour
         treeFolder.transform.parent = folder.transform;
         GameObject zazaFolder = new GameObject("zazaFolder");
         zazaFolder.transform.parent = folder.transform;
+        GameObject elysiumFolder = new GameObject("elysiumFolder");
+        elysiumFolder.transform.parent = folder.transform;
         folder.transform.parent = origin;
         ReadMap();
         for (int y = 0; y < resolution; y += step)
@@ -190,8 +195,15 @@ public class ResourcePlacer : MonoBehaviour
                     }
                     else if (val.b >= val.r && val.b >= val.g)
                     {
-                        type = Inventory.Resource.Stromg;
-                        possiblePrefabs = stromgs;
+                        if (Random.Range(1, 11) == 1)
+                        {
+                            type = Inventory.Resource.Elysium;
+                            possiblePrefabs = elysiums;
+                        } else
+                        {
+                            type = Inventory.Resource.Stromg;
+                            possiblePrefabs = stromgs;
+                        }
                     }
 
                     Ray ray = new Ray(placerCast, Vector3.down);
@@ -217,13 +229,24 @@ public class ResourcePlacer : MonoBehaviour
                                 case Inventory.Resource.Womp:
                                     resource.transform.parent = treeFolder.transform;
                                     break;
+                                case Inventory.Resource.Elysium:
+                                    resource.transform.parent = elysiumFolder.transform;
+                                    break;
                             }
-                            resource.transform.Rotate(Vector3.up, Random.Range(0, 180));
+                           
                             int health = Random.Range(0, 4) + 2;
-                            if(type != Inventory.Resource.Zaza)
                             resource.GetComponent<InteractableResource>().health = health;
                             float scaleFactor = 1 + ((health-3) * 0.2f);
-                            resource.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+                            if (type != Inventory.Resource.Zaza)
+                            {
+                                resource.transform.Rotate(Vector3.up, Random.Range(0, 180));
+                                resource.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+                            }
+                            else
+                            {
+                                resource.transform.Rotate(Vector3.forward, Random.Range(0, 180));
+                                resource.transform.localScale = new Vector3(scaleFactor *0.45f, scaleFactor * 0.45f, scaleFactor * 0.45f);
+                            }
                         }
                         else
                         {
@@ -240,11 +263,11 @@ public class ResourcePlacer : MonoBehaviour
 
     public void ResetTotals()
     {
-        planet.totalElysiumCreated = 0;
-        planet.totalStromgCreated = 0;
-        planet.totalWompCreated = 0;
-        planet.totalWooterCreated = 0;
-        planet.totalZazaCreated = 0;
+        planet.totalElysiumCreated = planet.totalElysium;
+        planet.totalStromgCreated = planet.totalStromg;
+        planet.totalWompCreated = planet.totalWomp;
+        planet.totalWooterCreated = planet.totalWooter;
+        planet.totalZazaCreated = planet.totalZaza;
     }
 
     public void ReadMap()
@@ -268,7 +291,7 @@ public class ResourcePlacer : MonoBehaviour
     }
 
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
     [CustomEditor(typeof(ResourcePlacer))]
     public class ResourcePlacerEditor : Editor
     {
@@ -296,4 +319,5 @@ public class ResourcePlacer : MonoBehaviour
         }
     }
 #endif
+*/
 }

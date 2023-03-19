@@ -110,28 +110,33 @@ public class Planet : MonoBehaviour
 
     public void AddResource(Inventory.Resource type)
     {
+        //Debug.Log("AddResource called...");
         switch (type)
         {
             case Inventory.Resource.Elysium:
                 totalElysium++;
                 totalElysiumCreated++;
+                HandleQuota.totalChapterElysium++;
                 break;
             case Inventory.Resource.Zaza:
                 totalZazaCreated++;
                 totalZaza++;
+                HandleQuota.totalChapterZaza++;
                 break;
             case Inventory.Resource.Wooter:
                 totalWooterCreated++;
                 totalWooter++;
+                // No wooter quota for now...
                 break;
             case Inventory.Resource.Womp:
                 totalWompCreated++;
                 totalWomp++;
-
+                HandleQuota.totalChapterWomp++;
                 break;
             case Inventory.Resource.Stromg:
                 totalStromgCreated++;
                 totalStromg++;
+                HandleQuota.totalChapterStromg++;
                 break;
         }
     }

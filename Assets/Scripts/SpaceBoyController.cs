@@ -15,6 +15,7 @@ public class SpaceBoyController : MonoBehaviour {
     public Inventory inv;
     [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask resourceLayerMask;
+    [SerializeField] private EnergyManager energyManager;
 
     public List<AnimalBehavior> enemiesInRange;
 
@@ -49,51 +50,6 @@ public class SpaceBoyController : MonoBehaviour {
 
     private void GameInput_OnExtractAction(object sender, EventArgs e) {
         if (!vehicleActive) {
-<<<<<<< Updated upstream
-            if (nearShrine) nearestShrine.Activate();
-
-            //else if (!spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
-            if (nearSpacedoc)
-                if (docDialogue != null) docDialogue.StartDialogue(); // double check this
-           
-        } else
-        {
-            vehicle.TogglePower();
-        }
-
-        if (inv.equippedTool == Inventory.Tool.Dynamite)
-        {
-            GameObject dynamite = Instantiate(inv.dynamitePrefab);
-            dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
-
-            // Trigger dialogue            
-           
-        }
-
-        if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk"))
-        {
-            if (inv.equippedTool == Inventory.Tool.Pickaxe)
-            {
-                spaceBoiAnim.Play("twohandPick");
-
-            }
-            else if (inv.equippedTool == Inventory.Tool.Axe)
-            {
-                spaceBoiAnim.Play("twohandChop2");
-
-            }
-
-            if (selectedResource != null)
-            {
-                Vector3 newForward = selectedResource.transform.position;
-                newForward.y = this.transform.position.y;
-                this.transform.LookAt(newForward);
-            }
-            foreach (AnimalBehavior en in enemiesInRange)
-            {
-                StartCoroutine(SubtractHealthFromEnemy(en));
-            }
-=======
             if (inv.equippedTool == Inventory.Tool.Dynamite) {
                 GameObject dynamite = Instantiate(inv.dynamitePrefab);
                 dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
@@ -120,7 +76,6 @@ public class SpaceBoyController : MonoBehaviour {
             }
         } else {
             vehicle.TogglePower();
->>>>>>> Stashed changes
         }
     }
 
@@ -225,7 +180,10 @@ public class SpaceBoyController : MonoBehaviour {
                 if (interactableResource != selectedResource)
                 {
                     if ((inv.equippedTool == Inventory.Tool.Axe && interactableResource.type == Inventory.Resource.Womp)
-                    || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg))
+                    || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Stromg)
+                    || (inv.equippedTool == Inventory.Tool.Scythe && interactableResource.type == Inventory.Resource.Zaza)
+                        || (inv.equippedTool == Inventory.Tool.Pickaxe && interactableResource.type == Inventory.Resource.Elysium))
+
                         SetSelectedResource(interactableResource);
                 }
             }
