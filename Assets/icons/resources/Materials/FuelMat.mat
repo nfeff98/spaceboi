@@ -82,7 +82,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _Distance: 0.1
     - _DstBlend: 0
-    - _EmissionStrength: 0.42
+    - _EmissionStrength: 0.6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
