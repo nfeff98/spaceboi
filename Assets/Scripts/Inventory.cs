@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
     public bool foundDiamond;
     public int itemCap = 20;
 
-    public bool[] unlocked = {false, false, false, false, false, false, false, false};
+    public bool[] unlocked = {false, false, false, false, false, false}; //down to 6 because removing water
 
     [Tooltip("0 = Womp, 1 = Zaza, 2 = Stromg, 3 = Wooter, 4 = Elysium")]
     public int[] resourceCounts = {0, 0, 0, 0, 0};
@@ -66,9 +66,9 @@ public class Inventory : MonoBehaviour
             Input.GetKeyDown(KeyCode.Alpha3) ||
             Input.GetKeyDown(KeyCode.Alpha4) ||
             Input.GetKeyDown(KeyCode.Alpha5) ||
-            Input.GetKeyDown(KeyCode.Alpha6) ||
+            Input.GetKeyDown(KeyCode.Alpha6)/* ||
             Input.GetKeyDown(KeyCode.Alpha7) ||
-            Input.GetKeyDown(KeyCode.Alpha8)) SetEquipped();
+            Input.GetKeyDown(KeyCode.Alpha8)*/) SetEquipped(); //down to 6 because remove water
 
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -180,7 +180,7 @@ public class Inventory : MonoBehaviour
    
 
 
-    public void SetEquipped()
+    public void SetEquipped() //edited for down ot 6 tools
     {
         foreach (GameObject t in tools) t.SetActive(false);
         if (player.vehicleActive)
@@ -195,22 +195,20 @@ public class Inventory : MonoBehaviour
             equippedTool = Tool.Axe;
             tools[0].SetActive(true);
             
-        } else if (Input.GetKeyDown(KeyCode.Alpha3) && unlocked[2])
-        {
-            equippedTool = Tool.Scythe;
-        }
+        } 
         else if (Input.GetKeyDown(KeyCode.Alpha2) && unlocked[1])
         {
             tools[1].SetActive(true);
             selector.transform.position = toolSlots[1].transform.position;
             equippedTool = Tool.Pickaxe;
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && unlocked[2])
+        {
+            equippedTool = Tool.Scythe;
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha4) && unlocked[3])
         {
-            equippedTool = Tool.Bucket;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && unlocked[4])
-        {
+            //equippedTool = Tool.Bucket;
             equippedTool = Tool.ChainsawDozer;
             selector.transform.position = toolSlots[4].transform.position;
             GameObject dozer = Instantiate(dozerPrefab);
@@ -220,12 +218,12 @@ public class Inventory : MonoBehaviour
             player.ActivateVehicle(dozer.GetComponent<SimpleCarController>().driversSeat);
             activeVehicle = dozer;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && unlocked[5])
+        else if (Input.GetKeyDown(KeyCode.Alpha5) && unlocked[4])
         {
             selector.transform.position = toolSlots[5].transform.position;
             equippedTool = Tool.Dynamite;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
+        else if (Input.GetKeyDown(KeyCode.Alpha6) && unlocked[5])
         {
             equippedTool = Tool.Harvester;
             selector.transform.position = toolSlots[6].transform.position;
@@ -236,9 +234,13 @@ public class Inventory : MonoBehaviour
             player.ActivateVehicle(harvester.GetComponent<SimpleCarController>().driversSeat);
             activeVehicle = harvester;
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
+        {
+            
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
         {
-            equippedTool = Tool.Vacuum;
+            //equippedTool = Tool.Vacuum;
         }
         else //default to axe
         {

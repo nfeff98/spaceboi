@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Materials/Procedural Mats/DistroMap.mat
+Assets/Materials/Procedural Mats/GrassMap.mat
+Assets/Materials/Procedural Mats/HeightMat.mat
+Assets/Materials/Procedural Mats/ResourceMap.mat
+Assets/Materials/Procedural Mats/TerrainMat.mat
