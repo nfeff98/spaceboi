@@ -45,6 +45,7 @@ public class Dynamite : MonoBehaviour
     public void Explosion()
     {
         StartCoroutine(ExplosionRoutine());
+        FindObjectOfType<SoundManager>().PlayAudioClip(Inventory.Tool.Dynamite);
     }
 
     public IEnumerator ExplosionRoutine()

@@ -63,7 +63,7 @@ public class SpaceBoyController : MonoBehaviour {
             if (inv.equippedTool == Inventory.Tool.Dynamite) {
                 GameObject dynamite = Instantiate(inv.dynamitePrefab);
                 dynamite.transform.position = this.transform.position + this.transform.forward * 1.1f;
-                soundManager.PlayAudioClip(Inventory.Tool.Dynamite);
+                //soundManager.PlayAudioClip(Inventory.Tool.Dynamite);
             }
 
             if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
@@ -76,7 +76,7 @@ public class SpaceBoyController : MonoBehaviour {
                 } else if (inv.equippedTool == Inventory.Tool.Axe) {
                     spaceBoiAnim.Play("twohandChop2");
                     if (selectedResource != null) {
-                        soundManager.PlayAudioClip(Inventory.Tool.Pickaxe);
+                        soundManager.PlayAudioClip(Inventory.Tool.Axe);
                     }
                 }
 
