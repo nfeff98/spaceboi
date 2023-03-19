@@ -99,7 +99,9 @@ public class AnimalBehavior : MonoBehaviour
     {
         if (health <= 0)
         {
+            AnimalBehavior animalBehaviorReference = this;
             Destroy(this.gameObject);
+
         }
 
         if(agent.velocity.magnitude > 1f)
