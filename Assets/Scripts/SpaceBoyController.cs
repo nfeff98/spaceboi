@@ -69,15 +69,8 @@ public class SpaceBoyController : MonoBehaviour {
             if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
                 if (inv.equippedTool == Inventory.Tool.Pickaxe) {
                     spaceBoiAnim.Play("twohandPick");
-                    if (selectedResource != null) {
-                        soundManager.PlayAudioClip(Inventory.Tool.Pickaxe);
-                    }
-
                 } else if (inv.equippedTool == Inventory.Tool.Axe) {
                     spaceBoiAnim.Play("twohandChop2");
-                    if (selectedResource != null) {
-                        soundManager.PlayAudioClip(Inventory.Tool.Axe);
-                    }
                 }
 
                /*if (selectedResource != null) {
@@ -126,8 +119,10 @@ public class SpaceBoyController : MonoBehaviour {
 
     public void InteractWithResource() // function triggered by animation
     {
-        if (selectedResource != null)
+        if (selectedResource != null) {
             selectedResource.Interact();
+            soundManager.PlayAudioClip(inv.equippedTool);
+        }
 
     }
 
