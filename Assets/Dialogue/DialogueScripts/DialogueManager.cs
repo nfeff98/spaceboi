@@ -34,22 +34,25 @@ public class DialogueManager : MonoBehaviour {
     private void Update() {
         if (!dialogueIsPlaying) {
             return;
+        } else {
+            if (Input.GetButtonDown("Interact")) {
+                ContinueStory();
+            }
         }
-
-        if (Input.GetButtonDown("Submit")) {
-            ContinueStory();
-        }
+        
     }
 
     public void EnterDialogueMode(TextAsset inkJSON) {
-        currentStory = new Story(inkJSON.text);
-        dialogueIsPlaying = true;
-        dialoguePanel.SetActive(true);
+        if (!dialogueIsPlaying) {
+            currentStory = new Story(inkJSON.text);
+            dialogueIsPlaying = true;
+            dialoguePanel.SetActive(true);
 
-        ContinueStory();
+            //ContinueStory();
+        }
     }
 
-    private IEnumerator ExitDialogueModed() {
+    private IEnumerator ExitDialogueMode() {
         yield return new WaitForSeconds(0.2f);
 
         dialogueIsPlaying = false;
@@ -58,11 +61,13 @@ public class DialogueManager : MonoBehaviour {
     }
 
     private void ContinueStory() {
+        //Debug.Log("Continue story called");
         if (currentStory.canContinue) {
             dialogueText.text = currentStory.Continue();
+            //Debug.Log("Can continue is true");
             HandleTags(currentStory.currentTags);
         } else {
-            StartCoroutine(ExitDialogueModed());
+            StartCoroutine(ExitDialogueMode());
         }
     }
 
