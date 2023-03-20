@@ -10,6 +10,7 @@ public class Shrine : MonoBehaviour
     public Renderer[] renderers;
     public Color emissionColor;
     public GameObject ribbonPFX;
+    public AnimalBehavior[] animals;
     bool updated = true;
 
     // Start is called before the first frame update
@@ -31,6 +32,16 @@ public class Shrine : MonoBehaviour
           
         }
         ribbonPFX.SetActive(true);
+        animals = FindObjectsOfType<AnimalBehavior>();
+        foreach (AnimalBehavior animal in animals)
+        {
+            if (animal.type == AnimalBehavior.AnimalType.Penguin)
+            {
+                animal.wandering = false;
+                Vector2 offset = Random.insideUnitCircle.normalized * 2;
+                animal.agent.destination = this.transform.position + new Vector3(offset.x, 0, offset.y);
+            }
+        }
     }
     // Update is called once per frame
     void Update()

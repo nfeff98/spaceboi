@@ -59,6 +59,7 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
+
     public IEnumerator ChasePlayer()
     {
         chasing = true;
