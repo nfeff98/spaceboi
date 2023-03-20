@@ -124,9 +124,11 @@ public class Inventory : MonoBehaviour
             if (!unlocked[i])
             {
                 toolSlots[i].GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                // tool[i].
             } else
             {
                 toolSlots[i].GetComponent<Image>().color = Color.white;
+                // toolSlots[i].GetComponent<Button>().interactive = false;
             }
         }
     }
@@ -201,7 +203,7 @@ public class Inventory : MonoBehaviour
             pickUps = 1;
             prevPickup = r;
             routineRunning = true;
-            debugText.SetText("picked up " + pickUps + " " + r.ToString());
+            debugText.SetText("added " + pickUps + " " + r.ToString()+ " to inventory");
             debugText.gameObject.SetActive(true);
             StopCoroutine(TurnOffDebugText());
             StartCoroutine(TurnOffDebugText());
@@ -209,7 +211,7 @@ public class Inventory : MonoBehaviour
         else
         {
             pickUps++;
-            debugText.SetText("picked up " + pickUps + " " + r.ToString());
+            debugText.SetText("added " + pickUps + " " + r.ToString() + " to inventory");
             StopCoroutine(TurnOffDebugText());
             StartCoroutine(TurnOffDebugText());
             
