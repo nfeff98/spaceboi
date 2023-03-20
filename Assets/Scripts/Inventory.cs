@@ -295,14 +295,6 @@ public class Inventory : MonoBehaviour
                 prevTool = equippedTool;
 
                 foreach (GameObject t in tools) t.SetActive(false);
-                selector.transform.position = toolSlots[4].transform.position;
-                equippedTool = Tool.Dynamite;
-            }
-            else if ((Input.GetKeyDown(KeyCode.Alpha6) || selection == 6) && unlocked[5])
-            {
-                prevTool = equippedTool;
-
-                foreach (GameObject t in tools) t.SetActive(false);
                 equippedTool = Tool.Harvester;
                 selector.transform.position = toolSlots[5].transform.position;
                 GameObject harvester = Instantiate(harvesterPrefab);
@@ -311,6 +303,16 @@ public class Inventory : MonoBehaviour
                 // don't move camera when doing this?
                 player.ActivateVehicle(harvester.GetComponent<SimpleCarController>().driversSeat);
                 activeVehicle = harvester;
+            }
+            else if ((Input.GetKeyDown(KeyCode.Alpha6) || selection == 6) && unlocked[5])
+            {
+                
+
+                prevTool = equippedTool;
+
+                foreach (GameObject t in tools) t.SetActive(false);
+                selector.transform.position = toolSlots[4].transform.position;
+                equippedTool = Tool.Dynamite;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
             {
