@@ -9,6 +9,8 @@ public class DialogueTrigger : MonoBehaviour {
     //private SpaceBoyController _input;
 
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private HandleQuota handleQuota;
+    [SerializeField] private TextAsset introInkJSON;
 
     [Header("ChapterEnd Ink JSON")]
     // 0 = Chapter 1 End Fail; 1 = Chapter 1 End Succeed
@@ -23,21 +25,42 @@ public class DialogueTrigger : MonoBehaviour {
     public void StartDialogue() {
         if (StoryController.currentChapter == StoryController.Chapter.Chapter1 && StoryController.currentLevel == 0) {
             // Intro ink files play here
+            PlayDialogue(introInkJSON);
         } else if (StoryController.currentLevel == StoryController.numLevels && StoryController.currentLevel != 0) {
             // End chapter ink files play here
+            Debug.Log("Chapter Quota is complete?: " + handleQuota.ChapterQuotaComplete());
             switch (StoryController.currentChapter) {
                 case StoryController.Chapter.Chapter1:
-                    // if statement if they reach quota
+                    if (handleQuota.ChapterQuotaComplete()) {
+                        PlayDialogue(chapterEndInkJSONList[1]);
+                    } else {
+                        PlayDialogue(chapterEndInkJSONList[0]);
+                    }
                     break;
                 case StoryController.Chapter.Chapter2:
+                    if (handleQuota.ChapterQuotaComplete()) {
+                        PlayDialogue(chapterEndInkJSONList[3]);
+                    } else {
+                        PlayDialogue(chapterEndInkJSONList[2]);
+                    }
                     break;
                 case StoryController.Chapter.Chapter3:
+                    if (handleQuota.ChapterQuotaComplete()) {
+                        PlayDialogue(chapterEndInkJSONList[5]);
+                    } else {
+                        PlayDialogue(chapterEndInkJSONList[4]);
+                    }
                     break;
             }
         } else {
-            if (!DialogueManager.GetInstance().dialogueIsPlaying) {
-                DialogueManager.GetInstance().EnterDialogueMode(randomInkJSONList[Random.Range(0, randomInkJSONList.Count + 1)]);
-            }
+            PlayDialogue(randomInkJSONList[Random.Range(0, randomInkJSONList.Count + 1)]);
+        }
+    }
+
+
+    private void PlayDialogue(TextAsset inkJSON) {
+        if (!DialogueManager.GetInstance().dialogueIsPlaying) {
+            DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
         }
     }
 

@@ -16,6 +16,10 @@ public class CheckChapter : MonoBehaviour {
             handleQuota.GenerateRandomValues(3);
             //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
             sceneChanger.LoadScene(2);
+            HandleQuota.wompQuotaComplete = false;
+            HandleQuota.zazaQuotaComplete = false;
+            HandleQuota.stromgQuotaComplete = false;
+            HandleQuota.elysiumQuotaComplete = false;
         }
         // New chapter is starting
         else if (StoryController.numLevels != 0 && StoryController.currentLevel == StoryController.numLevels)  {
@@ -24,6 +28,11 @@ public class CheckChapter : MonoBehaviour {
             HandleQuota.totalChapterZaza = 0;
             HandleQuota.totalChapterStromg = 0;
             HandleQuota.totalChapterElysium = 0;
+
+            HandleQuota.wompQuotaComplete = false;
+            HandleQuota.zazaQuotaComplete = false;
+            HandleQuota.stromgQuotaComplete = false;
+            HandleQuota.elysiumQuotaComplete = false;
             switch (StoryController.currentChapter) {
                 case StoryController.Chapter.Chapter1:
                     Debug.Log("Entering Chapter 2");

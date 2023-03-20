@@ -78,9 +78,14 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventoryScreen.SetActive(!inventoryScreen.activeInHierarchy);
+            ActivateInventoryScreen();
         }
         
+    }
+
+
+    public void ActivateInventoryScreen() {
+        inventoryScreen.SetActive(!inventoryScreen.activeInHierarchy);
     }
 
     public void UnlockStuff()

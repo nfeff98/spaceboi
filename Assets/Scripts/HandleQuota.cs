@@ -26,6 +26,11 @@ public class HandleQuota : MonoBehaviour {
     private float quotaMultiplier = 2.5f;
     private float quotaPercentage = 0.5f;
 
+    public static bool wompQuotaComplete;
+    public static bool zazaQuotaComplete;
+    public static bool stromgQuotaComplete;
+    public static bool elysiumQuotaComplete;
+
     public List<TextMeshProUGUI> elysiumCounts;
     public List<TextMeshProUGUI> zazaCounts;
     public List<TextMeshProUGUI> wompCounts;
@@ -95,6 +100,7 @@ public class HandleQuota : MonoBehaviour {
 
         if (Inventory.resourceCounts[0] >= wompQuota)
         {
+            wompQuotaComplete = true;
             foreach (GameObject check in wompCheckboxes)
             {
                 check.SetActive(true);
@@ -110,6 +116,7 @@ public class HandleQuota : MonoBehaviour {
 
         if (Inventory.resourceCounts[1] >= zazaQuota)
         {
+            zazaQuotaComplete = true;
             foreach (GameObject check in zazaCheckboxes)
             {
                 check.SetActive(true);
@@ -125,6 +132,7 @@ public class HandleQuota : MonoBehaviour {
 
         if (Inventory.resourceCounts[2] >= stromgQuota)
         {
+            stromgQuotaComplete = true;
             foreach (GameObject check in stromgCheckboxes)
             {
                 check.SetActive(true);
@@ -138,8 +146,9 @@ public class HandleQuota : MonoBehaviour {
             }
         }
 
-        if (Inventory.resourceCounts[4] >= totalChapterElysium)
+        if (Inventory.resourceCounts[4] >= elysiumQuota)
         {
+            elysiumQuotaComplete = true;
             foreach (GameObject check in elysiumCheckboxes)
             {
                 check.SetActive(true);
@@ -177,5 +186,13 @@ public class HandleQuota : MonoBehaviour {
                 elysiumQuota = (int)(quotaPercentage * (quotaMultiplier * totalChapterElysium));
                 break;
         }
+    }
+
+
+    public bool ChapterQuotaComplete() {
+        if (wompQuotaComplete && zazaQuotaComplete && stromgQuotaComplete && elysiumQuotaComplete) {
+            return true;
+        }
+        return false;
     }
 }

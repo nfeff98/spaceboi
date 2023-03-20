@@ -10,11 +10,20 @@ public class HelpScreen : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.H)) {
-            helpScreen.SetActive(!helpScreen.activeInHierarchy);
+            ActivateHelpScreen();
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            quotaScreen.SetActive(!quotaScreen.activeInHierarchy);
+            ActivateQuotaScreen();
         }
+    }
+
+    public void ActivateHelpScreen() {
+        helpScreen.SetActive(!helpScreen.activeInHierarchy);
+    }
+
+
+    public void ActivateQuotaScreen() {
+        quotaScreen.SetActive(!quotaScreen.activeInHierarchy);
     }
 }

@@ -127,7 +127,7 @@ public class StoryController : MonoBehaviour {
             //sceneChanger.LoadScene()
         }
         inv.UnlockStuff();
-
+        StartCoroutine(QuotaAppearance());
     }
 
 
@@ -143,6 +143,11 @@ public class StoryController : MonoBehaviour {
         Debug.Log("Stromg Quota: " + HandleQuota.stromgQuota);
         Debug.Log("Elysium Quota: " + HandleQuota.elysiumQuota);
        // resourcePlacer.ResetTotals();
+    }
+
+    private IEnumerator QuotaAppearance() {
+        yield return new WaitForSeconds(0.7f);
+        handleQuota.UpdateQuotaAppearance();
     }
 
 
