@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
     public bool foundDiamond;
     public int itemCap = 20;
 
-    public bool[] unlocked = {false, false, false, false, false, false}; //down to 6 because removing water
+    private bool[] unlocked = {false, false, false, false, false, false}; //down to 6 because removing water
 
     [Tooltip("0 = Womp, 1 = Zaza, 2 = Stromg, 3 = Wooter, 4 = Elysium")]
     public static int[] resourceCounts = {0, 0, 0, 0, 0};
