@@ -26,6 +26,7 @@ public class Resource : MonoBehaviour
             if (inv != null)
             {
                 inv.AddToInventory(ResourceType);
+                hq.UpdateQuotaAppearance();
                 Debug.Log("picked up " + ResourceType.ToString());
                 Destroy(this.gameObject);
                 

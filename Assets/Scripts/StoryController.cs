@@ -68,8 +68,8 @@ public class StoryController : MonoBehaviour {
 
 
     public void LoadLevel(int currentLevel) {
-        inv.UnlockStuff();
         StartCoroutine(LoadLevelRoutine(currentLevel));
+
     }
 
     public IEnumerator LoadLevelRoutine(int currentLevel)
@@ -126,6 +126,8 @@ public class StoryController : MonoBehaviour {
             // Load Spacedoc Scene
             //sceneChanger.LoadScene()
         }
+        inv.UnlockStuff();
+
     }
 
 
@@ -133,6 +135,7 @@ public class StoryController : MonoBehaviour {
         //Debug.Log("Total Womp in Chapter: " + HandleQuota.totalChapterWomp);
         yield return new WaitForSeconds(0.7f);
         handleQuota.SetChapterQuota();
+        handleQuota.UpdateQuotaAppearance();
         Debug.Log("Total Womp in Chapter: " + HandleQuota.totalChapterWomp);
         //HandleQuota.wompQuota = (int)(2.5f * HandleQuota.totalChapterWomp);
         Debug.Log("Womp Quota: " + HandleQuota.wompQuota);
