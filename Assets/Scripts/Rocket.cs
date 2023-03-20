@@ -10,10 +10,6 @@ public class Rocket : MonoBehaviour {
     [SerializeField] private GameObject rocketFinal;
 
     private void Start() {
-        rocketFrame.SetActive(false);
-        rocketHalf.SetActive(false);
-        rocketFinal.SetActive(false);
-
         switch (StoryController.currentChapter) {
             case StoryController.Chapter.Chapter1:
                 if (StoryController.currentLevel == 3) {
@@ -22,12 +18,18 @@ public class Rocket : MonoBehaviour {
                 break;
             case StoryController.Chapter.Chapter2:
                 if (StoryController.currentLevel == 5) {
+                    rocketFrame.SetActive(false);
                     rocketHalf.SetActive(true);
+                } else {
+                    rocketFrame.SetActive(true);
                 }
                 break;
             case StoryController.Chapter.Chapter3:
                 if (StoryController.currentLevel == 7) {
+                    rocketHalf.SetActive(false);
                     rocketFinal.SetActive(true);
+                } else {
+                    rocketHalf.SetActive(true);
                 }
                 break;
         }

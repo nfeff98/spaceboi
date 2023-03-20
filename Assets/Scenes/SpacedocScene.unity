@@ -2272,7 +2272,6 @@ MonoBehaviour:
   - {fileID: 0}
   foundDiamond: 0
   itemCap: 20
-  unlocked: 0000000000000000
   equippedTool: 0
   inventoryScreen: {fileID: 782266417}
   debugText: {fileID: 191400861}
@@ -3370,6 +3369,10 @@ PrefabInstance:
     - target: {fileID: 909224156225179290, guid: 425d4ff84cc909342b521c5789053c1e, type: 3}
       propertyPath: m_Name
       value: Toolbar
+      objectReference: {fileID: 0}
+    - target: {fileID: 909224156225179290, guid: 425d4ff84cc909342b521c5789053c1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 909224156225179291, guid: 425d4ff84cc909342b521c5789053c1e, type: 3}
       propertyPath: m_Pivot.x
@@ -4819,6 +4822,10 @@ PrefabInstance:
     - target: {fileID: 3768730617167572683, guid: 5acc77fb73b1cce458ecb68538f23197, type: 3}
       propertyPath: m_Name
       value: axe
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768730617167572683, guid: 5acc77fb73b1cce458ecb68538f23197, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4541572548866421873, guid: 5acc77fb73b1cce458ecb68538f23197, type: 3}
       propertyPath: m_RootOrder
