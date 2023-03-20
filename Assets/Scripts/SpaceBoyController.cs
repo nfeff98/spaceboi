@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class SpaceBoyController : MonoBehaviour {
 
+    public string[] shrineText = {"A rumbling sound comes from the distance…", 
+        "Quack, quack, waddle, waddle.", "A faint humming noise greets you.", 
+        "You suddenly feel joy, surprise, even fear...", "PENGUIN GOD! PENGUIN GOD! PENGUIN GOD!",
+        "These runes seem to have some purpose you don’t understand…", 
+        "Who… or what… built these shrines, anyways?"
+        };
+
 
     public static SpaceBoyController Instance { get; private set; }
 
@@ -123,7 +130,9 @@ public class SpaceBoyController : MonoBehaviour {
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         if (nearSpacedoc)
             if (docDialogue != null) docDialogue.StartDialogue(); // double check this
-        if (nearShrine) nearestShrine.Activate();
+        if (nearShrine) {
+            nearestShrine.Activate();
+        }
     }
     
 
@@ -249,6 +258,7 @@ public class SpaceBoyController : MonoBehaviour {
                 SetSelectedResource(null);
             }
         }
+        
 
         if (other.tag == "Enemy")
         {
@@ -262,6 +272,8 @@ public class SpaceBoyController : MonoBehaviour {
 
         if (other.GetComponent<Shrine>() != null)
         {
+            int index = UnityEngine.Random.Range (0, shrineText.Length);
+            inv.UpdateDebugText(shrineText[index]);
             nearShrine = false;
         }
 
