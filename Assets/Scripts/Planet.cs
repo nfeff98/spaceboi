@@ -81,10 +81,13 @@ public class Planet : MonoBehaviour
     private void ResetClimate() {
         climate = Climate.Normal;
         climateText.text = "Normal";
+        earthquake.SetActive(false);
+        wind.SetActive(false);
     }
 
     public IEnumerator Earthquakes()
     {
+        earthquake.SetActive(true);
         earthquakeTriggered = true;
         for (int i = 0; i < 6; i++) {
             float rand = Random.Range(15, 45);
@@ -100,6 +103,7 @@ public class Planet : MonoBehaviour
 
     public IEnumerator SetWindy()
     {
+        wind.SetActive(true);
         windTriggered = true;
         windPFX.Stop();
         windPFXtrail.Play();
@@ -167,6 +171,8 @@ public class Planet : MonoBehaviour
                 break;
             case Inventory.Resource.Womp:
                 totalWompRemaining--;
+                Debug.Log("Total Womp Created: " + totalWompCreated);
+                Debug.Log("Total Womp Remaining: " + totalWompRemaining);
                 if ((float)totalWompRemaining / (float)totalWompCreated < climateThreshold && climate == Climate.Normal)
                 {
                     climate = Climate.Windy;
