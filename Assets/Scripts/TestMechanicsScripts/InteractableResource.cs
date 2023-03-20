@@ -114,6 +114,7 @@ public class InteractableResource : MonoBehaviour {
         //Vector3 pos = new Vector3(xPos + spaceBoy.transform.localPosition.x, 2f, zPos + spaceBoy.transform.localPosition.z);
         Vector2 outPos = Random.insideUnitCircle * 2f;
         GameObject g = Instantiate(resource, pos, Quaternion.identity);
+        g.transform.parent = this.transform.parent;
         Vector3 outDir = Random.insideUnitSphere;
         outDir.y = 1f;
         g.GetComponent<Rigidbody>().AddForce(outDir * 6f);

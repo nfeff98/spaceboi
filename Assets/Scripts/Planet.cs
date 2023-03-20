@@ -33,16 +33,17 @@ public class Planet : MonoBehaviour
     [Header("Womp")]
     public static int totalWompCreated;
     public static int totalWompRemaining;
-    public float wompCountdown;
+    public float wompRatio;
 
     [Header("Zaza")]
     public static int totalZazaCreated;
     public static int totalZazaRemaining;
-    public float zazaCountdown;
+    public float zazaRatio;
 
     [Header("Stromg")]
     public static int totalStromgCreated;
     public static int totalStromgRemaining;
+    public float stromgRatio;
 
     [Header("Wooter")]
     public static int totalWooterCreated;
@@ -51,6 +52,7 @@ public class Planet : MonoBehaviour
     [Header("Elysium")]
     public static int totalElysiumCreated;
     public static int totalElysiumRemaining;
+    public float elysiumRatio;
 
     public float climateThreshold;
     public TextMeshProUGUI climateText;
@@ -200,6 +202,7 @@ public class Planet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        wompCountdown = (float)totalWompRemaining / (float)totalWompCreated;
+        wompRatio = (float)totalWompRemaining / (float)totalWompCreated;
+        stromgRatio = (float)totalStromgRemaining / (float)totalStromgCreated;
     }
 }
