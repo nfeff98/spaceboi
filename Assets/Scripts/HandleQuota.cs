@@ -69,6 +69,15 @@ public class HandleQuota : MonoBehaviour {
         Debug.Log(mapRandomValuesList[0].perlinSeed);
     }
 
+    public void Start()
+    {
+        
+    }
+
+    public void UpdateQuotaAppearance()
+    {
+
+    }
 
     public void SetChapterQuota() {
         //chapterQuotaList.Clear();

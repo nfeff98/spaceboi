@@ -25,7 +25,7 @@ public class InventorySlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = this.GetComponentInParent<Inventory>();
+        inventory = FindObjectOfType<Inventory>();
         SetAppearance();
     }
 

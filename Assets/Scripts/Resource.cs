@@ -10,9 +10,11 @@ public class Resource : MonoBehaviour
     private Inventory inv;
     private bool grounded;
     public Tutorial tutorial;
+    private HandleQuota hq;
     void Start()
     {
         inv = FindObjectOfType<Inventory>();
+        hq = FindObjectOfType<HandleQuota>();
         
     }
 

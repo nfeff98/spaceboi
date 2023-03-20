@@ -271,7 +271,7 @@ public class Inventory : MonoBehaviour
 
                 foreach (GameObject t in tools) t.SetActive(false);
                 tools[2].SetActive(true);
-                selector.transform.position = toolSlots[3].transform.position;
+                selector.transform.position = toolSlots[2].transform.position;
                 equippedTool = Tool.Pickaxe;
 
             }
