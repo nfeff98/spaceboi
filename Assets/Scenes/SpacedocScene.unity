@@ -8699,7 +8699,7 @@ PrefabInstance:
     - target: {fileID: 3869139941058179718, guid: d6b28841cb1ecd04695f4e13f5db31ba, type: 3}
       propertyPath: introInkJSON
       value: 
-      objectReference: {fileID: 4900000, guid: 153f0a108f67f514da7ab2cff4c59770, type: 3}
+      objectReference: {fileID: 4900000, guid: ee2320cca122846309a5a8e51d7a8cd5, type: 3}
     - target: {fileID: 3869139941058179718, guid: d6b28841cb1ecd04695f4e13f5db31ba, type: 3}
       propertyPath: randomInkJSONList.Array.size
       value: 10
