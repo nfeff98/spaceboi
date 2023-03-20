@@ -20,10 +20,9 @@ public class CheckChapter : MonoBehaviour {
             HandleQuota.zazaQuotaComplete = false;
             HandleQuota.stromgQuotaComplete = false;
             HandleQuota.elysiumQuotaComplete = false;
-        }
+        } 
         // New chapter is starting
         else if (StoryController.numLevels != 0 && StoryController.currentLevel == StoryController.numLevels)  {
-            newChapter = true;
             HandleQuota.totalChapterWomp = 0;
             HandleQuota.totalChapterZaza = 0;
             HandleQuota.totalChapterStromg = 0;
@@ -33,27 +32,33 @@ public class CheckChapter : MonoBehaviour {
             HandleQuota.zazaQuotaComplete = false;
             HandleQuota.stromgQuotaComplete = false;
             HandleQuota.elysiumQuotaComplete = false;
-            switch (StoryController.currentChapter) {
-                case StoryController.Chapter.Chapter1:
-                    Debug.Log("Entering Chapter 2");
-                    StoryController.currentChapter = StoryController.Chapter.Chapter2;
-                    handleQuota.GenerateRandomValues(5);
-                    //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
-                    sceneChanger.LoadScene(2);
-                    break;
-                case StoryController.Chapter.Chapter2:
-                    Debug.Log("Entering Chapter 3");
-                    StoryController.currentChapter = StoryController.Chapter.Chapter3;
-                    handleQuota.GenerateRandomValues(7);
-                    //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
-                    sceneChanger.LoadScene(2);
-                    break;
-                case StoryController.Chapter.Chapter3:
-                    Debug.Log("End of game reached!");
-                    TriggerEnding();
-                    break;
+            // Chapter Quota Failed
+            if (!handleQuota.ChapterQuotaComplete()) {
+                StoryController.currentLevel = 0;
+            } else {
+                newChapter = true;
+                switch (StoryController.currentChapter) {
+                    case StoryController.Chapter.Chapter1:
+                        Debug.Log("Entering Chapter 2");
+                        StoryController.currentChapter = StoryController.Chapter.Chapter2;
+                        handleQuota.GenerateRandomValues(5);
+                        //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
+                        sceneChanger.LoadScene(2);
+                        break;
+                    case StoryController.Chapter.Chapter2:
+                        Debug.Log("Entering Chapter 3");
+                        StoryController.currentChapter = StoryController.Chapter.Chapter3;
+                        handleQuota.GenerateRandomValues(7);
+                        //Debug.Log("Chapter Check: " + HandleQuota.mapRandomValuesList[0].perlinSeed);
+                        sceneChanger.LoadScene(2);
+                        break;
+                    case StoryController.Chapter.Chapter3:
+                        Debug.Log("End of game reached!");
+                        TriggerEnding();
+                        break;
+                }
+                StoryController.numLevels = 0;
             }
-            StoryController.numLevels = 0;
         } else {
             sceneChanger.LoadScene(2);
         }
