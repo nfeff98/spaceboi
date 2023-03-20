@@ -6,6 +6,10 @@ public class TriggerNextLevel : MonoBehaviour {
 
     [SerializeField] private GameObject TriggerScreen;
 
+    private void Start() {
+        TriggerScreen.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other) {
         TriggerScreen.SetActive(true);
     }

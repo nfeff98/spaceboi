@@ -23,6 +23,7 @@ public class StoryController : MonoBehaviour {
 
     [SerializeField] private SceneChange sceneChanger;
     [SerializeField] private HandleQuota handleQuota;
+    private Inventory inv;
 
     //ref planet
     //ref map generator
@@ -31,6 +32,7 @@ public class StoryController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        inv = FindObjectOfType<Inventory>();
         if (newMapOnStart) // BUG HERE - INFINITE LOOPS SOMEHOW
         {
             if (CheckChapter.newChapter)
@@ -66,6 +68,7 @@ public class StoryController : MonoBehaviour {
 
 
     public void LoadLevel(int currentLevel) {
+        inv.UnlockStuff();
         StartCoroutine(LoadLevelRoutine(currentLevel));
     }
 

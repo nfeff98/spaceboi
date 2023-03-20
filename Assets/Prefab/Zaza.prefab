@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14fba7272ac494f42894354e721db918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: {fileID: 2846358778029098487, guid: 044cc8691b57d8943bc6ed6ea753a47d, type: 3}
+  resource: {fileID: 1443902522163009196, guid: 41ca6527ce6d8484c93437a41788e39e, type: 3}
   type: 1
   spaceBoy: {fileID: 2232210182348723981, guid: 2674751a8efd10645bc989315eb414ed, type: 3}
   health: 0
@@ -241,7 +241,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7279091322994628852}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2.5207036
   m_Height: 6.721002

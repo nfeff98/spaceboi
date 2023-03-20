@@ -66,7 +66,17 @@ public class SpaceBoyController : MonoBehaviour {
                 //soundManager.PlayAudioClip(Inventory.Tool.Dynamite);
             }
 
-            if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2") && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
+            if (spaceBoiAnim != null && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("twohandChop2")
+                && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("scythe")
+                && !spaceBoiAnim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk")) {
+                if (inv.equippedTool == Inventory.Tool.Scythe)
+                {
+                    spaceBoiAnim.Play("scythe");
+                    if (selectedResource != null)
+                    {
+                        soundManager.PlayAudioClip(Inventory.Tool.Scythe);
+                    }
+                }
                 if (inv.equippedTool == Inventory.Tool.Pickaxe) {
                     spaceBoiAnim.Play("twohandPick");
                 } else if (inv.equippedTool == Inventory.Tool.Axe) {
