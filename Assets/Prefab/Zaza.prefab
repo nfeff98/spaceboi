@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 7279091322994628840}
   - component: {fileID: 7279091322994628841}
   - component: {fileID: 7279091322994628842}
-  - component: {fileID: 2705145211127340768}
+  - component: {fileID: 4114938134065312978}
   m_Layer: 6
   m_Name: Zaza
   m_TagString: Untagged
@@ -233,7 +233,7 @@ MonoBehaviour:
   maxPos: 5
   hitpfxPrefab: {fileID: 1186515084280375262, guid: 90c5343868568fd40926ff6bdabc9392, type: 3}
   planet: {fileID: 0}
---- !u!136 &2705145211127340768
+--- !u!136 &4114938134065312978
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,10 +243,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.5207036
-  m_Height: 6.721002
+  m_Radius: 2.2785056
+  m_Height: 5.5979815
   m_Direction: 2
-  m_Center: {x: -0.9335232, y: -0.04209995, z: 3.2469811}
+  m_Center: {x: -0.85755587, y: -0.33707052, z: 2.29899}
 --- !u!1001 &966492820461787015
 PrefabInstance:
   m_ObjectHideFlags: 0

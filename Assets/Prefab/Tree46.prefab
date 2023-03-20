@@ -51,8 +51,7 @@ MonoBehaviour:
   resource: {fileID: 1443902522163009196, guid: c77465eb1cc827a459e934c9b14cc1e8, type: 3}
   type: 0
   spaceBoy: {fileID: 2232210182348723981, guid: 2674751a8efd10645bc989315eb414ed, type: 3}
-  minHealth: 2
-  maxHealth: 4
+  health: 0
   minPos: 2
   maxPos: 5
   hitpfxPrefab: {fileID: 1186515084280375262, guid: 90c5343868568fd40926ff6bdabc9392, type: 3}

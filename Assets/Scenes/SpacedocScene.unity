@@ -8695,7 +8695,7 @@ PrefabInstance:
     - target: {fileID: 3869139941058179718, guid: d6b28841cb1ecd04695f4e13f5db31ba, type: 3}
       propertyPath: handleQuota
       value: 
-      objectReference: {fileID: 1946136667}
+      objectReference: {fileID: 0}
     - target: {fileID: 3869139941058179718, guid: d6b28841cb1ecd04695f4e13f5db31ba, type: 3}
       propertyPath: introInkJSON
       value: 
@@ -11613,6 +11613,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helpScreen: {fileID: 2071249594}
   quotaScreen: {fileID: 794162025}
+--- !u!114 &1431444036 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2296245290769020825, guid: 140d745c4e9d54508aa97705daee544a, type: 3}
+  m_PrefabInstance: {fileID: 1253729305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431444034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1c24e137dea364bb06c515be0091a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1517518660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13084,7 +13095,6 @@ GameObject:
   - component: {fileID: 1946136664}
   - component: {fileID: 1946136665}
   - component: {fileID: 1946136666}
-  - component: {fileID: 1946136667}
   - component: {fileID: 1946136668}
   m_Layer: 0
   m_Name: GameManager
@@ -13137,27 +13147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneChanger: {fileID: 1946136665}
-  handleQuota: {fileID: 1946136667}
---- !u!114 &1946136667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1946136663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad1c24e137dea364bb06c515be0091a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elysiumCounts: []
-  zazaCounts: []
-  wompCounts: []
-  stromgCounts: []
-  elysiumCheckboxes: []
-  zazaCheckboxes: []
-  wompCheckboxes: []
-  stromgCheckboxes: []
+  handleQuota: {fileID: 1431444036}
 --- !u!114 &1946136668
 MonoBehaviour:
   m_ObjectHideFlags: 0

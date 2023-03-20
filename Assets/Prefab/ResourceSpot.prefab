@@ -466,10 +466,10 @@ MonoBehaviour:
   placeholderText: {fileID: 7798622881208296689}
   texs:
   - {fileID: 21300000, guid: 5ba8f6b80a4df854d87f08b49a7f5ce5, type: 3}
-  - {fileID: 21300000, guid: 1316e0783a625984b94cb5c0a63b6090, type: 3}
+  - {fileID: 21300000, guid: 19835d322b9b542d3bdbb85305e37137, type: 3}
   - {fileID: 21300000, guid: 2a729b5e477a2bd4195eff1663d9ee20, type: 3}
   - {fileID: 21300000, guid: 07b5cfe0b34d2ed4998e0468055e93b8, type: 3}
-  - {fileID: 21300000, guid: 79e909e6afc65ba46b15f055be539436, type: 3}
+  - {fileID: 21300000, guid: 7b8834769fae94c59a564e2e6f1b30dc, type: 3}
   - {fileID: 21300000, guid: f30ef760df0efb249bcc30e05c7d2a4e, type: 3}
 --- !u!1 &7798622882380392258
 GameObject:

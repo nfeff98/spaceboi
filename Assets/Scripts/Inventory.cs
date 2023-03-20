@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
     {
         inventoryScreen.SetActive(false);
         debugText.gameObject.SetActive(false);
-
+        if (CheckChapter.newChapter) resourceCounts = new int[5];
         //default to axe
        // selector.transform.position = toolSlots[0].transform.position;
         equippedTool = Tool.Axe;
@@ -243,49 +243,66 @@ public class Inventory : MonoBehaviour
 
     public void SetEquipped(int selection = 0) //edited for down ot 6 tools
     {
-        if (prevTool != equippedTool)
-        {
-            if (player.vehicleActive)
-            {
-                player.DeactivateVehicle();
-                Destroy(activeVehicle);
-                activeVehicle = null;
-            }
-
+        if (equippedTool != Tool.Axe) {
             if ((Input.GetKeyDown(KeyCode.Alpha1) || selection == 1) && unlocked[0])
             {
-                prevTool = equippedTool;
-
+                if (player.vehicleActive)
+                {
+                    player.DeactivateVehicle();
+                    Destroy(activeVehicle);
+                    activeVehicle = null;
+                }
                 foreach (GameObject t in tools) t.SetActive(false);
                 selector.transform.position = toolSlots[0].transform.position;
                 equippedTool = Tool.Axe;
                 tools[0].SetActive(true);
-
             }
-            else if ((Input.GetKeyDown(KeyCode.Alpha2) || selection == 2) && unlocked[1])
-            {
-                prevTool = equippedTool;
 
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha2) || selection == 2) && unlocked[1])
+        {
+            if (equippedTool != Tool.Scythe)
+            {
+                if (player.vehicleActive)
+                {
+                    player.DeactivateVehicle();
+                    Destroy(activeVehicle);
+                    activeVehicle = null;
+                }
                 foreach (GameObject t in tools) t.SetActive(false);
                 tools[1].SetActive(true);
                 selector.transform.position = toolSlots[1].transform.position;
                 equippedTool = Tool.Scythe;
-
             }
-            else if ((Input.GetKeyDown(KeyCode.Alpha3) || selection == 3) && unlocked[2])
-            {
-                prevTool = equippedTool;
 
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha3) || selection == 3) && unlocked[2])
+        {
+            if (equippedTool != Tool.Pickaxe)
+            {
+                if (player.vehicleActive)
+                {
+                    player.DeactivateVehicle();
+                    Destroy(activeVehicle);
+                    activeVehicle = null;
+                }
                 foreach (GameObject t in tools) t.SetActive(false);
                 tools[2].SetActive(true);
                 selector.transform.position = toolSlots[2].transform.position;
                 equippedTool = Tool.Pickaxe;
-
             }
-            else if ((Input.GetKeyDown(KeyCode.Alpha4) || selection == 4) && unlocked[3])
-            {
-                prevTool = equippedTool;
 
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha4) || selection == 4) && unlocked[3])
+        {
+            if (equippedTool != Tool.ChainsawDozer)
+            {
+                if (player.vehicleActive)
+                {
+                    player.DeactivateVehicle();
+                    Destroy(activeVehicle);
+                    activeVehicle = null;
+                }
                 foreach (GameObject t in tools) t.SetActive(false);
                 //equippedTool = Tool.Bucket;
                 equippedTool = Tool.ChainsawDozer;
@@ -297,10 +314,17 @@ public class Inventory : MonoBehaviour
                 player.ActivateVehicle(dozer.GetComponent<SimpleCarController>().driversSeat);
                 activeVehicle = dozer;
             }
-            else if ((Input.GetKeyDown(KeyCode.Alpha5) || selection == 5) && unlocked[4])
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha5) || selection == 5) && unlocked[4])
+        {
+            if (equippedTool != Tool.Harvester)
             {
-                prevTool = equippedTool;
-
+                if (player.vehicleActive)
+                {
+                    player.DeactivateVehicle();
+                    Destroy(activeVehicle);
+                    activeVehicle = null;
+                }
                 foreach (GameObject t in tools) t.SetActive(false);
                 equippedTool = Tool.Harvester;
                 selector.transform.position = toolSlots[5].transform.position;
@@ -311,29 +335,34 @@ public class Inventory : MonoBehaviour
                 player.ActivateVehicle(harvester.GetComponent<SimpleCarController>().driversSeat);
                 activeVehicle = harvester;
             }
-            else if ((Input.GetKeyDown(KeyCode.Alpha6) || selection == 6) && unlocked[5])
-            {
-                
-
-                prevTool = equippedTool;
-
-                foreach (GameObject t in tools) t.SetActive(false);
-                selector.transform.position = toolSlots[4].transform.position;
-                equippedTool = Tool.Dynamite;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
-            {
-
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
-            {
-                //equippedTool = Tool.Vacuum;
-            }
-            else //default to axe
-            {
-
-            }
         }
+        else if ((Input.GetKeyDown(KeyCode.Alpha6) || selection == 6) && unlocked[5])
+        {
+            if (player.vehicleActive)
+            {
+                player.DeactivateVehicle();
+                Destroy(activeVehicle);
+                activeVehicle = null;
+            }
+
+
+            foreach (GameObject t in tools) t.SetActive(false);
+            selector.transform.position = toolSlots[4].transform.position;
+            equippedTool = Tool.Dynamite;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7) && unlocked[6])
+        {
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8) && unlocked[7])
+        {
+            //equippedTool = Tool.Vacuum;
+        }
+        else //default to axe
+        {
+
+        }
+        
 
 
     }

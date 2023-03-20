@@ -35,11 +35,15 @@ public class HandleQuota : MonoBehaviour {
     public List<TextMeshProUGUI> zazaCounts;
     public List<TextMeshProUGUI> wompCounts;
     public List<TextMeshProUGUI> stromgCounts;
+    public List<TextMeshProUGUI> dayTexts;
+    public List<TextMeshProUGUI> totalDayTexts;
+    public List<TextMeshProUGUI> chapterTexts;
 
     public List<GameObject> elysiumCheckboxes;
     public List<GameObject> zazaCheckboxes;
     public List<GameObject> wompCheckboxes;
     public List<GameObject> stromgCheckboxes;
+
 
 
     public struct MapRandomValues {
@@ -97,6 +101,15 @@ public class HandleQuota : MonoBehaviour {
         foreach (TextMeshProUGUI count in zazaCounts) count.text = Inventory.resourceCounts[1] + " / " + zazaQuota;
         foreach (TextMeshProUGUI count in stromgCounts) count.text = Inventory.resourceCounts[2] + " / " + stromgQuota;
         foreach (TextMeshProUGUI count in elysiumCounts) count.text = Inventory.resourceCounts[4] + " / " + elysiumQuota;
+        foreach (TextMeshProUGUI day in dayTexts) day.text = StoryController.currentLevel + "";
+        foreach (TextMeshProUGUI days in totalDayTexts) days.text = StoryController.numLevels + "";
+
+        foreach (TextMeshProUGUI chapter in chapterTexts)
+        {
+            string chapterString = StoryController.currentChapter.ToString();
+            chapter.text = chapterString.Substring(chapterString.Length -1);
+        }
+
 
         if (Inventory.resourceCounts[0] >= wompQuota)
         {

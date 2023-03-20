@@ -34,8 +34,17 @@ public class InteractableResource : MonoBehaviour {
     public void Interact() {
         UpdateHealth();
         Vector3 toSpaceboy = spaceBoy.transform.position - this.transform.position;
-        toSpaceboy += new Vector3(0, 0.75f, 0);
-        hitpfx.transform.localPosition = new Vector3(0, 0.75f, 0) + toSpaceboy * 0.01f;
+
+        if (this.type == Inventory.Resource.Zaza)
+        {
+            toSpaceboy += new Vector3(0, 0.75f, 0f);
+            hitpfx.transform.localPosition = new Vector3(-0.260617733f, 0.0700000003f, 3.73000002f);
+        }
+        else
+        {
+            toSpaceboy += new Vector3(0, 0.75f, 0);
+            hitpfx.transform.localPosition = new Vector3(0, 0.75f, 0) + toSpaceboy * 0.01f;
+        }
         DropResource(hitpfx.transform.position);
         hitpfx.transform.forward = toSpaceboy;
         hitpfx.Play();
