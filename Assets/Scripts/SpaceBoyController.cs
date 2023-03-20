@@ -131,6 +131,8 @@ public class SpaceBoyController : MonoBehaviour {
         if (nearSpacedoc)
             if (docDialogue != null) docDialogue.StartDialogue(); // double check this
         if (nearShrine) {
+            int index = UnityEngine.Random.Range(0, shrineText.Length);
+            inv.UpdateDebugText(shrineText[index]);
             nearestShrine.Activate();
         }
     }
@@ -272,8 +274,6 @@ public class SpaceBoyController : MonoBehaviour {
 
         if (other.GetComponent<Shrine>() != null)
         {
-            int index = UnityEngine.Random.Range (0, shrineText.Length);
-            inv.UpdateDebugText(shrineText[index]);
             nearShrine = false;
         }
 
