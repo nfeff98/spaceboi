@@ -28,14 +28,13 @@ public class CheckChapter : MonoBehaviour {
             HandleQuota.totalChapterStromg = 0;
             HandleQuota.totalChapterElysium = 0;
 
-            HandleQuota.wompQuotaComplete = false;
-            HandleQuota.zazaQuotaComplete = false;
-            HandleQuota.stromgQuotaComplete = false;
-            HandleQuota.elysiumQuotaComplete = false;
+            
             // Chapter Quota Failed
             if (!handleQuota.ChapterQuotaComplete()) {
                 StoryController.currentLevel = 0;
+                ResetQuotaCompletion();
             } else {
+                ResetQuotaCompletion();
                 newChapter = true;
                 switch (StoryController.currentChapter) {
                     case StoryController.Chapter.Chapter1:
@@ -66,8 +65,7 @@ public class CheckChapter : MonoBehaviour {
 
 
     public void TriggerEnding() {
-        // Different if conditions to trigger different ending scenes
-        sceneChanger.LoadScene(5);
+        sceneChanger.LoadScene(1);
     }
 
 
@@ -77,5 +75,13 @@ public class CheckChapter : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+
+    private void ResetQuotaCompletion() {
+        HandleQuota.wompQuotaComplete = false;
+        HandleQuota.zazaQuotaComplete = false;
+        HandleQuota.stromgQuotaComplete = false;
+        HandleQuota.elysiumQuotaComplete = false;
     }
 }

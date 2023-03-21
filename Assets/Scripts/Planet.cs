@@ -7,11 +7,10 @@ using TMPro;
 public class Planet : MonoBehaviour
 {
 
-    public bool windTriggered = false;
-    public bool earthquakeTriggered = false;
+    public static bool windTriggered = false;
+    public static bool earthquakeTriggered = false;
     [SerializeField]private GameObject earthquake;
     [SerializeField]private GameObject wind;
-
 
 
    

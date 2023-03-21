@@ -44,7 +44,7 @@ public class SpaceBoyController : MonoBehaviour {
     public bool nearShrine;
     public Shrine nearestShrine;
     public bool vehicleActive;
-    private bool nearSpacedoc;
+    public bool nearSpacedoc;
     private DialogueTrigger docDialogue;
     private SimpleCarController vehicle;
 

@@ -9,9 +9,15 @@ public class Tutorial : MonoBehaviour {
     public static bool zazaPickedUp = false;
     [SerializeField] private TextAsset tutorialInk1;
     [SerializeField] public TextAsset tutorialInk2;
-    [SerializeField] public TextAsset eatZazaTutorial;
+    //[SerializeField] public TextAsset eatZazaTutorial;
 
     private void Start() {
+        StartCoroutine(StartTutorial());
+    }
+
+
+    private IEnumerator StartTutorial() {
+        yield return new WaitForSeconds(0.7f);
         if (newGame) {
             Debug.Log("Tutorial Start");
             if (!DialogueManager.GetInstance().dialogueIsPlaying) {

@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour {
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI displayNameText;
+    [SerializeField] private SpaceBoyController spaceBoyController;
 
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
@@ -27,6 +28,7 @@ public class DialogueManager : MonoBehaviour {
     }
 
     private void Start() {
+        Debug.Log("Dialogue Manager Start");
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
     }
@@ -48,7 +50,10 @@ public class DialogueManager : MonoBehaviour {
             dialogueIsPlaying = true;
             dialoguePanel.SetActive(true);
 
-            //ContinueStory();
+            // Crude fix for now, will figure out a better one later
+            if (!spaceBoyController.nearSpacedoc) {
+                ContinueStory();
+            }
         }
     }
 

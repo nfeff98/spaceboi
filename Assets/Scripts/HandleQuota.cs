@@ -190,7 +190,6 @@ public class HandleQuota : MonoBehaviour {
                 wompQuota = (int)(quotaPercentage * (quotaMultiplier * totalChapterWomp));
                 zazaQuota = (int)(quotaPercentage * (quotaMultiplier * totalChapterZaza));
                 stromgQuota = (int)(quotaPercentage * (quotaMultiplier * totalChapterStromg));
-                elysiumQuota = (int)(quotaPercentage * (quotaMultiplier * totalChapterElysium));
                 break;
             case StoryController.Chapter.Chapter3:
                 wompQuota = (int)(quotaPercentage * (quotaMultiplier * totalChapterWomp));
