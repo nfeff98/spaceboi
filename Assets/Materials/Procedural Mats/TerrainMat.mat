@@ -173,15 +173,15 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PerlinScale: 3.04
-    - _PerlinSeed: 762
+    - _PerlinSeed: 881
     - _Perlin_Scale: 2.5
     - _Perlin_Seed: 0.61
     - _RivWidth: 0.15
     - _RiverBankSteepness: 0.08
-    - _RiverBendiness: 0.024581134
-    - _RiverPosition: 0.5681839
-    - _RiverRotation: 0.05477766
-    - _RiverWidth: 0.20203641
+    - _RiverBendiness: 0.30078506
+    - _RiverPosition: 0.022347808
+    - _RiverRotation: -0.19535436
+    - _RiverWidth: 0.20581038
     - _SmoothnessTextureChannel: 0
     - _Specular: 0
     - _SpecularHighlights: 1
